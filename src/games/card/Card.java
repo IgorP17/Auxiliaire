@@ -1,3 +1,5 @@
+package games.card;
+
 public class Card {
 
     private static int count = 0;
@@ -5,7 +7,7 @@ public class Card {
     private String cardValue;
     private String suit;
 
-    public Card(String cardValue, String suit) {
+    Card(String cardValue, String suit) {
         this.cardValue = cardValue;
         this.suit = suit;
         idx = count;
