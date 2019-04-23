@@ -14,9 +14,11 @@ public final class DeckOfCards {
         return ourInstance;
     }
 
-    private ArrayList<Card> arrayCards = new ArrayList<>();
+    // Static deck
+    private static ArrayList<Card> arrayCards;
 
-    private DeckOfCards() {
+    static {
+        arrayCards = new ArrayList<>();
         // Aces
         arrayCards.add(new Card("A", "♤"));
         arrayCards.add(new Card("A", "♧"));
@@ -84,6 +86,11 @@ public final class DeckOfCards {
         arrayCards.add(new Card("2", "♢"));
     }
 
+    // Constructor
+    private DeckOfCards() {
+
+    }
+
     public ArrayList<Card> getDeck() {
         return arrayCards;
     }
@@ -95,7 +102,17 @@ public final class DeckOfCards {
     }
 
     public static void main(String[] args) {
-        ArrayList<Card> deck = new DeckOfCards().getShuffledDeck();
+        ArrayList<Card> deck = new DeckOfCards().getDeck();
+        for (Card c : deck) {
+            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
+        }
+        System.out.println("========================");
+        deck = new DeckOfCards().getDeck();
+        for (Card c : deck) {
+            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
+        }
+        System.out.println("========================");
+        deck = new DeckOfCards().getShuffledDeck();
         for (Card c : deck) {
             System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
         }
