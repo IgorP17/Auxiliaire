@@ -1,5 +1,8 @@
 package games.card;
 
+
+import java.util.Comparator;
+
 public class Card {
 
     private static int count = 0;
@@ -25,6 +28,20 @@ public class Card {
     public String getSuit() {
         return suit;
     }
+
+    /**
+     * Compare cards based on idx - useful for sorting
+     */
+    Comparator<Card> cardComparator = new Comparator<Card>() {
+        @Override
+        public int compare(Card o1, Card o2) {
+            if (o1.getIdx() < o2.getIdx())
+                return -1;
+            else if (o1.getIdx() > o2.getIdx())
+                return 1;
+            return 0;
+        }
+    };
 
     public static void main(String[] args) {
         Card c1 = new Card("A", "♤");
