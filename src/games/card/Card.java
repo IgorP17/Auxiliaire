@@ -32,7 +32,7 @@ public class Card {
     /**
      * Compare cards based on idx - useful for sorting
      */
-    Comparator<Card> cardComparator = new Comparator<Card>() {
+    static Comparator<Card> cardComparator = new Comparator<Card>() {
         @Override
         public int compare(Card o1, Card o2) {
             if (o1.getIdx() < o2.getIdx())
