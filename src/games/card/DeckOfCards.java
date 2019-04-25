@@ -87,7 +87,7 @@ public final class DeckOfCards {
     }
 
     // Constructor
-    private DeckOfCards() {
+    DeckOfCards() {
 
     }
 
