@@ -91,9 +91,6 @@ public final class DeckOfCards {
 
     }
 
-    public ArrayList<Card> getDeck() {
-        return arrayCards;
-    }
 
     public ArrayList<Card> getShuffledDeck() {
         ArrayList<Card> result = arrayCards;
@@ -102,17 +99,7 @@ public final class DeckOfCards {
     }
 
     public static void main(String[] args) {
-        ArrayList<Card> deck = new DeckOfCards().getDeck();
-        for (Card c : deck) {
-            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
-        }
-        System.out.println("========================");
-        deck = new DeckOfCards().getDeck();
-        for (Card c : deck) {
-            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
-        }
-        System.out.println("========================");
-        deck = new DeckOfCards().getShuffledDeck();
+        ArrayList<Card> deck = new DeckOfCards().getShuffledDeck();
         for (Card c : deck) {
             System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
         }

@@ -2,6 +2,7 @@ package games.card;
 
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Card {
 
@@ -32,16 +33,32 @@ public class Card {
     /**
      * Compare cards based on idx - useful for sorting
      */
-    static Comparator<Card> cardComparator = new Comparator<Card>() {
-        @Override
-        public int compare(Card o1, Card o2) {
-            if (o1.getIdx() < o2.getIdx())
-                return -1;
-            else if (o1.getIdx() > o2.getIdx())
-                return 1;
-            return 0;
-        }
+    static Comparator<Card> cardComparator = (o1, o2) -> {
+        if (o1.getIdx() < o2.getIdx())
+            return -1;
+        else if (o1.getIdx() > o2.getIdx())
+            return 1;
+        return 0;
     };
+
+    /**
+     * 2 cards are equals if have the same idx
+     * @param o - second card
+     * @return - true if idx equals, false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return idx == card.idx;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(idx);
+    }
 
     public static void main(String[] args) {
         Card c1 = new Card("A", "♤");
@@ -54,6 +71,4 @@ public class Card {
         System.out.println(c4.getIdx() + c4.getCardValue() + c4.getSuit());
 
     }
-
-
 }
