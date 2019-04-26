@@ -91,6 +91,20 @@ public final class DeckOfCards {
 
     }
 
+    /**
+     * Get Card in Deck by Val an Suite
+     * @param val - Value, A,K,Q,J,10...
+     * @param suit - Suit ♤♧♡♢
+     * @return - Card object
+     */
+    public Card getCardByValSuit(String val, String suit){
+        for (Card c:
+             arrayCards) {
+            if (c.getCardValue().equals(val) && c.getSuit().equals(suit))
+                return c;
+        }
+        return null;
+    }
 
     public ArrayList<Card> getShuffledDeck() {
         ArrayList<Card> result = arrayCards;

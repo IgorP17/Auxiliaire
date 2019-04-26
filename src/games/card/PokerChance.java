@@ -15,4 +15,28 @@ public class PokerChance {
 
     }
 
+    /**
+     * Check high combination
+     * @param someCards - list of cards
+     * @return - ENUM of high hand
+     */
+    public static PokerComboEnum getComboEnum(ArrayList<Card> someCards){
+
+        // For FLASHROYAL we know ids of cards
+        if (isFlashRoyal(someCards)){
+            return PokerComboEnum.FLASHROYAL;
+        }
+
+        return PokerComboEnum.HIGHCARD;
+    }
+
+    /**
+     * For FLASHROYAL we know ids of cards
+     * @param someCards - list of cards
+     * @return - true if Flash Royal, false otherwise
+     */
+    private static boolean isFlashRoyal(ArrayList<Card> someCards){
+        return false;
+    }
+
 }
