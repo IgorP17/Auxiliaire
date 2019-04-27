@@ -42,7 +42,8 @@ public class Card {
     };
 
     /**
-     * 2 cards are equals if have the same idx
+     * Equals cards
+     *
      * @param o - second card
      * @return - true if idx equals, false otherwise
      */
@@ -51,7 +52,9 @@ public class Card {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
-        return idx == card.idx;
+        return (idx == card.idx)
+                && (cardValue.equalsIgnoreCase(card.cardValue))
+                && (suit.equalsIgnoreCase(card.suit));
     }
 
     @Override

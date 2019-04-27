@@ -97,7 +97,7 @@ public final class DeckOfCards {
      * @param suit - Suit ♤♧♡♢
      * @return - Card object
      */
-    public Card getCardByValSuit(String val, String suit){
+    public static Card getCardByValSuit(String val, String suit){
         for (Card c:
              arrayCards) {
             if (c.getCardValue().equals(val) && c.getSuit().equals(suit))
@@ -106,14 +106,14 @@ public final class DeckOfCards {
         return null;
     }
 
-    public ArrayList<Card> getShuffledDeck() {
+    public static ArrayList<Card> getShuffledDeck() {
         ArrayList<Card> result = arrayCards;
         Collections.shuffle(result);
         return result;
     }
 
     public static void main(String[] args) {
-        ArrayList<Card> deck = new DeckOfCards().getShuffledDeck();
+        ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
         for (Card c : deck) {
             System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
         }

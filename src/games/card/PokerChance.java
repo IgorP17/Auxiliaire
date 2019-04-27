@@ -7,7 +7,7 @@ public class PokerChance {
 
     public static void main(String[] args) {
 
-        ArrayList<Card> deck = DeckOfCards.getInstance().getShuffledDeck();
+        ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
         for (Card c : deck) {
             System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
         }
@@ -36,7 +36,33 @@ public class PokerChance {
      * @return - true if Flash Royal, false otherwise
      */
     private static boolean isFlashRoyal(ArrayList<Card> someCards){
-        return false;
+        if (someCards == null)
+            return false;
+        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♤"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("K", "♤"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♤"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("J", "♤"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("10", "♤")))
+            return true;
+        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♧"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("K", "♧"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♧"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("J", "♧"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("10", "♧")))
+            return true;
+        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♡"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("K", "♡"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♡"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("J", "♡"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("10", "♡")))
+            return true;
+        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♢"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("K", "♢"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♢"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("J", "♢"))
+                && someCards.contains(DeckOfCards.getCardByValSuit("10", "♢")))
+            return true;
+        else return false;
     }
 
 }
