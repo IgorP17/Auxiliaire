@@ -8,11 +8,11 @@ import java.util.Collections;
  */
 public final class DeckOfCards {
 
-    private static DeckOfCards ourInstance = new DeckOfCards();
+//    private static DeckOfCards ourInstance = new DeckOfCards();
 
-    public static DeckOfCards getInstance() {
-        return ourInstance;
-    }
+//    public static DeckOfCards getInstance() {
+//        return ourInstance;
+//    }
 
     // Static deck
     private static ArrayList<Card> arrayCards;
@@ -92,25 +92,32 @@ public final class DeckOfCards {
     }
 
     /**
+     * Get shuffled deck
+     *
+     * @return - Array list of cards shuffled
+     */
+    public static ArrayList<Card> getShuffledDeck() {
+        ArrayList<Card> result = arrayCards;
+        Collections.shuffle(result);
+        return result;
+    }
+
+    /**
      * Get Card in Deck by Val an Suite
-     * @param val - Value, A,K,Q,J,10...
+     *
+     * @param val  - Value, A,K,Q,J,10...
      * @param suit - Suit ♤♧♡♢
      * @return - Card object
      */
-    public static Card getCardByValSuit(String val, String suit){
-        for (Card c:
-             arrayCards) {
+    public static Card getCardByValSuit(String val, String suit) {
+        for (Card c :
+                arrayCards) {
             if (c.getCardValue().equals(val) && c.getSuit().equals(suit))
                 return c;
         }
         return null;
     }
 
-    public static ArrayList<Card> getShuffledDeck() {
-        ArrayList<Card> result = arrayCards;
-        Collections.shuffle(result);
-        return result;
-    }
 
     public static void main(String[] args) {
         ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
