@@ -1,7 +1,6 @@
 package games.card;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class PokerChance {
 
@@ -17,28 +16,33 @@ public class PokerChance {
 
     /**
      * Check high combination
+     *
      * @param someCards - list of cards
      * @return - ENUM of high hand
      */
-    public static PokerComboEnum getComboEnum(ArrayList<Card> someCards){
+    public static PokerComboEnum getComboEnum(ArrayList<Card> someCards) {
+
+        if (someCards == null) return null;
 
         // For FLASHROYAL we know ids of cards
-        if (isFlashRoyal(someCards)){
+        if (isFlashRoyal(someCards)) {
             return PokerComboEnum.FLASHROYAL;
+        } else if (isStreetFlash(someCards)) {
+            return PokerComboEnum.STREETFLASH;
         }
 
         return PokerComboEnum.HIGHCARD;
     }
 
     /**
-     * For FLASHROYAL we know ids of cards
+     * For FLASHROYAL we know all combinations
+     *
      * @param someCards - list of cards
      * @return - true if Flash Royal, false otherwise
      */
-    private static boolean isFlashRoyal(ArrayList<Card> someCards){
-        if (someCards == null)
-            return false;
-        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♤"))
+    private static boolean isFlashRoyal(ArrayList<Card> someCards) {
+
+        if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♤"))
                 && someCards.contains(DeckOfCards.getCardByValSuit("K", "♤"))
                 && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♤"))
                 && someCards.contains(DeckOfCards.getCardByValSuit("J", "♤"))
@@ -65,4 +69,13 @@ public class PokerChance {
         else return false;
     }
 
+    /**
+     * If we have Street Flash
+     *
+     * @param someCards - list of cards
+     * @return - true if Street Flash, false otherwise
+     */
+    private static boolean isStreetFlash(ArrayList<Card> someCards) {
+        return true;
+    }
 }
