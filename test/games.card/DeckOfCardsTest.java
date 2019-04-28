@@ -28,5 +28,6 @@ public class DeckOfCardsTest {
         deck.sort(cardComparator);
         Assert.assertEquals("First idx = 0", 0, deck.get(0).getIdx());
         Assert.assertEquals("Last idx = 51", 51, deck.get(51).getIdx());
+        System.out.println("Test OK");
     }
 }
