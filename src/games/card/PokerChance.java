@@ -5,13 +5,10 @@ import java.util.ArrayList;
 public class PokerChance {
 
     public static void main(String[] args) {
-
         ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
         for (Card c : deck) {
             System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
         }
-
-
     }
 
     /**
@@ -24,7 +21,7 @@ public class PokerChance {
 
         if (someCards == null) return null;
 
-        // For FLASHROYAL we know ids of cards
+        // For FLASHROYAL we know combinations
         if (isFlashRoyal(someCards)) {
             return PokerComboEnum.FLASHROYAL;
         } else if (isStreetFlash(someCards)) {
@@ -33,6 +30,8 @@ public class PokerChance {
 
         return PokerComboEnum.HIGHCARD;
     }
+
+
 
     /**
      * For FLASHROYAL we know all combinations
