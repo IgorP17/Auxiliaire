@@ -2,6 +2,8 @@ package games.card;
 
 import java.util.ArrayList;
 
+import static games.card.Card.cardComparator;
+
 public class PokerChance {
 
     public static void main(String[] args) {
@@ -21,7 +23,6 @@ public class PokerChance {
 
         if (someCards == null) return null;
 
-        // For FLASHROYAL we know combinations
         if (isFlashRoyal(someCards)) {
             return PokerComboEnum.FLASHROYAL;
         } else if (isStreetFlash(someCards)) {
@@ -30,7 +31,6 @@ public class PokerChance {
 
         return PokerComboEnum.HIGHCARD;
     }
-
 
 
     /**
@@ -59,13 +59,11 @@ public class PokerChance {
                 && someCards.contains(DeckOfCards.getCardByValSuit("J", "♡"))
                 && someCards.contains(DeckOfCards.getCardByValSuit("10", "♡")))
             return true;
-        else if (someCards.contains(DeckOfCards.getCardByValSuit("A", "♢"))
-                && someCards.contains(DeckOfCards.getCardByValSuit("K", "♢"))
-                && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♢"))
-                && someCards.contains(DeckOfCards.getCardByValSuit("J", "♢"))
-                && someCards.contains(DeckOfCards.getCardByValSuit("10", "♢")))
-            return true;
-        else return false;
+        else return someCards.contains(DeckOfCards.getCardByValSuit("A", "♢"))
+                    && someCards.contains(DeckOfCards.getCardByValSuit("K", "♢"))
+                    && someCards.contains(DeckOfCards.getCardByValSuit("Q", "♢"))
+                    && someCards.contains(DeckOfCards.getCardByValSuit("J", "♢"))
+                    && someCards.contains(DeckOfCards.getCardByValSuit("10", "♢"));
     }
 
     /**
@@ -75,6 +73,41 @@ public class PokerChance {
      * @return - true if Street Flash, false otherwise
      */
     private static boolean isStreetFlash(ArrayList<Card> someCards) {
-        return true;
+        return someCards.size() > 4 && isFlash(someCards) && isStreet(someCards);
+    }
+
+    /**
+     * If we have Street
+     *
+     * @param someCards - list of cards
+     * @return - true if Street
+     */
+    private static boolean isStreet(ArrayList<Card> someCards) {
+        someCards.sort(cardComparator);
+        // get unique card values
+        StringBuilder cardValuesBuilder = new StringBuilder();
+        for (Card c :
+                someCards) {
+            if (!cardValuesBuilder.toString().contains(c.getCardValue())) {
+                cardValuesBuilder.append(c.getCardValue());
+            }
+        }
+        String cardValues = cardValuesBuilder.toString();
+
+        return
+                cardValues.equalsIgnoreCase("AKQJ10") ||
+                        cardValues.equalsIgnoreCase("KQJ109") ||
+                        cardValues.equalsIgnoreCase("QJ1098") ||
+                        cardValues.equalsIgnoreCase("J10987") ||
+                        cardValues.equalsIgnoreCase("109876") ||
+                        cardValues.equalsIgnoreCase("98765") ||
+                        cardValues.equalsIgnoreCase("87654") ||
+                        cardValues.equalsIgnoreCase("76543") ||
+                        cardValues.equalsIgnoreCase("65432");
+    }
+
+
+    private static boolean isFlash(ArrayList<Card> someCards) {
+        return false;
     }
 }
