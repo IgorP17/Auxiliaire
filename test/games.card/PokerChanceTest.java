@@ -19,7 +19,7 @@ public class PokerChanceTest {
         example.add(DeckOfCards.getCardByValSuit("J", "♤"));
         example.add(DeckOfCards.getCardByValSuit("10", "♤"));
         example.add(DeckOfCards.getCardByValSuit("10", "♧"));
-        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
         Assert.assertTrue("♤",
                 PokerChance.getComboEnum(example) == PokerComboEnum.FLASHROYAL);
 
@@ -66,6 +66,34 @@ public class PokerChanceTest {
         example.add(DeckOfCards.getCardByValSuit("8", "♡"));
         Assert.assertTrue("Street but not flash",
                 PokerChance.getComboEnum(example) == PokerComboEnum.HIGHCARD);*/
-        System.out.println("Test OK");
+        System.out.println("Test Flash Royal OK");
     }
+
+    @Test
+    public void testStreetFlash(){
+        ArrayList<Card> example = new ArrayList<>();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("Q", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Street Flash ♤",
+                PokerChance.getComboEnum(example) == PokerComboEnum.STREETFLASH);
+
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("2", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("Q", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♡"));
+        Assert.assertTrue("Street Flash ♧",
+                PokerChance.getComboEnum(example) == PokerComboEnum.STREETFLASH);
+
+        System.out.println("Test Street Flash OK");
+    }
+
 }

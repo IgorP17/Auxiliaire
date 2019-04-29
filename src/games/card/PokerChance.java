@@ -94,7 +94,7 @@ public class PokerChance {
         }
         String cardValues = cardValuesBuilder.toString();
 
-        return
+        boolean result =
                 cardValues.equalsIgnoreCase("AKQJ10") ||
                         cardValues.equalsIgnoreCase("KQJ109") ||
                         cardValues.equalsIgnoreCase("QJ1098") ||
@@ -104,10 +104,39 @@ public class PokerChance {
                         cardValues.equalsIgnoreCase("87654") ||
                         cardValues.equalsIgnoreCase("76543") ||
                         cardValues.equalsIgnoreCase("65432");
+        System.out.println("Street will return - " + result);
+        return result;
     }
 
-
+    /**
+     * If we have Flash
+     * @param someCards - list of cards
+     * @return - true if Flash
+     */
     private static boolean isFlash(ArrayList<Card> someCards) {
-        return false;
+        int countSpade = 0;
+        int countClub = 0;
+        int countHearts = 0;
+        int countDiamond = 0;
+        for (Card c :
+                someCards) {
+            switch (c.getSuit()) {
+                case "♤":
+                    countSpade++;
+                    break;
+                case "♧":
+                    countClub++;
+                    break;
+                case "♡":
+                    countHearts++;
+                    break;
+                case "♢":
+                    countDiamond++;
+                    break;
+            }
+        }
+        boolean result = (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
+        System.out.println("FLash will return - " + result);
+        return result;
     }
 }
