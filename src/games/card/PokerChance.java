@@ -27,11 +27,12 @@ public class PokerChance {
             return PokerComboEnum.FLASHROYAL;
         } else if (isStreetFlash(someCards)) {
             return PokerComboEnum.STREETFLASH;
+        } else if (isCare(someCards)) {
+            return PokerComboEnum.CARE;
         }
 
         return PokerComboEnum.HIGHCARD;
     }
-
 
     /**
      * For FLASHROYAL we know all combinations
@@ -77,6 +78,39 @@ public class PokerChance {
     }
 
     /**
+     * If we have Care
+     *
+     * @param someCards - list of cards
+     * @return - true if Care
+     */
+    private static boolean isCare(ArrayList<Card> someCards) {
+        // we should have at least 4 cards
+        if (someCards.size() < 4) return false;
+        // sort and get fours
+        someCards.sort(cardComparator);
+        StringBuilder sbVal = new StringBuilder();
+        for (Card c :
+                someCards) {
+            sbVal.append(c.getCardValue());
+        }
+        String values = sbVal.toString();
+        String s1, s2, s3, s4;
+        System.out.println("DEBUG Care values " + values);
+        for (int i = 0; i < values.length() - 4; i++) {
+            s1 = values.substring(i, i + 1);
+            s2 = values.substring(i + 1, i + 2);
+            s3 = values.substring(i + 2, i + 3);
+            s4 = values.substring(i + 3, i + 4);
+            if (s1.equalsIgnoreCase(s2) &&
+                    s2.equalsIgnoreCase(s3) &&
+                    s3.equalsIgnoreCase(s4)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * If we have Street
      *
      * @param someCards - list of cards
@@ -93,7 +127,7 @@ public class PokerChance {
             }
         }
         String cardValues = cardValuesBuilder.toString();
-        System.out.println("DEBUG " + cardValues);
+        System.out.println("DEBUG is street" + cardValues);
 
         boolean result =
                 cardValues.contains("AKQJ10") ||
@@ -111,6 +145,7 @@ public class PokerChance {
 
     /**
      * If we have Flash
+     *
      * @param someCards - list of cards
      * @return - true if Flash
      */
