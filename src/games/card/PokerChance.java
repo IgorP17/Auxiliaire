@@ -93,18 +93,19 @@ public class PokerChance {
             }
         }
         String cardValues = cardValuesBuilder.toString();
+        System.out.println("DEBUG " + cardValues);
 
         boolean result =
-                cardValues.equalsIgnoreCase("AKQJ10") ||
-                        cardValues.equalsIgnoreCase("KQJ109") ||
-                        cardValues.equalsIgnoreCase("QJ1098") ||
-                        cardValues.equalsIgnoreCase("J10987") ||
-                        cardValues.equalsIgnoreCase("109876") ||
-                        cardValues.equalsIgnoreCase("98765") ||
-                        cardValues.equalsIgnoreCase("87654") ||
-                        cardValues.equalsIgnoreCase("76543") ||
-                        cardValues.equalsIgnoreCase("65432");
-        System.out.println("Street will return - " + result);
+                cardValues.contains("AKQJ10") ||
+                        cardValues.contains("KQJ109") ||
+                        cardValues.contains("QJ1098") ||
+                        cardValues.contains("J10987") ||
+                        cardValues.contains("109876") ||
+                        cardValues.contains("98765") ||
+                        cardValues.contains("87654") ||
+                        cardValues.contains("76543") ||
+                        cardValues.contains("65432");
+        System.out.println("DEBUG Street will return - " + result);
         return result;
     }
 
@@ -136,7 +137,7 @@ public class PokerChance {
             }
         }
         boolean result = (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
-        System.out.println("FLash will return - " + result);
+        System.out.println("DEBUG Flash will return - " + result);
         return result;
     }
 }
