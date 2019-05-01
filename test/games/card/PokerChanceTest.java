@@ -69,7 +69,7 @@ public class PokerChanceTest {
 
         // TODO add street flash
 
-        System.out.println("Test Flash Royal OK");
+        System.out.println("0. Test Flash Royal - OK");
     }
 
     @Test
@@ -136,7 +136,7 @@ public class PokerChanceTest {
 //        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
 //        Assert.assertTrue("Flash but not street",
 //                PokerChance.getComboEnum(example) == PokerComboEnum.FLASH);
-        System.out.println("Test Street Flash OK");
+        System.out.println("1. Test Street Flash - OK");
     }
 
     @Test
@@ -282,7 +282,32 @@ public class PokerChanceTest {
 //        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
 //        Assert.assertTrue("Set",
 //                PokerChance.getComboEnum(example) == PokerComboEnum.SET);
-        System.out.println("Test Care OK");
+        System.out.println("2. Test Care - OK");
     }
 
+    @Test
+    public void testFullHouse(){
+        ArrayList<Card> example = new ArrayList<>();
+        example.add(DeckOfCards.getCardByValSuit("A", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Full House AAA 10 10",
+                PokerChance.getComboEnum(example) == PokerComboEnum.FULLHOUSE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("A", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Full House AA 10 10 10",
+                PokerChance.getComboEnum(example) == PokerComboEnum.FULLHOUSE);
+
+        System.out.println("3. Test Full House - OK");
+    }
 }

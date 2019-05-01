@@ -2,8 +2,6 @@ package games.card;
 
 import java.util.ArrayList;
 
-import static games.card.Card.cardComparator;
-
 public class PokerChance {
 
     public static void main(String[] args) {
@@ -95,7 +93,7 @@ public class PokerChance {
         // we should have at least 4 cards
         if (someCards.size() < 4) return false;
         // sort and get fours
-        someCards.sort(cardComparator);
+        someCards.sort(Card.cardComparator);
         String[] s = new String[someCards.size()];
         for (int i = 0; i < someCards.size(); i++) {
             s[i] = someCards.get(i).getCardValue();
@@ -121,7 +119,7 @@ public class PokerChance {
      */
     private static boolean isFullHouse(ArrayList<Card> someCards) {
         // Main idea - find set, remember set value, find pair
-        someCards.sort(cardComparator);
+        someCards.sort(Card.cardComparator);
         String[] s = new String[someCards.size()];
         for (int i = 0; i < someCards.size(); i++) {
             s[i] = someCards.get(i).getCardValue();
@@ -153,7 +151,7 @@ public class PokerChance {
      * @return - true if Street
      */
     private static boolean isStreet(ArrayList<Card> someCards) {
-        someCards.sort(cardComparator);
+        someCards.sort(Card.cardComparator);
         // get unique card values
         StringBuilder cardValuesBuilder = new StringBuilder();
         for (Card c :
