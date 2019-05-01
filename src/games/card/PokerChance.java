@@ -35,6 +35,8 @@ public class PokerChance {
             return PokerComboEnum.STREETFLASH;
         } else if (isCare(someCards)) {
             return PokerComboEnum.CARE;
+        } else if (isFullHouse(someCards)) {
+            return PokerComboEnum.FULLHOUSE;
         }
 
         return PokerComboEnum.HIGHCARD;
@@ -106,6 +108,39 @@ public class PokerChance {
                     s[i + 1].equalsIgnoreCase(s[i + 2]) &&
                     s[i + 2].equalsIgnoreCase(s[i + 3])) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * If we have Full House
+     *
+     * @param someCards - list of cards
+     * @return - true if Full House
+     */
+    private static boolean isFullHouse(ArrayList<Card> someCards) {
+        // Main idea - find set, remember set value, find pair
+        someCards.sort(cardComparator);
+        String[] s = new String[someCards.size()];
+        for (int i = 0; i < someCards.size(); i++) {
+            s[i] = someCards.get(i).getCardValue();
+        }
+        String setValue;
+        // find set
+        for (int i = 0; i < s.length - 2; i++) {
+            if (s[i].equalsIgnoreCase(s[i + 1]) &&
+                    s[i + 1].equalsIgnoreCase(s[i + 2])) {
+                // we found set
+                setValue = s[i];
+                // search pair
+                for (int j = 0; j < s.length - 1; j++) {
+                    if (s[j].equalsIgnoreCase(s[j + 1]) &&
+                            !s[j].equalsIgnoreCase(setValue)){
+                        //we found pair
+                        return true;
+                    }
+                }
             }
         }
         return false;
