@@ -7,10 +7,16 @@ import static games.card.Card.cardComparator;
 public class PokerChance {
 
     public static void main(String[] args) {
-        ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
-        for (Card c : deck) {
-            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
-        }
+        ArrayList<Card> example = new ArrayList<>();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+
+        System.out.println(getComboEnum(example));
     }
 
     /**
@@ -88,22 +94,17 @@ public class PokerChance {
         if (someCards.size() < 4) return false;
         // sort and get fours
         someCards.sort(cardComparator);
-        StringBuilder sbVal = new StringBuilder();
-        for (Card c :
-                someCards) {
-            sbVal.append(c.getCardValue());
+        String[] s = new String[someCards.size()];
+        for (int i = 0; i < someCards.size(); i++) {
+            s[i] = someCards.get(i).getCardValue();
+//            System.out.print(s[i]);
         }
-        String values = sbVal.toString();
-        String s1, s2, s3, s4;
-        System.out.println("DEBUG Care values " + values);
-        for (int i = 0; i < values.length() - 4; i++) {
-            s1 = values.substring(i, i + 1);
-            s2 = values.substring(i + 1, i + 2);
-            s3 = values.substring(i + 2, i + 3);
-            s4 = values.substring(i + 3, i + 4);
-            if (s1.equalsIgnoreCase(s2) &&
-                    s2.equalsIgnoreCase(s3) &&
-                    s3.equalsIgnoreCase(s4)) {
+//        System.out.println();
+        for (int i = 0; i < s.length - 3; i++) {
+//            System.out.println(s[i] + s[i + 1] + s[i + 2] + s[i + 3]);
+            if (s[i].equalsIgnoreCase(s[i + 1]) &&
+                    s[i + 1].equalsIgnoreCase(s[i + 2]) &&
+                    s[i + 2].equalsIgnoreCase(s[i + 3])) {
                 return true;
             }
         }
@@ -127,7 +128,7 @@ public class PokerChance {
             }
         }
         String cardValues = cardValuesBuilder.toString();
-        System.out.println("DEBUG is street" + cardValues);
+//        System.out.println("DEBUG is street" + cardValues);
 
         boolean result =
                 cardValues.contains("AKQJ10") ||
@@ -139,7 +140,7 @@ public class PokerChance {
                         cardValues.contains("87654") ||
                         cardValues.contains("76543") ||
                         cardValues.contains("65432");
-        System.out.println("DEBUG Street will return - " + result);
+//        System.out.println("DEBUG Street will return - " + result);
         return result;
     }
 
@@ -172,7 +173,7 @@ public class PokerChance {
             }
         }
         boolean result = (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
-        System.out.println("DEBUG Flash will return - " + result);
+//        System.out.println("DEBUG Flash will return - " + result);
         return result;
     }
 }

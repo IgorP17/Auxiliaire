@@ -141,7 +141,7 @@ public class PokerChanceTest {
 
     @Test
     public void testCare(){
-        // TODO ALL CARE
+        // TODO uncomment
         ArrayList<Card> example = new ArrayList<>();
         example.add(DeckOfCards.getCardByValSuit("A", "♤"));
         example.add(DeckOfCards.getCardByValSuit("A", "♧"));
@@ -152,6 +152,137 @@ public class PokerChanceTest {
         example.add(DeckOfCards.getCardByValSuit("10", "♡"));
         Assert.assertTrue("Care A",
                 PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Care K",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("Q", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("Q", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("Q", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("Q", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Care Q",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("J", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        Assert.assertTrue("Care J",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("10", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("10", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 10",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 9",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("8", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("8", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("8", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("8", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 8",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("7", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("7", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("7", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("7", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 7",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("6", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("6", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("6", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("6", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 6",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("5", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("5", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("5", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("5", "♡"));
+        Assert.assertTrue("Care 5",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("4", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("4", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("4", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("4", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 4",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("3", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("3", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("3", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("3", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 3",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+        example.clear();
+        example.add(DeckOfCards.getCardByValSuit("2", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("2", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("2", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("2", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        Assert.assertTrue("Care 2",
+                PokerChance.getComboEnum(example) == PokerComboEnum.CARE);
+//        example.clear();
+//        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+//        example.add(DeckOfCards.getCardByValSuit("7", "♤"));
+//        example.add(DeckOfCards.getCardByValSuit("7", "♧"));
+//        example.add(DeckOfCards.getCardByValSuit("7", "♢"));
+//        example.add(DeckOfCards.getCardByValSuit("Q", "♡"));
+//        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+//        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+//        Assert.assertTrue("Set",
+//                PokerChance.getComboEnum(example) == PokerComboEnum.SET);
+        System.out.println("Test Care OK");
     }
 
 }
