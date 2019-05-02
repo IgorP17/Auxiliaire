@@ -35,6 +35,10 @@ public class PokerChance {
             return PokerComboEnum.CARE;
         } else if (isFullHouse(someCards)) {
             return PokerComboEnum.FULLHOUSE;
+        } else if (isFlash(someCards)) {
+            return PokerComboEnum.FLASH;
+        } else if (isStreet(someCards)) {
+            return PokerComboEnum.STREET;
         }
 
         return PokerComboEnum.HIGHCARD;
@@ -134,7 +138,7 @@ public class PokerChance {
                 // search pair
                 for (int j = 0; j < s.length - 1; j++) {
                     if (s[j].equalsIgnoreCase(s[j + 1]) &&
-                            !s[j].equalsIgnoreCase(setValue)){
+                            !s[j].equalsIgnoreCase(setValue)) {
                         //we found pair
                         return true;
                     }
@@ -184,6 +188,7 @@ public class PokerChance {
      * @return - true if Flash
      */
     private static boolean isFlash(ArrayList<Card> someCards) {
+        if (someCards.size() < 4) return false;
         int countSpade = 0;
         int countClub = 0;
         int countHearts = 0;
