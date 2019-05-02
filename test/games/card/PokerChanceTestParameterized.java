@@ -76,6 +76,7 @@ public class PokerChanceTestParameterized {
 
             while (line != null) {
 //                System.out.println("Read line:" + line);
+                line = line.trim();
                 if (!line.startsWith("#")) {
 //                sb.append(line);
 //                sb.append(System.lineSeparator());

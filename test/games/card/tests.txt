@@ -2,3 +2,22 @@
 # Flash Royals
 Test Flash Royal ♤;A♤,K♤,Q♤,J♤,10♤,10♧,10♡;0
 Test Flash Royal ♧;2♤,K♧,Q♧,J♧,K♤,A♧,10♧;0
+Test Flash Royal ♡;2♤,K♧,10♡,J♡,Q♡,K♡,A♡;0
+Test Flash Royal ♢;2♢,K♢,10♢,J♢,Q♢,K♡,A♢;0
+Test Flash Royal - Street Flash;2♢,K♢,10♢,J♢,Q♢,K♡,9♢;1
+Test Flash Royal - Street but not flash;A♤,K♤,Q♤,J♤,10♡,9♡,8♡;5
+# Street Flash
+Test Street Flash ♤;K♤,Q♤,J♤,10♤,9♤,10♧,10♡;1
+Test Street Flash ♧;9♧,2♤,10♧,J♧,Q♧,K♧,A♡;1
+Test Street Flash ♡;2♡,3♡,10♧,J♧,4♡,5♡,6♡;1
+Test Street Flash ♢;J♢,8♢,10♢,J♧,Q♢,5♡,9♢;1
+Test Street Flash - Street but not flash;J♢,8♢,10♢,J♧,Q♧,5♡,9♢;5
+Test Street Flash - Flash but not street;A♢,Q♢,10♢,8♢,6♢,5♡,9♡;4
+# Care
+Test Care A;A♤,A♧,A♢,A♡,9♤,10♧,10♡;2
+Test Care K;K♤,K♧,K♢,9♤,K♡,10♧,10♡;2
+Test Care Q;Q♤,Q♢,Q♧,9♤,Q♡,10♧,10♡;2
+Test Care J;J♤,J♧,J♢,9♤,J♡,10♧,10♡;2
+Test Care 10;10♤,10♧,10♢,9♤,10♡,J♧,J♡;2
+Test Care 9;K♤,9♤,9♧,9♡,9♢,J♧,J♡;2
+Test Care 8;K♤,8♤,8♧,8♡,J♧,8♢,J♡;2
