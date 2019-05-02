@@ -1,0 +1,4 @@
+# Comment;Cards sep=,;Expected(0 - Flash Royal...)
+# Flash Royals
+Test Flash Royal ♤;A♤,K♤,Q♤,J♤,10♤,10♧,10♡;0
+Test Flash Royal ♧;2♤,K♧,Q♧,J♧,K♤,A♧,10♧;0

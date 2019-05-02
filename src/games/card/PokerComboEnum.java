@@ -15,11 +15,40 @@ public enum PokerComboEnum {
 
     private int priority;
 
-    PokerComboEnum(int priority){
+    PokerComboEnum(int priority) {
         this.priority = priority;
     }
 
-    public int getPriority(){
+    public int getPriority() {
         return priority;
+    }
+
+    public static PokerComboEnum getEnum(int priority) {
+        switch (priority) {
+            case 0:
+                return FLASHROYAL;
+            case 1:
+                return STREETFLASH;
+            case 2:
+                return CARE;
+            case 3:
+                return FULLHOUSE;
+            case 4:
+                return FLASH;
+            case 5:
+                return STREET;
+            case 6:
+                return SET;
+            case 7:
+                return PAIRS;
+            case 8:
+                return PAIR;
+            case 9:
+                return HIGHCARD;
+            default:
+                System.out.println("No such combination with priority: " + priority);
+                return null;
+        }
+
     }
 }
