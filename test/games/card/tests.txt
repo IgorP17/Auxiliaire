@@ -42,6 +42,17 @@ Test Flash ♡;K♡,J♧,10♡,9♡,8♡,6♡,2♢;4
 Test Flash ♢;K♢,J♢,10♡,9♢,8♡,6♢,2♢;4
 # Street - 5
 Test Street A;A♤,K♧,Q♡,J♢,10♤,4♧,3♡;5
-#Test Street A;A♤,K♧,Q♡,J♢,10♤,4♧,3♡;5
-
+Test Street K;2♤,K♧,Q♡,J♢,10♤,9♧,3♡;5
+Test Street Q;2♤,3♤,Q♡,J♢,10♤,9♧,8♡;5
+Test Street J;7♤,3♤,A♡,J♢,10♤,9♧,8♡;5
+Test Street 10;7♤,6♤,A♡,K♢,10♤,9♧,8♡;5
+Test Street 9;7♤,6♤,5♡,Q♢,Q♤,9♧,8♡;5
+Test Street 8;7♤,6♤,5♡,4♢,Q♤,Q♧,8♡;5
+Test Street 7;7♤,6♤,5♡,4♢,3♤,Q♧,Q♡;5
+Test Street 6;Q♤,6♤,5♡,4♢,3♤,Q♧,2♡;5
+Test Street - only 4;Q♤,6♤,5♡,J♢,3♤,Q♧,2♡;8
+# Set - 6
+Test Set A;A♤,K♧,A♡,A♢,10♤,4♧,3♡;6
+Test Set 10;K♤,10♧,A♡,10♢,10♤,4♧,3♡;6
+Test Set 2;2♤,K♧,A♡,2♢,10♤,4♧,2♡;6
 

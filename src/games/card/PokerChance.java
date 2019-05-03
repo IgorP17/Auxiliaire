@@ -39,6 +39,8 @@ public class PokerChance {
             return PokerComboEnum.FLASH;
         } else if (isStreet(someCards)) {
             return PokerComboEnum.STREET;
+        } else if (isSet(someCards)) {
+            return PokerComboEnum.SET;
         }
 
         return PokerComboEnum.HIGHCARD;
@@ -213,5 +215,29 @@ public class PokerChance {
         boolean result = (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
 //        System.out.println("DEBUG Flash will return - " + result);
         return result;
+    }
+
+    /**
+     * Check if we have set
+     *
+     * @param someCards - list of cards
+     * @return - tre if set found
+     */
+    private static boolean isSet(ArrayList<Card> someCards) {
+        someCards.sort(Card.cardComparator);
+        String[] s = new String[someCards.size()];
+        for (int i = 0; i < someCards.size(); i++) {
+            s[i] = someCards.get(i).getCardValue();
+//            System.out.print(s[i]);
+        }
+        for (int i = 0; i < s.length - 2; i++) {
+            if (s[i].equalsIgnoreCase(s[i + 1]) &&
+                    s[i + 1].equalsIgnoreCase(s[i + 2])) {
+//                System.out.println(" - " + s[i] + s[i + 1] + s[i + 2]);
+                return true;
+            }
+        }
+//        System.out.println();
+        return false;
     }
 }
