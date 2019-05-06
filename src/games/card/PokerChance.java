@@ -41,6 +41,10 @@ public class PokerChance {
             return PokerComboEnum.STREET;
         } else if (isSet(someCards)) {
             return PokerComboEnum.SET;
+        } else if (isPairs(someCards)) {
+            return PokerComboEnum.PAIRS;
+        } else if (isPair(someCards)){
+            return PokerComboEnum.PAIR;
         }
 
         return PokerComboEnum.HIGHCARD;
@@ -238,6 +242,54 @@ public class PokerChance {
             }
         }
 //        System.out.println();
+        return false;
+    }
+
+    /**
+     * Check if we have 2 pairs
+     *
+     * @param someCards - list of cards
+     * @return - true is 2 pairs found
+     */
+    private static boolean isPairs(ArrayList<Card> someCards) {
+        someCards.sort(Card.cardComparator);
+        String[] s = new String[someCards.size()];
+        for (int i = 0; i < someCards.size(); i++) {
+            s[i] = someCards.get(i).getCardValue();
+        }
+        String firstPairValue;
+        for (int i = 0; i < s.length - 1; i++) {
+            if (s[i].equalsIgnoreCase(s[i + 1])) {
+                // found first pair
+                firstPairValue = s[i];
+                // second pair is not the same as first pair
+                for (int j = 0; j < s.length - 1; j++) {
+                    if (s[j].equalsIgnoreCase(s[j + 1]) &&
+                            !s[j].equalsIgnoreCase(firstPairValue)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if we have pair
+     * @param someCards - list of cards
+     * @return - true if we have pair
+     */
+    private static boolean isPair(ArrayList<Card> someCards) {
+        someCards.sort(Card.cardComparator);
+        String[] s = new String[someCards.size()];
+        for (int i = 0; i < someCards.size(); i++) {
+            s[i] = someCards.get(i).getCardValue();
+        }
+        for (int i = 0; i < s.length - 1; i++) {
+            if (s[i].equalsIgnoreCase(s[i + 1])) {
+                return true;
+            }
+        }
         return false;
     }
 }

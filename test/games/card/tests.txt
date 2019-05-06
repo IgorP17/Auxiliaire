@@ -55,4 +55,10 @@ Test Street - only 4;Q♤,6♤,5♡,J♢,3♤,Q♧,2♡;8
 Test Set A;A♤,K♧,A♡,A♢,10♤,4♧,3♡;6
 Test Set 10;K♤,10♧,A♡,10♢,10♤,4♧,3♡;6
 Test Set 2;2♤,K♧,A♡,2♢,10♤,4♧,2♡;6
-
+# Pairs - 7
+Test Pairs Aces and 2;A♤,K♧,A♡,2♢,10♤,4♧,2♡;7
+Test Pairs K and 10;A♤,K♧,10♡,2♢,10♤,4♧,K♡;7
+Test Pairs Q and J;J♤,J♧,Q♡,2♢,10♤,Q♧,K♡;7
+Test Pairs Q and J and 10;J♤,J♧,Q♡,10♢,10♤,Q♧,K♡;7
+# Pair - 8
+Test Pairs Aces;A♤,K♧,A♡,2♢,10♤,4♧,3♡;8
