@@ -6,15 +6,91 @@ public class PokerChance {
 
     public static void main(String[] args) {
         ArrayList<Card> example = new ArrayList<>();
-        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
-        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
-        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
-        example.add(DeckOfCards.getCardByValSuit("9", "♢"));
-        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
-        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
-        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♤"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♧"));
+        int
+                cntFlashRoyal = 0,
+                cntStreetFlash = 0,
+                cntCare = 0,
+                cntFullHouse = 0,
+                cntFlash = 0,
+                cntStreet = 0,
+                cntSet = 0,
+                cntPairs = 0,
+                cntPair = 0,
+                cntHighCard = 0;
+        ArrayList<Card> deal = new ArrayList<>();
+        PokerComboEnum res;
+        for (int i = 0; i < 1000000; i++) {
+            deal.addAll(example);
+            deal.addAll(DeckOfCards.getShuffledDeck().subList(0, 5));
+            res = getComboEnum(deal);
+            if (res == null) {
+                System.out.println("res is null!!");
+            } else {
+                switch (res) {
+                    case FLASHROYAL:
+                        cntFlashRoyal++;
+                        break;
+                    case STREETFLASH:
+                        cntStreetFlash++;
+                        break;
+                    case CARE:
+                        cntCare++;
+                        break;
+                    case FULLHOUSE:
+                        cntFullHouse++;
+                        break;
+                    case FLASH:
+                        cntFlash++;
+                        break;
+                    case STREET:
+                        cntStreet++;
+                        break;
+                    case SET:
+                        cntSet++;
+                        break;
+                    case PAIRS:
+                        cntPairs++;
+                        break;
+                    case PAIR:
+                        cntPair++;
+                        break;
+                    case HIGHCARD:
+                        cntHighCard++;
+                        break;
+                    default:
+                        System.out.println("WTF!!!");
+                        System.exit(1);
 
-        System.out.println(getComboEnum(example));
+                }
+            }
+            deal.clear();
+        }
+        System.out.println("Flash Royal  = " + cntFlashRoyal);
+        System.out.println("Street Flash = " + cntStreetFlash);
+        System.out.println("Care         = " + cntCare);
+        System.out.println("Full House   = " + cntFullHouse);
+        System.out.println("Flash        = " + cntFlash);
+        System.out.println("Street       = " + cntStreet);
+        System.out.println("Set          = " + cntSet);
+        System.out.println("Pairs        = " + cntPairs);
+        System.out.println("Pair         = " + cntPair);
+        System.out.println("High Card    = " + cntHighCard);
+        System.out.println("Total        = " + (cntFlashRoyal +
+                cntStreetFlash + cntCare + cntFullHouse + cntFlash + cntStreet +
+                cntSet + cntPairs + cntPair + cntHighCard));
+
+//        ArrayList<Card> example = new ArrayList<>();
+//        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
+//        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
+//        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
+//        example.add(DeckOfCards.getCardByValSuit("9", "♢"));
+//        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
+//        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
+//        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
+//
+//        System.out.println(getComboEnum(example));
     }
 
     /**
@@ -43,7 +119,7 @@ public class PokerChance {
             return PokerComboEnum.SET;
         } else if (isPairs(someCards)) {
             return PokerComboEnum.PAIRS;
-        } else if (isPair(someCards)){
+        } else if (isPair(someCards)) {
             return PokerComboEnum.PAIR;
         }
 
@@ -276,6 +352,7 @@ public class PokerChance {
 
     /**
      * Check if we have pair
+     *
      * @param someCards - list of cards
      * @return - true if we have pair
      */
