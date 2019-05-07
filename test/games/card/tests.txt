@@ -61,4 +61,17 @@ Test Pairs K and 10;A♤,K♧,10♡,2♢,10♤,4♧,K♡;7
 Test Pairs Q and J;J♤,J♧,Q♡,2♢,10♤,Q♧,K♡;7
 Test Pairs Q and J and 10;J♤,J♧,Q♡,10♢,10♤,Q♧,K♡;7
 # Pair - 8
-Test Pairs Aces;A♤,K♧,A♡,2♢,10♤,4♧,3♡;8
+Test Pair A;A♤,K♧,A♡,2♢,10♤,4♧,3♡;8
+Test Pair K;A♤,K♧,K♡,2♢,10♤,4♧,3♡;8
+Test Pair Q;A♤,K♧,Q♡,Q♢,10♤,4♧,3♡;8
+Test Pair J;A♤,K♧,J♡,Q♢,J♤,4♧,3♡;8
+Test Pair 10;10♤,K♧,10♡,Q♢,J♤,4♧,3♡;8
+Test Pair 9;10♤,K♧,9♡,9♢,J♤,4♧,3♡;8
+Test Pair 8;10♤,K♧,9♡,8♢,8♤,4♧,3♡;8
+Test Pair 7;10♤,K♧,9♡,8♢,7♤,7♧,3♡;8
+Test Pair 6;10♤,K♧,9♡,8♢,J♤,6♧,6♡;8
+Test Pair 5;10♤,5♧,9♡,8♢,J♤,6♧,5♡;8
+Test Pair 4;10♤,5♧,9♡,8♢,J♤,4♧,4♡;8
+Test Pair 3;3♤,5♧,9♡,8♢,J♤,Q♧,3♡;8
+Test Pair 2;2♤,5♧,2♡,8♢,J♤,Q♧,4♡;8
+# High Card - 9
