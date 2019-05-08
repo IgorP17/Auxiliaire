@@ -8,6 +8,8 @@ public class PokerChance {
         ArrayList<Card> example = new ArrayList<>();
         example.add(DeckOfCards.getCardByValSuit("A", "♤"));
         example.add(DeckOfCards.getCardByValSuit("A", "♧"));
+//        example.add(DeckOfCards.getCardByValSuit("K", "♢"));
+//        example.add(DeckOfCards.getCardByValSuit("Q", "♢"));
         int
                 cntFlashRoyal = 0,
                 cntStreetFlash = 0,
@@ -21,7 +23,11 @@ public class PokerChance {
                 cntHighCard = 0;
         ArrayList<Card> deal = new ArrayList<>();
         PokerComboEnum res;
-        for (int i = 0; i < 1000000; i++) {
+        int count = 10000000;
+        for (int i = 0; i < count; i++) {
+            if (i == count / 4) System.out.println("25% done");
+            if (i == count / 2) System.out.println("50% done");
+            if (i == count / 2 + count / 4) System.out.println("75% done");
             deal.addAll(example);
             deal.addAll(DeckOfCards.getShuffledDeck().subList(0, 5));
             res = getComboEnum(deal);
@@ -67,19 +73,19 @@ public class PokerChance {
             }
             deal.clear();
         }
-        System.out.println("Flash Royal  = " + cntFlashRoyal);
-        System.out.println("Street Flash = " + cntStreetFlash);
-        System.out.println("Care         = " + cntCare);
-        System.out.println("Full House   = " + cntFullHouse);
-        System.out.println("Flash        = " + cntFlash);
-        System.out.println("Street       = " + cntStreet);
-        System.out.println("Set          = " + cntSet);
-        System.out.println("Pairs        = " + cntPairs);
-        System.out.println("Pair         = " + cntPair);
-        System.out.println("High Card    = " + cntHighCard);
+        System.out.println("Flash Royal  = " + 100.0 * cntFlashRoyal / count + "%");
+        System.out.println("Street Flash = " + 100.0 * cntStreetFlash / count + "%");
+        System.out.println("Care         = " + 100.0 * cntCare / count + "%");
+        System.out.println("Full House   = " + 100.0 * cntFullHouse / count + "%");
+        System.out.println("Flash        = " + 100.0 * cntFlash / count + "%");
+        System.out.println("Street       = " + 100.0 * cntStreet / count + "%");
+        System.out.println("Set          = " + 100.0 * cntSet / count + "%");
+        System.out.println("Pairs        = " + 100.0 * cntPairs / count + "%");
+        System.out.println("Pair         = " + 100.0 * cntPair / count + "%");
+        System.out.println("High Card    = " + 100.0 * cntHighCard / count + "%");
         System.out.println("Total        = " + (cntFlashRoyal +
                 cntStreetFlash + cntCare + cntFullHouse + cntFlash + cntStreet +
-                cntSet + cntPairs + cntPair + cntHighCard));
+                cntSet + cntPairs + cntPair + cntHighCard) * 100.0 / count + "%");
 
 //        ArrayList<Card> example = new ArrayList<>();
 //        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
