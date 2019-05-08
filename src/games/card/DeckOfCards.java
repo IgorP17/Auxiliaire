@@ -87,17 +87,35 @@ public final class DeckOfCards {
     }
 
     // Constructor
+    // TODO - nax? if it is not now singleton
     DeckOfCards() {
 
     }
 
     /**
+     * WARNING!!! THIS RETURN FULL DECK
+     * May be you mean method with excluded cards?
      * Get shuffled deck
      *
      * @return - Array list of cards shuffled
      */
     public static ArrayList<Card> getShuffledDeck() {
         ArrayList<Card> result = arrayCards;
+        Collections.shuffle(result);
+        return result;
+    }
+
+    /**
+     * Get shuffled deck with exclusions
+     * @param exclude - list of cards to exclude
+     * @return - shuffled list exclude necessary cards
+     */
+    public static ArrayList<Card> getShuffledDeckExclude(ArrayList<Card> exclude){
+        ArrayList<Card> result = arrayCards;
+        for (Card c:
+             exclude) {
+            result.remove(c);
+        }
         Collections.shuffle(result);
         return result;
     }
@@ -118,6 +136,17 @@ public final class DeckOfCards {
         return null;
     }
 
+    /**
+     * Print list of cards in row
+     * @param cards - list of cards
+     */
+    public static void printCards(ArrayList<Card> cards){
+        for (Card c:
+             cards) {
+            System.out.print(c.getCardValue() + c.getSuit() + " ");
+        }
+        System.out.println();
+    }
 
     public static void main(String[] args) {
         ArrayList<Card> deck = DeckOfCards.getShuffledDeck();

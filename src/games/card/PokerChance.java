@@ -29,10 +29,20 @@ public class PokerChance {
             if (i == count / 2) System.out.println("50% done");
             if (i == count / 2 + count / 4) System.out.println("75% done");
             deal.addAll(example);
-            deal.addAll(DeckOfCards.getShuffledDeck().subList(0, 5));
+            // TODO This is wrong - we can have the same cards from example - need new excluded method
+            deal.addAll(DeckOfCards.getShuffledDeckExclude(example).subList(0, 5));
+            // TODO check if we have the SAME cards - оставим подпорочку
+            for (int j = 2; j < deal.size(); j++) {
+                if (deal.get(0).equals(deal.get(j)) || deal.get(1).equals(deal.get(j))){
+                    System.out.println("Ooooooops! identical cards in deal, i = " + i);
+                    DeckOfCards.printCards(deal);
+                    System.exit(1);
+                }
+            }
             res = getComboEnum(deal);
             if (res == null) {
                 System.out.println("res is null!!");
+                System.exit(1);
             } else {
                 switch (res) {
                     case FLASHROYAL:
