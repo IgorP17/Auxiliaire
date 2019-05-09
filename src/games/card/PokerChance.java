@@ -22,64 +22,48 @@ public class PokerChance {
                 cntPair = 0,
                 cntHighCard = 0;
         ArrayList<Card> deal = new ArrayList<>();
-        PokerComboEnum res;
         int count = 10000000;
         for (int i = 0; i < count; i++) {
             if (i == count / 4) System.out.println("25% done");
             if (i == count / 2) System.out.println("50% done");
             if (i == count / 2 + count / 4) System.out.println("75% done");
             deal.addAll(example);
-            // TODO This is wrong - we can have the same cards from example - need new excluded method
             deal.addAll(DeckOfCards.getShuffledDeckExclude(example).subList(0, 5));
-            // TODO check if we have the SAME cards - оставим подпорочку
-            for (int j = 2; j < deal.size(); j++) {
-                if (deal.get(0).equals(deal.get(j)) || deal.get(1).equals(deal.get(j))){
-                    System.out.println("Ooooooops! identical cards in deal, i = " + i);
-                    DeckOfCards.printCards(deal);
+            switch (getComboEnum(deal)) {
+                case FLASHROYAL:
+                    cntFlashRoyal++;
+                    break;
+                case STREETFLASH:
+                    cntStreetFlash++;
+                    break;
+                case CARE:
+                    cntCare++;
+                    break;
+                case FULLHOUSE:
+                    cntFullHouse++;
+                    break;
+                case FLASH:
+                    cntFlash++;
+                    break;
+                case STREET:
+                    cntStreet++;
+                    break;
+                case SET:
+                    cntSet++;
+                    break;
+                case PAIRS:
+                    cntPairs++;
+                    break;
+                case PAIR:
+                    cntPair++;
+                    break;
+                case HIGHCARD:
+                    cntHighCard++;
+                    break;
+                default:
+                    System.out.println("WTF!!!");
                     System.exit(1);
-                }
-            }
-            res = getComboEnum(deal);
-            if (res == null) {
-                System.out.println("res is null!!");
-                System.exit(1);
-            } else {
-                switch (res) {
-                    case FLASHROYAL:
-                        cntFlashRoyal++;
-                        break;
-                    case STREETFLASH:
-                        cntStreetFlash++;
-                        break;
-                    case CARE:
-                        cntCare++;
-                        break;
-                    case FULLHOUSE:
-                        cntFullHouse++;
-                        break;
-                    case FLASH:
-                        cntFlash++;
-                        break;
-                    case STREET:
-                        cntStreet++;
-                        break;
-                    case SET:
-                        cntSet++;
-                        break;
-                    case PAIRS:
-                        cntPairs++;
-                        break;
-                    case PAIR:
-                        cntPair++;
-                        break;
-                    case HIGHCARD:
-                        cntHighCard++;
-                        break;
-                    default:
-                        System.out.println("WTF!!!");
-                        System.exit(1);
 
-                }
             }
             deal.clear();
         }
@@ -263,20 +247,16 @@ public class PokerChance {
             }
         }
         String cardValues = cardValuesBuilder.toString();
-//        System.out.println("DEBUG is street" + cardValues);
 
-        boolean result =
-                cardValues.contains("AKQJ10") ||
-                        cardValues.contains("KQJ109") ||
-                        cardValues.contains("QJ1098") ||
-                        cardValues.contains("J10987") ||
-                        cardValues.contains("109876") ||
-                        cardValues.contains("98765") ||
-                        cardValues.contains("87654") ||
-                        cardValues.contains("76543") ||
-                        cardValues.contains("65432");
-//        System.out.println("DEBUG Street will return - " + result);
-        return result;
+        return cardValues.contains("AKQJ10") ||
+                cardValues.contains("KQJ109") ||
+                cardValues.contains("QJ1098") ||
+                cardValues.contains("J10987") ||
+                cardValues.contains("109876") ||
+                cardValues.contains("98765") ||
+                cardValues.contains("87654") ||
+                cardValues.contains("76543") ||
+                cardValues.contains("65432");
     }
 
     /**
@@ -308,9 +288,7 @@ public class PokerChance {
                     break;
             }
         }
-        boolean result = (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
-//        System.out.println("DEBUG Flash will return - " + result);
-        return result;
+        return (countSpade > 4) || (countClub > 4) || (countHearts > 4) || (countDiamond > 4);
     }
 
     /**
