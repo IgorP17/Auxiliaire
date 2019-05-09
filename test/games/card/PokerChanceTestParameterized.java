@@ -56,8 +56,8 @@ public class PokerChanceTestParameterized {
             System.out.println(c.getCardValue() + c.getSuit());
         }
         System.out.println("Expecting - " + expectedCombo);
-        System.out.println("Actual - " + PokerChance.getComboEnum(example));
-        Assert.assertTrue("If expecting equals actual", PokerChance.getComboEnum(example) == expectedCombo);
+        System.out.println("Actual - " + PokerComboGetter.getComboEnum(example));
+        Assert.assertTrue("If expecting equals actual", PokerComboGetter.getComboEnum(example) == expectedCombo);
     }
 
     /**
