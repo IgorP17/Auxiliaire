@@ -1,10 +1,41 @@
 package games.card;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class PokerChance {
 
+    private static ArrayList<Card> firstHand, secondHand;
+
+    private static ArrayList<Card> getHandFromConsole(String hand){
+        System.out.println("Please enter " + hand);
+        System.out.print("Valid input is like: ");
+        System.out.println("Valid Values of card: A K Q J 10 9 8 7 6 5 4 3 2");
+        System.out.println("Valid Suits: ♤ ♧ ♡ ♢");
+
+        BufferedReader reader = null;
+        String in;
+
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            in = reader.readLine();
+            // TODO
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
+        System.out.println("Welcome!");
+
+        firstHand = getHandFromConsole("First Hand");
+
+        System.exit(0);
+
+
         ArrayList<Card> example = new ArrayList<>();
         example.add(DeckOfCards.getCardByValSuit("A", "♤"));
         example.add(DeckOfCards.getCardByValSuit("A", "♧"));
@@ -80,16 +111,5 @@ public class PokerChance {
         System.out.println("Total        = " + (cntFlashRoyal +
                 cntStreetFlash + cntCare + cntFullHouse + cntFlash + cntStreet +
                 cntSet + cntPairs + cntPair + cntHighCard) * 100.0 / count + "%");
-
-//        ArrayList<Card> example = new ArrayList<>();
-//        example.add(DeckOfCards.getCardByValSuit("K", "♤"));
-//        example.add(DeckOfCards.getCardByValSuit("9", "♤"));
-//        example.add(DeckOfCards.getCardByValSuit("9", "♧"));
-//        example.add(DeckOfCards.getCardByValSuit("9", "♢"));
-//        example.add(DeckOfCards.getCardByValSuit("9", "♡"));
-//        example.add(DeckOfCards.getCardByValSuit("J", "♧"));
-//        example.add(DeckOfCards.getCardByValSuit("J", "♡"));
-//
-//        System.out.println(getComboEnum(example));
     }
 }
