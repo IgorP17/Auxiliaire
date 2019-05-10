@@ -1,5 +1,7 @@
 package games.card;
 
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -141,11 +143,16 @@ public final class DeckOfCards {
      * @param cards - list of cards
      */
     public static void printCards(ArrayList<Card> cards){
-        for (Card c:
-             cards) {
-            System.out.print(c.getCardValue() + c.getSuit() + " ");
+        try {
+            PrintStream ps = new PrintStream(System.out, true, "UTF-8");
+            for (Card c:
+                    cards) {
+                ps.print(c.getCardValue() + c.getSuit() + " ");
+            }
+            System.out.println();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-        System.out.println();
     }
 
     public static void main(String[] args) {

@@ -1,19 +1,24 @@
 package games.card;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class PokerChance {
 
-    private static ArrayList<Card> firstHand, secondHand;
+    private static ArrayList<Card> firstHand = new ArrayList<>();
+    private static ArrayList<Card> secondHand = new ArrayList<>();
     private static int count = 1000000;
     private static char[] animationChars = new char[]{'|', '/', '-', '\\'};
 
 
     public static void main(String[] args) {
+        System.out.println("Reading config...");
         readConfig("Hands.txt");
+        System.out.println("Done!");
+        System.out.println("First hand:");
+        DeckOfCards.printCards(firstHand);
+        System.out.println("Second hand:");
+        DeckOfCards.printCards(secondHand);
 
 
         System.exit(0);
@@ -106,21 +111,43 @@ public class PokerChance {
                 cntSet + cntPairs + cntPair + cntHighCard) * 100.0 / count + "%");
     }
 
+    /**
+     * Read config with UTF-8 support
+     * @param s - path to config
+     */
     private static void readConfig(String s) {
-        try (BufferedReader br = new BufferedReader(new FileReader(s))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                new FileInputStream(s), "UTF8"))) {
             String line = br.readLine();
             while (line != null) {
                 line = line.trim();
                 if (!line.equalsIgnoreCase("") &&
-                        !line.startsWith("#")){
-                    if (line.startsWith("Hands")){
+                        !line.startsWith("#")) {
+                    if (line.startsWith("Hands")) {
                         String vals = line.split("=")[1];
-                        System.out.println(vals);
+                        String[] cards = vals.split(";");
+                        String hand1Card1 = cards[0].split(",")[0];
+                        String hand1Card2 = cards[0].split(",")[1];
+                        String hand2Card1 = cards[1].split(",")[0];
+                        String hand2Card2 = cards[1].split(",")[1];
+
+                        firstHand.add(DeckOfCards.getCardByValSuit(
+                                hand1Card1.substring(0, hand1Card1.length() - 1),
+                                hand1Card1.substring(hand1Card1.length() - 1)));
+                        firstHand.add(DeckOfCards.getCardByValSuit(
+                                hand1Card2.substring(0, hand1Card2.length() - 1),
+                                hand1Card2.substring(hand1Card2.length() - 1)));
+                        secondHand.add(DeckOfCards.getCardByValSuit(
+                                hand2Card1.substring(0, hand2Card1.length() - 1),
+                                hand2Card1.substring(hand2Card1.length() - 1)));
+                        secondHand.add(DeckOfCards.getCardByValSuit(
+                                hand2Card2.substring(0, hand2Card2.length() - 1),
+                                hand2Card2.substring(hand2Card2.length() - 1)));
                     }
                 }
                 line = br.readLine();
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
