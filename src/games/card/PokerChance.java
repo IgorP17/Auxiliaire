@@ -1,6 +1,8 @@
 package games.card;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PokerChance {
@@ -9,62 +11,13 @@ public class PokerChance {
     private static int count = 1000000;
     private static char[] animationChars = new char[]{'|', '/', '-', '\\'};
 
-    private static ArrayList<Card> getHandFromConsole(String hand) {
-        System.out.println("Please enter " + hand);
-        System.out.println("Valid input is like: A♦ K♣");
-        System.out.println("Valid Values of card: A K Q J 10 9 8 7 6 5 4 3 2");
-        System.out.println("Valid Suits: ♠ ♣ ♥ ♦ ♠♣♥♦");
-
-        try {
-            PrintStream ps = new PrintStream(System.out, true, "UTF-8");
-            ps.println("111Valid Suits: ♠ ♣ ♥ ♦ ♠♣♥♦");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        ArrayList<Card> result = new ArrayList<>();
-        BufferedReader reader;
-        String in;
-
-        reader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            in = reader.readLine();
-            String[] s = in.split(" ");
-            Card c1 = DeckOfCards.getCardByValSuit(
-                    s[0].substring(0, s[0].length() - 1),
-                    s[0].substring(s[0].length() - 1));
-            Card c2 = DeckOfCards.getCardByValSuit(
-                    s[1].substring(0, s[0].length() - 1),
-                    s[1].substring(s[0].length() - 1));
-            result.add(c1);
-            result.add(c2);
-            return result;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private static void getCount() {
-        System.out.println("Enter number of deals [default 1M, press enter]:");
-        BufferedReader reader;
-        String in;
-        reader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            in = reader.readLine();
-            count = Integer.parseInt(in);
-        } catch (Exception e) {
-            System.out.println("Defaulting to 1M");
-        }
-    }
 
     public static void main(String[] args) {
-        System.out.println("Welcome!");
+        readConfig("Hands.txt");
 
-        firstHand = getHandFromConsole("First Hand");
-        secondHand = getHandFromConsole("Second Hand");
 
-        getCount();
+        System.exit(0);
+
         int percentage = count / 100;
         System.out.println(percentage);
 
@@ -151,5 +104,24 @@ public class PokerChance {
         System.out.println("Total        = " + (cntFlashRoyal +
                 cntStreetFlash + cntCare + cntFullHouse + cntFlash + cntStreet +
                 cntSet + cntPairs + cntPair + cntHighCard) * 100.0 / count + "%");
+    }
+
+    private static void readConfig(String s) {
+        try (BufferedReader br = new BufferedReader(new FileReader(s))) {
+            String line = br.readLine();
+            while (line != null) {
+                line = line.trim();
+                if (!line.equalsIgnoreCase("") &&
+                        !line.startsWith("#")){
+                    if (line.startsWith("Hands")){
+                        String vals = line.split("=")[1];
+                        System.out.println(vals);
+                    }
+                }
+                line = br.readLine();
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

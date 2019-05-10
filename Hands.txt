@@ -1,0 +1,5 @@
+# Define for deals
+# Valid Values of card: A K Q J 10 9 8 7 6 5 4 3 2
+# Valid Suits: ♠ ♣ ♥ ♦
+# Define 2 Hands like A♠,A♣;K♥,Q♥
+Hands=A♠,A♣;K♥,Q♥
