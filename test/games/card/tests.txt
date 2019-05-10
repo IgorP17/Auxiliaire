@@ -1,80 +1,80 @@
 # Comment;Cards sep=,;Expected(0 - Flash Royal...)
 # Flash Royals - 0
-Test Flash Royal ♤;A♤,K♤,Q♤,J♤,10♤,10♧,10♡;0
-Test Flash Royal ♧;2♤,K♧,Q♧,J♧,K♤,A♧,10♧;0
-Test Flash Royal ♡;2♤,K♧,10♡,J♡,Q♡,K♡,A♡;0
-Test Flash Royal ♢;2♢,K♢,10♢,J♢,Q♢,K♡,A♢;0
-Test Flash Royal - Street Flash;2♢,K♢,10♢,J♢,Q♢,K♡,9♢;1
-Test Flash Royal - Street but not flash;A♤,K♤,Q♤,J♤,10♡,9♡,8♡;5
+Test Flash Royal ♠;A♠,K♠,Q♠,J♠,10♠,10♣,10♥;0
+Test Flash Royal ♣;2♠,K♣,Q♣,J♣,K♠,A♣,10♣;0
+Test Flash Royal ♥;2♠,K♣,10♥,J♥,Q♥,K♥,A♥;0
+Test Flash Royal ♦;2♦,K♦,10♦,J♦,Q♦,K♥,A♦;0
+Test Flash Royal - Street Flash;2♦,K♦,10♦,J♦,Q♦,K♥,9♦;1
+Test Flash Royal - Street but not flash;A♠,K♠,Q♠,J♠,10♥,9♥,8♥;5
 # Street Flash - 1
-Test Street Flash ♤;K♤,Q♤,J♤,10♤,9♤,10♧,10♡;1
-Test Street Flash ♧;9♧,2♤,10♧,J♧,Q♧,K♧,A♡;1
-Test Street Flash ♡;2♡,3♡,10♧,J♧,4♡,5♡,6♡;1
-Test Street Flash ♢;J♢,8♢,10♢,J♧,Q♢,5♡,9♢;1
-Test Street Flash - Street but not flash;J♢,8♢,10♢,J♧,Q♧,5♡,9♢;5
-Test Street Flash - Flash but not street;A♢,Q♢,10♢,8♢,6♢,5♡,9♡;4
+Test Street Flash ♠;K♠,Q♠,J♠,10♠,9♠,10♣,10♥;1
+Test Street Flash ♣;9♣,2♠,10♣,J♣,Q♣,K♣,A♥;1
+Test Street Flash ♥;2♥,3♥,10♣,J♣,4♥,5♥,6♥;1
+Test Street Flash ♦;J♦,8♦,10♦,J♣,Q♦,5♥,9♦;1
+Test Street Flash - Street but not flash;J♦,8♦,10♦,J♣,Q♣,5♥,9♦;5
+Test Street Flash - Flash but not street;A♦,Q♦,10♦,8♦,6♦,5♥,9♥;4
 # Care - 2
-Test Care A;A♤,A♧,A♢,A♡,9♤,10♧,10♡;2
-Test Care K;K♤,K♧,K♢,9♤,K♡,10♧,10♡;2
-Test Care Q;Q♤,Q♢,Q♧,9♤,Q♡,10♧,10♡;2
-Test Care J;J♤,J♧,J♢,9♤,J♡,10♧,10♡;2
-Test Care 10;10♤,10♧,10♢,9♤,10♡,J♧,J♡;2
-Test Care 9;K♤,9♤,9♧,9♡,9♢,J♧,J♡;2
-Test Care 8;K♤,8♤,8♧,8♡,J♧,8♢,J♡;2
-Test Care 7;K♤,7♤,7♧,7♡,J♧,J♡,7♢;2
-Test Care 6;K♤,6♤,6♧,J♧,6♡,J♡,6♢;2
-Test Care 5;K♤,5♤,J♧,5♧,5♡,J♡,5♢;2
-Test Care 4;4♤,K♤,J♧,4♧,4♡,J♡,4♢;2
-Test Care 3;3♤,K♤,3♧,J♧,3♡,J♡,3♢;2
-Test Care 2;2♤,K♢,2♧,J♧,2♡,J♢,2♢;2
-Test Care - full house;2♤,K♢,2♧,J♧,2♡,J♢,Q♢;3
+Test Care A;A♠,A♣,A♦,A♥,9♠,10♣,10♥;2
+Test Care K;K♠,K♣,K♦,9♠,K♥,10♣,10♥;2
+Test Care Q;Q♠,Q♦,Q♣,9♠,Q♥,10♣,10♥;2
+Test Care J;J♠,J♣,J♦,9♠,J♥,10♣,10♥;2
+Test Care 10;10♠,10♣,10♦,9♠,10♥,J♣,J♥;2
+Test Care 9;K♠,9♠,9♣,9♥,9♦,J♣,J♥;2
+Test Care 8;K♠,8♠,8♣,8♥,J♣,8♦,J♥;2
+Test Care 7;K♠,7♠,7♣,7♥,J♣,J♥,7♦;2
+Test Care 6;K♠,6♠,6♣,J♣,6♥,J♥,6♦;2
+Test Care 5;K♠,5♠,J♣,5♣,5♥,J♥,5♦;2
+Test Care 4;4♠,K♠,J♣,4♣,4♥,J♥,4♦;2
+Test Care 3;3♠,K♠,3♣,J♣,3♥,J♥,3♦;2
+Test Care 2;2♠,K♦,2♣,J♣,2♥,J♦,2♦;2
+Test Care - full house;2♠,K♦,2♣,J♣,2♥,J♦,Q♦;3
 # Full House - 3
-Test Full House AAA1010;A♤,A♧,A♢,8♡,9♤,10♧,10♡;3
-Test Full House 1010AAA;10♧,10♡,9♤,A♤,A♧,8♡,A♢;3
-Test Full House JJJ22;J♤,J♧,J♢,8♡,2♧,9♤,2♡;3
-Test Full House 22JJJ;2♧,9♤,2♡,J♤,J♧,8♡,J♢;3
-Test Full House - set;2♧,2♤,2♡,10♤,Q♧,8♡,J♢;6
-Test Full House - only 2 pairs;2♧,9♤,2♡,J♤,J♧,8♡,Q♢;7
+Test Full House AAA1010;A♠,A♣,A♦,8♥,9♠,10♣,10♥;3
+Test Full House 1010AAA;10♣,10♥,9♠,A♠,A♣,8♥,A♦;3
+Test Full House JJJ22;J♠,J♣,J♦,8♥,2♣,9♠,2♥;3
+Test Full House 22JJJ;2♣,9♠,2♥,J♠,J♣,8♥,J♦;3
+Test Full House - set;2♣,2♠,2♥,10♠,Q♣,8♥,J♦;6
+Test Full House - only 2 pairs;2♣,9♠,2♥,J♠,J♣,8♥,Q♦;7
 # Flash - 4
-Test Flash ♤;A♤,Q♧,10♤,8♡,6♤,4♤,2♤;4
-Test Flash ♧;K♡,J♧,10♧,9♧,8♧,6♧,2♢;4
-Test Flash ♡;K♡,J♧,10♡,9♡,8♡,6♡,2♢;4
-Test Flash ♢;K♢,J♢,10♡,9♢,8♡,6♢,2♢;4
+Test Flash ♠;A♠,Q♣,10♠,8♥,6♠,4♠,2♠;4
+Test Flash ♣;K♥,J♣,10♣,9♣,8♣,6♣,2♦;4
+Test Flash ♥;K♥,J♣,10♥,9♥,8♥,6♥,2♦;4
+Test Flash ♦;K♦,J♦,10♥,9♦,8♥,6♦,2♦;4
 # Street - 5
-Test Street A;A♤,K♧,Q♡,J♢,10♤,4♧,3♡;5
-Test Street K;2♤,K♧,Q♡,J♢,10♤,9♧,3♡;5
-Test Street Q;2♤,3♤,Q♡,J♢,10♤,9♧,8♡;5
-Test Street J;7♤,3♤,A♡,J♢,10♤,9♧,8♡;5
-Test Street 10;7♤,6♤,A♡,K♢,10♤,9♧,8♡;5
-Test Street 9;7♤,6♤,5♡,Q♢,Q♤,9♧,8♡;5
-Test Street 8;7♤,6♤,5♡,4♢,Q♤,Q♧,8♡;5
-Test Street 7;7♤,6♤,5♡,4♢,3♤,Q♧,Q♡;5
-Test Street 6;Q♤,6♤,5♡,4♢,3♤,Q♧,2♡;5
-Test Street - only 4;Q♤,6♤,5♡,J♢,3♤,Q♧,2♡;8
+Test Street A;A♠,K♣,Q♥,J♦,10♠,4♣,3♥;5
+Test Street K;2♠,K♣,Q♥,J♦,10♠,9♣,3♥;5
+Test Street Q;2♠,3♠,Q♥,J♦,10♠,9♣,8♥;5
+Test Street J;7♠,3♠,A♥,J♦,10♠,9♣,8♥;5
+Test Street 10;7♠,6♠,A♥,K♦,10♠,9♣,8♥;5
+Test Street 9;7♠,6♠,5♥,Q♦,Q♠,9♣,8♥;5
+Test Street 8;7♠,6♠,5♥,4♦,Q♠,Q♣,8♥;5
+Test Street 7;7♠,6♠,5♥,4♦,3♠,Q♣,Q♥;5
+Test Street 6;Q♠,6♠,5♥,4♦,3♠,Q♣,2♥;5
+Test Street - only 4;Q♠,6♠,5♥,J♦,3♠,Q♣,2♥;8
 # Set - 6
-Test Set A;A♤,K♧,A♡,A♢,10♤,4♧,3♡;6
-Test Set 10;K♤,10♧,A♡,10♢,10♤,4♧,3♡;6
-Test Set 2;2♤,K♧,A♡,2♢,10♤,4♧,2♡;6
+Test Set A;A♠,K♣,A♥,A♦,10♠,4♣,3♥;6
+Test Set 10;K♠,10♣,A♥,10♦,10♠,4♣,3♥;6
+Test Set 2;2♠,K♣,A♥,2♦,10♠,4♣,2♥;6
 # Pairs - 7
-Test Pairs Aces and 2;A♤,K♧,A♡,2♢,10♤,4♧,2♡;7
-Test Pairs K and 10;A♤,K♧,10♡,2♢,10♤,4♧,K♡;7
-Test Pairs Q and J;J♤,J♧,Q♡,2♢,10♤,Q♧,K♡;7
-Test Pairs Q and J and 10;J♤,J♧,Q♡,10♢,10♤,Q♧,K♡;7
+Test Pairs Aces and 2;A♠,K♣,A♥,2♦,10♠,4♣,2♥;7
+Test Pairs K and 10;A♠,K♣,10♥,2♦,10♠,4♣,K♥;7
+Test Pairs Q and J;J♠,J♣,Q♥,2♦,10♠,Q♣,K♥;7
+Test Pairs Q and J and 10;J♠,J♣,Q♥,10♦,10♠,Q♣,K♥;7
 # Pair - 8
-Test Pair A;A♤,K♧,A♡,2♢,10♤,4♧,3♡;8
-Test Pair K;A♤,K♧,K♡,2♢,10♤,4♧,3♡;8
-Test Pair Q;A♤,K♧,Q♡,Q♢,10♤,4♧,3♡;8
-Test Pair J;A♤,K♧,J♡,Q♢,J♤,4♧,3♡;8
-Test Pair 10;10♤,K♧,10♡,Q♢,J♤,4♧,3♡;8
-Test Pair 9;10♤,K♧,9♡,9♢,J♤,4♧,3♡;8
-Test Pair 8;10♤,K♧,9♡,8♢,8♤,4♧,3♡;8
-Test Pair 7;10♤,K♧,9♡,8♢,7♤,7♧,3♡;8
-Test Pair 6;10♤,K♧,9♡,8♢,J♤,6♧,6♡;8
-Test Pair 5;10♤,5♧,9♡,8♢,J♤,6♧,5♡;8
-Test Pair 4;10♤,5♧,9♡,8♢,J♤,4♧,4♡;8
-Test Pair 3;3♤,5♧,9♡,8♢,J♤,Q♧,3♡;8
-Test Pair 2;2♤,5♧,2♡,8♢,J♤,Q♧,4♡;8
+Test Pair A;A♠,K♣,A♥,2♦,10♠,4♣,3♥;8
+Test Pair K;A♠,K♣,K♥,2♦,10♠,4♣,3♥;8
+Test Pair Q;A♠,K♣,Q♥,Q♦,10♠,4♣,3♥;8
+Test Pair J;A♠,K♣,J♥,Q♦,J♠,4♣,3♥;8
+Test Pair 10;10♠,K♣,10♥,Q♦,J♠,4♣,3♥;8
+Test Pair 9;10♠,K♣,9♥,9♦,J♠,4♣,3♥;8
+Test Pair 8;10♠,K♣,9♥,8♦,8♠,4♣,3♥;8
+Test Pair 7;10♠,K♣,9♥,8♦,7♠,7♣,3♥;8
+Test Pair 6;10♠,K♣,9♥,8♦,J♠,6♣,6♥;8
+Test Pair 5;10♠,5♣,9♥,8♦,J♠,6♣,5♥;8
+Test Pair 4;10♠,5♣,9♥,8♦,J♠,4♣,4♥;8
+Test Pair 3;3♠,5♣,9♥,8♦,J♠,Q♣,3♥;8
+Test Pair 2;2♠,5♣,2♥,8♦,J♠,Q♣,4♥;8
 # High Card - 9
-High A;2♤,5♧,3♡,8♢,J♤,Q♧,A♡;9
-High Q;2♤,5♧,3♡,8♢,J♤,Q♧,4♡;9
-High 9;2♤,3♧,4♡,9♢,5♤,7♧,8♡;9
+High A;2♠,5♣,3♥,8♦,J♠,Q♣,A♥;9
+High Q;2♠,5♣,3♥,8♦,J♠,Q♣,4♥;9
+High 9;2♠,3♣,4♥,9♦,5♠,7♣,8♥;9

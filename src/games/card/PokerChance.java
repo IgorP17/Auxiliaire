@@ -1,46 +1,86 @@
 package games.card;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 
 public class PokerChance {
 
     private static ArrayList<Card> firstHand, secondHand;
+    private static int count = 1000000;
+    private static char[] animationChars = new char[]{'|', '/', '-', '\\'};
 
-    private static ArrayList<Card> getHandFromConsole(String hand){
+    private static ArrayList<Card> getHandFromConsole(String hand) {
         System.out.println("Please enter " + hand);
-        System.out.print("Valid input is like: ");
+        System.out.println("Valid input is like: A♦ K♣");
         System.out.println("Valid Values of card: A K Q J 10 9 8 7 6 5 4 3 2");
-        System.out.println("Valid Suits: ♤ ♧ ♡ ♢");
+        System.out.println("Valid Suits: ♠ ♣ ♥ ♦ ♠♣♥♦");
 
-        BufferedReader reader = null;
+        try {
+            PrintStream ps = new PrintStream(System.out, true, "UTF-8");
+            ps.println("111Valid Suits: ♠ ♣ ♥ ♦ ♠♣♥♦");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Card> result = new ArrayList<>();
+        BufferedReader reader;
         String in;
 
         reader = new BufferedReader(new InputStreamReader(System.in));
         try {
             in = reader.readLine();
-            // TODO
+            String[] s = in.split(" ");
+            Card c1 = DeckOfCards.getCardByValSuit(
+                    s[0].substring(0, s[0].length() - 1),
+                    s[0].substring(s[0].length() - 1));
+            Card c2 = DeckOfCards.getCardByValSuit(
+                    s[1].substring(0, s[0].length() - 1),
+                    s[1].substring(s[0].length() - 1));
+            result.add(c1);
+            result.add(c2);
+            return result;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
+    private static void getCount() {
+        System.out.println("Enter number of deals [default 1M, press enter]:");
+        BufferedReader reader;
+        String in;
+        reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            in = reader.readLine();
+            count = Integer.parseInt(in);
+        } catch (Exception e) {
+            System.out.println("Defaulting to 1M");
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Welcome!");
 
         firstHand = getHandFromConsole("First Hand");
+        secondHand = getHandFromConsole("Second Hand");
 
+        getCount();
+        int percentage = count / 100;
+        System.out.println(percentage);
+
+        for (int i = 0; i < count; i++) {
+
+            System.out.print("Processing: " + i + "% " + animationChars[i % 4] + "\r");
+        }
+        System.out.println("Processing: Done!          ");
         System.exit(0);
 
 
         ArrayList<Card> example = new ArrayList<>();
-        example.add(DeckOfCards.getCardByValSuit("A", "♤"));
-        example.add(DeckOfCards.getCardByValSuit("A", "♧"));
-//        example.add(DeckOfCards.getCardByValSuit("K", "♢"));
-//        example.add(DeckOfCards.getCardByValSuit("Q", "♢"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♠"));
+        example.add(DeckOfCards.getCardByValSuit("A", "♣"));
+//        example.add(DeckOfCards.getCardByValSuit("K", "♦"));
+//        example.add(DeckOfCards.getCardByValSuit("Q", "♦"));
         int
                 cntFlashRoyal = 0,
                 cntStreetFlash = 0,

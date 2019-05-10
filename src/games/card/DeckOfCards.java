@@ -20,70 +20,70 @@ public final class DeckOfCards {
     static {
         arrayCards = new ArrayList<>();
         // Aces
-        arrayCards.add(new Card("A", "♤"));
-        arrayCards.add(new Card("A", "♧"));
-        arrayCards.add(new Card("A", "♡"));
-        arrayCards.add(new Card("A", "♢"));
+        arrayCards.add(new Card("A", "♠"));
+        arrayCards.add(new Card("A", "♣"));
+        arrayCards.add(new Card("A", "♥"));
+        arrayCards.add(new Card("A", "♦"));
         // Kings
-        arrayCards.add(new Card("K", "♤"));
-        arrayCards.add(new Card("K", "♧"));
-        arrayCards.add(new Card("K", "♡"));
-        arrayCards.add(new Card("K", "♢"));
+        arrayCards.add(new Card("K", "♠"));
+        arrayCards.add(new Card("K", "♣"));
+        arrayCards.add(new Card("K", "♥"));
+        arrayCards.add(new Card("K", "♦"));
         // Queens
-        arrayCards.add(new Card("Q", "♤"));
-        arrayCards.add(new Card("Q", "♧"));
-        arrayCards.add(new Card("Q", "♡"));
-        arrayCards.add(new Card("Q", "♢"));
+        arrayCards.add(new Card("Q", "♠"));
+        arrayCards.add(new Card("Q", "♣"));
+        arrayCards.add(new Card("Q", "♥"));
+        arrayCards.add(new Card("Q", "♦"));
         // Jack
-        arrayCards.add(new Card("J", "♤"));
-        arrayCards.add(new Card("J", "♧"));
-        arrayCards.add(new Card("J", "♡"));
-        arrayCards.add(new Card("J", "♢"));
+        arrayCards.add(new Card("J", "♠"));
+        arrayCards.add(new Card("J", "♣"));
+        arrayCards.add(new Card("J", "♥"));
+        arrayCards.add(new Card("J", "♦"));
         // 10
-        arrayCards.add(new Card("10", "♤"));
-        arrayCards.add(new Card("10", "♧"));
-        arrayCards.add(new Card("10", "♡"));
-        arrayCards.add(new Card("10", "♢"));
+        arrayCards.add(new Card("10", "♠"));
+        arrayCards.add(new Card("10", "♣"));
+        arrayCards.add(new Card("10", "♥"));
+        arrayCards.add(new Card("10", "♦"));
         // 9
-        arrayCards.add(new Card("9", "♤"));
-        arrayCards.add(new Card("9", "♧"));
-        arrayCards.add(new Card("9", "♡"));
-        arrayCards.add(new Card("9", "♢"));
+        arrayCards.add(new Card("9", "♠"));
+        arrayCards.add(new Card("9", "♣"));
+        arrayCards.add(new Card("9", "♥"));
+        arrayCards.add(new Card("9", "♦"));
         // 8
-        arrayCards.add(new Card("8", "♤"));
-        arrayCards.add(new Card("8", "♧"));
-        arrayCards.add(new Card("8", "♡"));
-        arrayCards.add(new Card("8", "♢"));
+        arrayCards.add(new Card("8", "♠"));
+        arrayCards.add(new Card("8", "♣"));
+        arrayCards.add(new Card("8", "♥"));
+        arrayCards.add(new Card("8", "♦"));
         // 7
-        arrayCards.add(new Card("7", "♤"));
-        arrayCards.add(new Card("7", "♧"));
-        arrayCards.add(new Card("7", "♡"));
-        arrayCards.add(new Card("7", "♢"));
+        arrayCards.add(new Card("7", "♠"));
+        arrayCards.add(new Card("7", "♣"));
+        arrayCards.add(new Card("7", "♥"));
+        arrayCards.add(new Card("7", "♦"));
         // 6
-        arrayCards.add(new Card("6", "♤"));
-        arrayCards.add(new Card("6", "♧"));
-        arrayCards.add(new Card("6", "♡"));
-        arrayCards.add(new Card("6", "♢"));
+        arrayCards.add(new Card("6", "♠"));
+        arrayCards.add(new Card("6", "♣"));
+        arrayCards.add(new Card("6", "♥"));
+        arrayCards.add(new Card("6", "♦"));
         // 5
-        arrayCards.add(new Card("5", "♤"));
-        arrayCards.add(new Card("5", "♧"));
-        arrayCards.add(new Card("5", "♡"));
-        arrayCards.add(new Card("5", "♢"));
+        arrayCards.add(new Card("5", "♠"));
+        arrayCards.add(new Card("5", "♣"));
+        arrayCards.add(new Card("5", "♥"));
+        arrayCards.add(new Card("5", "♦"));
         // 4
-        arrayCards.add(new Card("4", "♤"));
-        arrayCards.add(new Card("4", "♧"));
-        arrayCards.add(new Card("4", "♡"));
-        arrayCards.add(new Card("4", "♢"));
+        arrayCards.add(new Card("4", "♠"));
+        arrayCards.add(new Card("4", "♣"));
+        arrayCards.add(new Card("4", "♥"));
+        arrayCards.add(new Card("4", "♦"));
         // 3
-        arrayCards.add(new Card("3", "♤"));
-        arrayCards.add(new Card("3", "♧"));
-        arrayCards.add(new Card("3", "♡"));
-        arrayCards.add(new Card("3", "♢"));
+        arrayCards.add(new Card("3", "♠"));
+        arrayCards.add(new Card("3", "♣"));
+        arrayCards.add(new Card("3", "♥"));
+        arrayCards.add(new Card("3", "♦"));
         // 2
-        arrayCards.add(new Card("2", "♤"));
-        arrayCards.add(new Card("2", "♧"));
-        arrayCards.add(new Card("2", "♡"));
-        arrayCards.add(new Card("2", "♢"));
+        arrayCards.add(new Card("2", "♠"));
+        arrayCards.add(new Card("2", "♣"));
+        arrayCards.add(new Card("2", "♥"));
+        arrayCards.add(new Card("2", "♦"));
     }
 
     // Constructor
@@ -124,7 +124,7 @@ public final class DeckOfCards {
      * Get Card in Deck by Val an Suite
      *
      * @param val  - Value, A,K,Q,J,10...
-     * @param suit - Suit ♤♧♡♢
+     * @param suit - Suit ♠♣♥♦
      * @return - Card object
      */
     public static Card getCardByValSuit(String val, String suit) {

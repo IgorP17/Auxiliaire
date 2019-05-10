@@ -45,29 +45,29 @@ public class PokerComboGetter {
     private static boolean isFlashRoyal(ArrayList<Card> someCards) {
 
         return
-                (someCards.contains(DeckOfCards.getCardByValSuit("A", "♤")) &&
-                        someCards.contains(DeckOfCards.getCardByValSuit("K", "♤")) &&
-                        someCards.contains(DeckOfCards.getCardByValSuit("Q", "♤")) &&
-                        someCards.contains(DeckOfCards.getCardByValSuit("J", "♤")) &&
-                        someCards.contains(DeckOfCards.getCardByValSuit("10", "♤")))
+                (someCards.contains(DeckOfCards.getCardByValSuit("A", "♠")) &&
+                        someCards.contains(DeckOfCards.getCardByValSuit("K", "♠")) &&
+                        someCards.contains(DeckOfCards.getCardByValSuit("Q", "♠")) &&
+                        someCards.contains(DeckOfCards.getCardByValSuit("J", "♠")) &&
+                        someCards.contains(DeckOfCards.getCardByValSuit("10", "♠")))
                         ||
-                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♧")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♧")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♧")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♧")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♧")))
+                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♣")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♣")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♣")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♣")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♣")))
                         ||
-                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♡")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♡")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♡")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♡")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♡")))
+                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♥")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♥")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♥")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♥")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♥")))
                         ||
-                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♢")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♢")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♢")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♢")) &&
-                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♢")));
+                        (someCards.contains(DeckOfCards.getCardByValSuit("A", "♦")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("K", "♦")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("Q", "♦")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("J", "♦")) &&
+                                someCards.contains(DeckOfCards.getCardByValSuit("10", "♦")));
     }
 
     /**
@@ -185,16 +185,16 @@ public class PokerComboGetter {
         for (Card c :
                 someCards) {
             switch (c.getSuit()) {
-                case "♤":
+                case "♠":
                     countSpade++;
                     break;
-                case "♧":
+                case "♣":
                     countClub++;
                     break;
-                case "♡":
+                case "♥":
                     countHearts++;
                     break;
-                case "♢":
+                case "♦":
                     countDiamond++;
                     break;
             }

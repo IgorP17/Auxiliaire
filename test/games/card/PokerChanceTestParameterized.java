@@ -31,17 +31,17 @@ public class PokerChanceTestParameterized {
     @Parameterized.Parameters(name = "{index}: {0}")
     public static Collection<Object[]> data() {
 //        ArrayList<Card> example1 = new ArrayList<>();
-//        example1.add(DeckOfCards.getCardByValSuit("A", "♤"));
-//        example1.add(DeckOfCards.getCardByValSuit("K", "♤"));
-//        example1.add(DeckOfCards.getCardByValSuit("Q", "♤"));
-//        example1.add(DeckOfCards.getCardByValSuit("J", "♤"));
-//        example1.add(DeckOfCards.getCardByValSuit("10", "♤"));
-//        example1.add(DeckOfCards.getCardByValSuit("10", "♧"));
-//        example1.add(DeckOfCards.getCardByValSuit("10", "♡"));
+//        example1.add(DeckOfCards.getCardByValSuit("A", "♠"));
+//        example1.add(DeckOfCards.getCardByValSuit("K", "♠"));
+//        example1.add(DeckOfCards.getCardByValSuit("Q", "♠"));
+//        example1.add(DeckOfCards.getCardByValSuit("J", "♠"));
+//        example1.add(DeckOfCards.getCardByValSuit("10", "♠"));
+//        example1.add(DeckOfCards.getCardByValSuit("10", "♣"));
+//        example1.add(DeckOfCards.getCardByValSuit("10", "♥"));
 
 //        Object[][] data = new Object[][]{
-//                {"Test Flash Royal ♤", example1, PokerComboEnum.FLASHROYAL},
-//                {"Test Flash Royal ♤", example1, PokerComboEnum.FLASHROYAL}
+//                {"Test Flash Royal ♠", example1, PokerComboEnum.FLASHROYAL},
+//                {"Test Flash Royal ♠", example1, PokerComboEnum.FLASHROYAL}
 //        };
 
 //        return Arrays.asList(data);
@@ -101,7 +101,7 @@ public class PokerChanceTestParameterized {
     /**
      * Create ArrayList of Cards from String
      *
-     * @param s - smth like A♤,K♤,Q♤,J♤,10♤,10♧,10♡
+     * @param s - smth like A♠,K♠,Q♠,J♠,10♠,10♣,10♥
      * @return - ArrayList of Cards
      */
     private static ArrayList<Card> getArrayListOfCards(String s) {
