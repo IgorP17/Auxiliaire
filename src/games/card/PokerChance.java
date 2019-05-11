@@ -2,12 +2,13 @@ package games.card;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PokerChance {
 
     private static ArrayList<Card> firstHand = new ArrayList<>();
     private static ArrayList<Card> secondHand = new ArrayList<>();
-    private static int count = 1000000;
+    private static int count = 10000000;
     private static char[] animationChars = new char[]{'|', '/', '-', '\\'};
 
 
@@ -19,16 +20,38 @@ public class PokerChance {
         DeckOfCards.printCards(firstHand);
         System.out.println("Second hand:");
         DeckOfCards.printCards(secondHand);
+        System.out.println("Number of Deals = " + count);
 
-
-        System.exit(0);
-
-        int percentage = count / 100;
-        System.out.println(percentage);
-
+        int percCounter = count / 100;
+        int percentage = 0;
+        ArrayList<Card> firstHandDeal = new ArrayList<>();
+        ArrayList<Card> secondHandDeal = new ArrayList<>();
+        ArrayList<Card> deal = new ArrayList<>();
+        ArrayList<Card> exclude = new ArrayList<>();
+        exclude.addAll(firstHand);
+        exclude.addAll(secondHand);
+        System.out.print("Processing: " + 0 + "% " + animationChars[0 % 4] + "\r");
         for (int i = 0; i < count; i++) {
+            // Show progress
+            if (i == percCounter) {
+                percCounter += count / 100;
+                System.out.print("Processing: " + percentage + "% " + animationChars[percentage % 4] + "\r");
+                percentage += 1;
+            }
+            // Get 5 random cards
+            deal = (ArrayList<Card>) DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
+            // add first hand and deal
+            firstHandDeal.addAll(firstHand);
+            firstHandDeal.addAll(deal);
+            // add second hand and deal
+            secondHandDeal.addAll(secondHand);
+            secondHandDeal.addAll(deal);
 
-            System.out.print("Processing: " + i + "% " + animationChars[i % 4] + "\r");
+
+            // clear hands deal
+            deal.clear();
+            firstHandDeal.clear();
+            secondHandDeal.clear();
         }
         System.out.println("Processing: Done!          ");
         System.exit(0);
@@ -50,7 +73,7 @@ public class PokerChance {
                 cntPairs = 0,
                 cntPair = 0,
                 cntHighCard = 0;
-        ArrayList<Card> deal = new ArrayList<>();
+//        ArrayList<Card> deal = new ArrayList<>();
         int count = 10000000;
         for (int i = 0; i < count; i++) {
             if (i == count / 4) System.out.println("25% done");
@@ -113,6 +136,7 @@ public class PokerChance {
 
     /**
      * Read config with UTF-8 support
+     *
      * @param s - path to config
      */
     private static void readConfig(String s) {
@@ -143,6 +167,8 @@ public class PokerChance {
                         secondHand.add(DeckOfCards.getCardByValSuit(
                                 hand2Card2.substring(0, hand2Card2.length() - 1),
                                 hand2Card2.substring(hand2Card2.length() - 1)));
+                    } else if (line.startsWith("Deals")){
+                        count = Integer.parseInt(line.split("=")[1]);
                     }
                 }
                 line = br.readLine();

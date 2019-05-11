@@ -3,3 +3,4 @@
 # Valid Suits: ♠ ♣ ♥ ♦
 # Define 2 Hands like A♠,A♣;K♥,Q♥
 Hands=A♠,A♣;K♥,Q♥
+Deals=1000000
