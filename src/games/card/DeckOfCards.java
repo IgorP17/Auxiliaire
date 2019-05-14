@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * DeckOfCards - singleton
@@ -142,7 +143,7 @@ public final class DeckOfCards {
      * Print list of cards in row
      * @param cards - list of cards
      */
-    public static void printCards(ArrayList<Card> cards){
+    public static void printCards(List<Card> cards){
         try {
             PrintStream ps = new PrintStream(System.out, true, "UTF-8");
             for (Card c:

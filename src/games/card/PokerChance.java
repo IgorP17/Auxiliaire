@@ -2,6 +2,7 @@ package games.card;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PokerChance {
 
@@ -13,7 +14,8 @@ public class PokerChance {
 
     public static void main(String[] args) {
         System.out.println("Reading config...");
-        readConfig("Hands.txt");
+        // read config
+        readConfig();
         System.out.println("Done!");
         System.out.println("First hand:");
         DeckOfCards.printCards(firstHand);
@@ -25,8 +27,9 @@ public class PokerChance {
         int percentage = 0;
         ArrayList<Card> firstHandDeal = new ArrayList<>();
         ArrayList<Card> secondHandDeal = new ArrayList<>();
-        ArrayList<Card> deal = new ArrayList<>();
+        List<Card> deal;
         ArrayList<Card> exclude = new ArrayList<>();
+
         exclude.addAll(firstHand);
         exclude.addAll(secondHand);
         System.out.print("Processing: " + 0 + "% " + animationChars[0 % 4] + "\r");
@@ -38,13 +41,15 @@ public class PokerChance {
                 percentage += 1;
             }
             // Get 5 random cards
-            deal = (ArrayList<Card>) DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
+            deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0,5);
+            System.out.println("Deal is:");
+            DeckOfCards.printCards(deal);
             // add first hand and deal
             firstHandDeal.addAll(firstHand);
-            firstHandDeal.addAll(deal);
+            firstHandDeal.addAll(deal.subList(0, 5));
             // add second hand and deal
             secondHandDeal.addAll(secondHand);
-            secondHandDeal.addAll(deal);
+            secondHandDeal.addAll(deal.subList(0, 5));
 
 
             // clear hands deal
@@ -56,7 +61,7 @@ public class PokerChance {
         System.exit(0);
 
 
-        ArrayList<Card> example = new ArrayList<>();
+/*        ArrayList<Card> example = new ArrayList<>();
         example.add(DeckOfCards.getCardByValSuit("A", "♠"));
         example.add(DeckOfCards.getCardByValSuit("A", "♣"));
 //        example.add(DeckOfCards.getCardByValSuit("K", "♦"));
@@ -131,16 +136,16 @@ public class PokerChance {
         System.out.println("Total        = " + (cntFlashRoyal +
                 cntStreetFlash + cntCare + cntFullHouse + cntFlash + cntStreet +
                 cntSet + cntPairs + cntPair + cntHighCard) * 100.0 / count + "%");
+                */
     }
 
     /**
      * Read config with UTF-8 support
      *
-     * @param s - path to config
      */
-    private static void readConfig(String s) {
+    private static void readConfig() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                new FileInputStream(s), "UTF8"))) {
+                new FileInputStream("Hands.txt"), "UTF8"))) {
             String line = br.readLine();
             while (line != null) {
                 line = line.trim();
@@ -166,7 +171,7 @@ public class PokerChance {
                         secondHand.add(DeckOfCards.getCardByValSuit(
                                 hand2Card2.substring(0, hand2Card2.length() - 1),
                                 hand2Card2.substring(hand2Card2.length() - 1)));
-                    } else if (line.startsWith("Deals")){
+                    } else if (line.startsWith("Deals")) {
                         count = Integer.parseInt(line.split("=")[1]);
                     }
                 }
