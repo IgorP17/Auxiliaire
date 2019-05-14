@@ -29,6 +29,9 @@ public class PokerChance {
         ArrayList<Card> secondHandDeal = new ArrayList<>();
         List<Card> deal;
         ArrayList<Card> exclude = new ArrayList<>();
+        int[][] wins = {
+                {0, 0, 0},
+                {0, 0, 0}};// first hand wins, lose, draw, second hand the same
 
         exclude.addAll(firstHand);
         exclude.addAll(secondHand);
@@ -41,7 +44,7 @@ public class PokerChance {
                 percentage += 1;
             }
             // Get 5 random cards
-            deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0,5);
+            deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
             System.out.println("Deal is:");
             DeckOfCards.printCards(deal);
             // add first hand and deal
@@ -51,6 +54,9 @@ public class PokerChance {
             secondHandDeal.addAll(secondHand);
             secondHandDeal.addAll(deal.subList(0, 5));
 
+            // TODO Check unique
+
+            // TODO check win hand
 
             // clear hands deal
             deal.clear();
@@ -58,6 +64,13 @@ public class PokerChance {
             secondHandDeal.clear();
         }
         System.out.println("Processing: Done!          ");
+
+        System.out.println("Fisrt hand\t\t" + wins[0][0]
+                + "\t" + wins[0][1] + "\t" + wins[0][2]);
+
+        System.out.println("Second hand\t\t" + wins[1][0]
+                + "\t" + wins[1][1] + "\t" + wins[1][2]);
+
         System.exit(0);
 
 
@@ -141,7 +154,6 @@ public class PokerChance {
 
     /**
      * Read config with UTF-8 support
-     *
      */
     private static void readConfig() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
