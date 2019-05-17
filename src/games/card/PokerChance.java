@@ -38,14 +38,14 @@ public class PokerChance {
         System.out.print("Processing: " + 0 + "% " + animationChars[0 % 4] + "\r");
         for (int i = 0; i < count; i++) {
             // Show progress
-            if (i == percCounter) {
+            /*if (i == percCounter) {
                 percCounter += count / 100;
                 System.out.print("Processing: " + percentage + "% " + animationChars[percentage % 4] + "\r");
                 percentage += 1;
-            }
+            }*/
             // Get 5 random cards
             deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
-            System.out.println("Deal is:");
+            System.out.println("Deal number " + i + " is:");
             DeckOfCards.printCards(deal);
             // add first hand and deal
             firstHandDeal.addAll(firstHand);
@@ -54,7 +54,12 @@ public class PokerChance {
             secondHandDeal.addAll(secondHand);
             secondHandDeal.addAll(deal.subList(0, 5));
 
-            // TODO Check unique
+            // check if we have unique deal
+            if (!DeckOfCards.checkUnique(firstHandDeal) ||
+                            !DeckOfCards.checkUnique(secondHandDeal)) {
+                System.out.println("ERROR! Deal is not unique");
+                System.exit(1);
+            }
 
             // TODO check win hand
 
@@ -71,7 +76,6 @@ public class PokerChance {
         System.out.println("Second hand\t\t" + wins[1][0]
                 + "\t" + wins[1][1] + "\t" + wins[1][2]);
 
-        System.exit(0);
 
 
 /*        ArrayList<Card> example = new ArrayList<>();

@@ -30,4 +30,26 @@ public class DeckOfCardsTest {
         Assert.assertEquals("Last idx = 51", 51, deck.get(51).getIdx());
         System.out.println("Test OK");
     }
+
+    /**
+     * Test method unique
+     */
+    @Test
+    public void testUnique(){
+        ArrayList<Card> test = new ArrayList<>();
+        System.out.println("Test 1 - all unique");
+        test.add(DeckOfCards.getCardByValSuit("A", "♠"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♣"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♥"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♦"));
+        Assert.assertTrue("All cards are NOT different", DeckOfCards.checkUnique(test));
+
+        System.out.println("Test 2 - not all unique");
+        test.clear();
+        test.add(DeckOfCards.getCardByValSuit("A", "♠"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♣"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♣"));
+        test.add(DeckOfCards.getCardByValSuit("A", "♦"));
+        Assert.assertFalse("Cards ARE different", DeckOfCards.checkUnique(test));
+    }
 }

@@ -110,13 +110,14 @@ public final class DeckOfCards {
 
     /**
      * Get shuffled deck with exclusions
+     *
      * @param exclude - list of cards to exclude
      * @return - shuffled list exclude necessary cards
      */
-    public static ArrayList<Card> getShuffledDeckExclude(ArrayList<Card> exclude){
+    public static ArrayList<Card> getShuffledDeckExclude(ArrayList<Card> exclude) {
         ArrayList<Card> result = arrayCards;
-        for (Card c:
-             exclude) {
+        for (Card c :
+                exclude) {
             result.remove(c);
         }
         Collections.shuffle(result);
@@ -141,12 +142,13 @@ public final class DeckOfCards {
 
     /**
      * Print list of cards in row
+     *
      * @param cards - list of cards
      */
-    public static void printCards(List<Card> cards){
+    public static void printCards(List<Card> cards) {
         try {
             PrintStream ps = new PrintStream(System.out, true, "UTF-8");
-            for (Card c:
+            for (Card c :
                     cards) {
                 ps.print(c.getCardValue() + c.getSuit() + " ");
             }
@@ -154,6 +156,28 @@ public final class DeckOfCards {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Check if list of cards is unique
+     *
+     * @param arrayCards - list of cards
+     * @return - true if unique
+     */
+    public static boolean checkUnique(ArrayList<Card> arrayCards) {
+        int len = arrayCards.size();
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                // skip current card under check
+                if (i == j) continue;
+                if (arrayCards.get(i) == arrayCards.get(j)) {
+                    System.out.println("WARNING! Found duplicates:");
+                    printCards(arrayCards);
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
