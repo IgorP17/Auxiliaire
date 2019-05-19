@@ -116,11 +116,14 @@ public final class DeckOfCards {
      */
     public static ArrayList<Card> getShuffledDeckExclude(ArrayList<Card> exclude) {
         ArrayList<Card> result = arrayCards;
+        System.out.println("Excluding");
+        printCards(exclude);
         for (Card c :
                 exclude) {
             result.remove(c);
         }
         Collections.shuffle(result);
+        System.out.println("shuffled: " + result.size());
         return result;
     }
 

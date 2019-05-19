@@ -32,6 +32,7 @@ public class PokerChance {
         int[][] wins = {
                 {0, 0, 0},
                 {0, 0, 0}};// first hand wins, lose, draw, second hand the same
+        PokerComboEnum firstE, secondE;
 
         exclude.addAll(firstHand);
         exclude.addAll(secondHand);
@@ -49,10 +50,10 @@ public class PokerChance {
             DeckOfCards.printCards(deal);
             // add first hand and deal
             firstHandDeal.addAll(firstHand);
-            firstHandDeal.addAll(deal.subList(0, 5));
+            firstHandDeal.addAll(deal);
             // add second hand and deal
             secondHandDeal.addAll(secondHand);
-            secondHandDeal.addAll(deal.subList(0, 5));
+            secondHandDeal.addAll(deal);
 
             // check if we have unique deal
             if (!DeckOfCards.checkUnique(firstHandDeal) ||
@@ -61,7 +62,26 @@ public class PokerChance {
                 System.exit(1);
             }
 
-            // TODO check win hand
+            // check winner
+            firstE = PokerComboGetter.getComboEnum(firstHandDeal);
+            secondE = PokerComboGetter.getComboEnum(secondHandDeal);
+//            System.out.println(firstE + " " + secondE);
+            if (firstE.getPriority() < secondE.getPriority()){
+                // first hand win
+//                System.out.println("First hand win!");
+                wins[0][0]++;
+                wins[1][1]++;
+            } else if (firstE.getPriority() > secondE.getPriority()){
+                // second hand win
+//                System.out.println("Second hand win!");
+                wins[0][1]++;
+                wins[1][0]++;
+            } else {
+                // draw
+//                System.out.println("Draw!");
+                wins[0][2]++;
+                wins[1][2]++;
+            }
 
             // clear hands deal
             deal.clear();
@@ -70,11 +90,12 @@ public class PokerChance {
         }
         System.out.println("Processing: Done!          ");
 
+        System.out.println("Results\t\t\tWIN\t\tLOS\t\tDRAW");
         System.out.println("Fisrt hand\t\t" + wins[0][0]
-                + "\t" + wins[0][1] + "\t" + wins[0][2]);
+                + "\t\t" + wins[0][1] + "\t\t" + wins[0][2]);
 
         System.out.println("Second hand\t\t" + wins[1][0]
-                + "\t" + wins[1][1] + "\t" + wins[1][2]);
+                + "\t\t" + wins[1][1] + "\t\t" + wins[1][2]);
 
 
 
