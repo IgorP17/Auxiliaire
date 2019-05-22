@@ -39,15 +39,15 @@ public class PokerChance {
         System.out.print("Processing: " + 0 + "% " + animationChars[0 % 4] + "\r");
         for (int i = 0; i < count; i++) {
             // Show progress
-            /*if (i == percCounter) {
+            if (i == percCounter) {
                 percCounter += count / 100;
                 System.out.print("Processing: " + percentage + "% " + animationChars[percentage % 4] + "\r");
                 percentage += 1;
-            }*/
+            }
             // Get 5 random cards
             deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
-            System.out.println("Deal number " + i + " is:");
-            DeckOfCards.printCards(deal);
+//            System.out.println("Deal number " + i + " is:");
+//            DeckOfCards.printCards(deal);
             // add first hand and deal
             firstHandDeal.addAll(firstHand);
             firstHandDeal.addAll(deal);
@@ -57,7 +57,7 @@ public class PokerChance {
 
             // check if we have unique deal
             if (!DeckOfCards.checkUnique(firstHandDeal) ||
-                            !DeckOfCards.checkUnique(secondHandDeal)) {
+                    !DeckOfCards.checkUnique(secondHandDeal)) {
                 System.out.println("ERROR! Deal is not unique");
                 System.exit(1);
             }
@@ -66,12 +66,12 @@ public class PokerChance {
             firstE = PokerComboGetter.getComboEnum(firstHandDeal);
             secondE = PokerComboGetter.getComboEnum(secondHandDeal);
 //            System.out.println(firstE + " " + secondE);
-            if (firstE.getPriority() < secondE.getPriority()){
+            if (firstE.getPriority() < secondE.getPriority()) {
                 // first hand win
 //                System.out.println("First hand win!");
                 wins[0][0]++;
                 wins[1][1]++;
-            } else if (firstE.getPriority() > secondE.getPriority()){
+            } else if (firstE.getPriority() > secondE.getPriority()) {
                 // second hand win
 //                System.out.println("Second hand win!");
                 wins[0][1]++;
@@ -91,11 +91,13 @@ public class PokerChance {
         System.out.println("Processing: Done!          ");
 
         System.out.println("Results\t\t\tWIN\t\tLOS\t\tDRAW");
-        System.out.println("Fisrt hand\t\t" + wins[0][0]
-                + "\t\t" + wins[0][1] + "\t\t" + wins[0][2]);
+        System.out.println("Fisrt hand\t\t" + Math.round(wins[0][0] * 100.0 / count)
+                + "%\t\t" + Math.round(wins[0][1] * 100.0 / count)
+                + "%\t\t" + Math.round(wins[0][2] * 100.0 / count) + "%");
 
-        System.out.println("Second hand\t\t" + wins[1][0]
-                + "\t\t" + wins[1][1] + "\t\t" + wins[1][2]);
+        System.out.println("Second hand\t\t" + Math.round(wins[1][0] * 100.0 / count)
+                + "%\t\t" + Math.round(wins[1][1] * 100.0 / count)
+                + "%\t\t" + Math.round(wins[1][2] * 100.0 / count) + "%");
 
 
 

@@ -115,15 +115,15 @@ public final class DeckOfCards {
      * @return - shuffled list exclude necessary cards
      */
     public static ArrayList<Card> getShuffledDeckExclude(ArrayList<Card> exclude) {
-        ArrayList<Card> result = arrayCards;
-        System.out.println("Excluding");
-        printCards(exclude);
+        ArrayList<Card> result = new ArrayList<>(arrayCards);
+//        System.out.println("Excluding");
+//        printCards(exclude);
         for (Card c :
                 exclude) {
             result.remove(c);
         }
         Collections.shuffle(result);
-        System.out.println("shuffled: " + result.size());
+//        System.out.println("shuffled: " + result.size());
         return result;
     }
 
