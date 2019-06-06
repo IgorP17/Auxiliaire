@@ -250,5 +250,5 @@ public class PokerChance {
         result.put(PokerComboEnum.PAIR, 0);
         result.put(PokerComboEnum.HIGHCARD, 0);
         return result;
-    };
+    }
 }
