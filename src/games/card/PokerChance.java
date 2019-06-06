@@ -47,8 +47,8 @@ public class PokerChance {
             }
             // Get 5 random cards
             deal = DeckOfCards.getShuffledDeckExclude(exclude).subList(0, 5);
-//            System.out.println("Deal number " + i + " is:");
-//            DeckOfCards.printCards(deal);
+            System.out.println("Deal number " + i + " is:");
+            DeckOfCards.printCards(deal);
             // add first hand and deal
             firstHandDeal.addAll(firstHand);
             firstHandDeal.addAll(deal);
@@ -69,17 +69,17 @@ public class PokerChance {
 //            System.out.println(firstE + " " + secondE);
             if (firstE.getPriority() < secondE.getPriority()) {
                 // first hand win
-//                System.out.println("First hand win!");
+                System.out.println("First hand win! With " + firstE);
                 wins[0][0]++;
                 wins[1][1]++;
             } else if (firstE.getPriority() > secondE.getPriority()) {
                 // second hand win
-//                System.out.println("Second hand win!");
+                System.out.println("Second hand win! With " + secondE);
                 wins[0][1]++;
                 wins[1][0]++;
             } else {
                 // draw
-//                System.out.println("Draw!");
+                System.out.println("Draw! " + firstE + " " + secondE);
                 wins[0][2]++;
                 wins[1][2]++;
             }
@@ -104,12 +104,16 @@ public class PokerChance {
                 + "%\t\t" + Math.round(wins[1][1] * 100.0 / count)
                 + "%\t\t" + Math.round(wins[1][2] * 100.0 / count) + "%");
 
+        System.out.println("==================================");
         // print stat for hand
-        for (PokerComboEnum pokerComboEnum:
-             mapFirstHand.keySet()) {
-            String key = pokerComboEnum.toString();
-            String value = mapFirstHand.get(pokerComboEnum).toString();
-            System.out.println(key + " " + value);
+        PokerComboEnum[] pke = PokerComboEnum.values();
+        // sort
+        Arrays.sort(pke, Comparator.comparingInt(PokerComboEnum::getPriority));
+        for (PokerComboEnum pokerComboEnum :
+                pke) {
+           System.out.printf("%-15s%-15d%d%n", pokerComboEnum,
+                   mapFirstHand.get(pokerComboEnum),
+                   mapSecondHand.get(pokerComboEnum));
         }
 
 
@@ -235,9 +239,10 @@ public class PokerChance {
 
     /**
      * Init HashMap with result combinations
+     *
      * @return - init HashMap
      */
-    private static HashMap<PokerComboEnum, Integer> initHandMap(){
+    private static HashMap<PokerComboEnum, Integer> initHandMap() {
         HashMap<PokerComboEnum, Integer> result = new HashMap<>();
         result.put(PokerComboEnum.FLASHROYAL, 0);
         result.put(PokerComboEnum.STREETFLASH, 0);
