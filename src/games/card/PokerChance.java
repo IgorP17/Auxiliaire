@@ -1,8 +1,7 @@
 package games.card;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PokerChance {
 
@@ -33,6 +32,8 @@ public class PokerChance {
                 {0, 0, 0},
                 {0, 0, 0}};// first hand wins, lose, draw, second hand the same
         PokerComboEnum firstE, secondE;
+        HashMap<PokerComboEnum, Integer> mapFirstHand = initHandMap();
+        HashMap<PokerComboEnum, Integer> mapSecondHand = initHandMap();
 
         exclude.addAll(firstHand);
         exclude.addAll(secondHand);
@@ -82,6 +83,9 @@ public class PokerChance {
                 wins[0][2]++;
                 wins[1][2]++;
             }
+            // fill HashMap
+            mapFirstHand.replace(firstE, mapFirstHand.get(firstE) + 1);
+            mapSecondHand.replace(secondE, mapFirstHand.get(secondE) + 1);
 
             // clear hands deal
             deal.clear();
@@ -90,6 +94,7 @@ public class PokerChance {
         }
         System.out.println("Processing: Done!          ");
 
+        // print results
         System.out.println("Results\t\t\tWIN\t\tLOS\t\tDRAW");
         System.out.println("Fisrt hand\t\t" + Math.round(wins[0][0] * 100.0 / count)
                 + "%\t\t" + Math.round(wins[0][1] * 100.0 / count)
@@ -99,6 +104,13 @@ public class PokerChance {
                 + "%\t\t" + Math.round(wins[1][1] * 100.0 / count)
                 + "%\t\t" + Math.round(wins[1][2] * 100.0 / count) + "%");
 
+        // print stat for hand
+        for (PokerComboEnum pokerComboEnum:
+             mapFirstHand.keySet()) {
+            String key = pokerComboEnum.toString();
+            String value = mapFirstHand.get(pokerComboEnum).toString();
+            System.out.println(key + " " + value);
+        }
 
 
 /*        ArrayList<Card> example = new ArrayList<>();
@@ -220,4 +232,23 @@ public class PokerChance {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Init HashMap with result combinations
+     * @return - init HashMap
+     */
+    private static HashMap<PokerComboEnum, Integer> initHandMap(){
+        HashMap<PokerComboEnum, Integer> result = new HashMap<>();
+        result.put(PokerComboEnum.FLASHROYAL, 0);
+        result.put(PokerComboEnum.STREETFLASH, 0);
+        result.put(PokerComboEnum.CARE, 0);
+        result.put(PokerComboEnum.FULLHOUSE, 0);
+        result.put(PokerComboEnum.FLASH, 0);
+        result.put(PokerComboEnum.STREET, 0);
+        result.put(PokerComboEnum.SET, 0);
+        result.put(PokerComboEnum.PAIRS, 0);
+        result.put(PokerComboEnum.PAIR, 0);
+        result.put(PokerComboEnum.HIGHCARD, 0);
+        return result;
+    };
 }
