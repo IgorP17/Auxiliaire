@@ -79,6 +79,7 @@ public class PokerChance {
                 wins[1][0]++;
             } else {
                 // draw
+                // TODO check high cards
 //                System.out.println("Draw! " + firstE + " " + secondE);
                 wins[0][2]++;
                 wins[1][2]++;
