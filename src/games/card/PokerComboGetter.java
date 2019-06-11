@@ -9,7 +9,7 @@ public class PokerComboGetter {
      * @param someCards - list of cards
      * @return - ENUM of high hand
      */
-    public static PokerComboEnum getComboEnum(ArrayList<Card> someCards) {
+    static PokerComboEnum getComboEnum(ArrayList<Card> someCards) {
 
         if (someCards == null) return null;
 
@@ -35,6 +35,83 @@ public class PokerComboGetter {
 
         return PokerComboEnum.HIGHCARD;
     }
+
+    /**
+     * Get high combination of first or second hand
+     *
+     * @param firstHand  - first hand cards
+     * @param secondHand - second hand cards
+     * @param deal       - deal
+     * @return - 0 if hands are equals, 1 - if first hand stronger, 2 - if second hand stronger
+     */
+    public static int getHighCombo(
+            ArrayList<Card> firstHand,
+            ArrayList<Card> secondHand,
+            ArrayList<Card> deal
+    ) {
+        // Create first hand
+        ArrayList<Card> first = new ArrayList<>();
+        first.addAll(firstHand);
+        first.addAll(deal);
+        // Create second hand
+        ArrayList<Card> second = new ArrayList<>();
+        second.addAll(secondHand);
+        second.addAll(deal);
+        // Get ENUM
+        PokerComboEnum pokerComboEnumFirst = getComboEnum(first);
+        PokerComboEnum pokerComboEnumSecond = getComboEnum(second);
+
+        // if priority of first hand higher(0 is high) - return 1
+        assert pokerComboEnumFirst != null;
+        assert pokerComboEnumSecond != null;
+        if (pokerComboEnumFirst.getPriority() < pokerComboEnumSecond.getPriority()) {
+            return 1;
+            // else lower
+        } else if (pokerComboEnumFirst.getPriority() > pokerComboEnumSecond.getPriority()) {
+            return 2;
+            // else we need investigate!
+        } else {
+            // no matter on with hand switching
+            switch (pokerComboEnumSecond) {
+                // in case of flash royal draw
+                case FLASHROYAL:
+                    return 0;
+                case STREETFLASH:
+                    //TODO
+                    return 0;
+                case CARE:
+                    // TODO
+                    return 4;
+                case FULLHOUSE:
+                    // TODO
+                    return 5;
+                case FLASH:
+                    // TODO
+                    return 6;
+                case STREET:
+                    // TODO
+                    return 7;
+                case SET:
+                    // TODO
+                    return 8;
+                case PAIRS:
+                    // TODO
+                    return 9;
+                case PAIR:
+                    // TODO
+                    return 10;
+                case HIGHCARD:
+                    // TODO
+                    return 11;
+                // IF enum isn't in scope - FAIL
+                default:
+                    System.out.println("Something is wrong, stop!");
+                    System.exit(1);
+                    return -1;
+            }
+        }
+    }
+
 
     /**
      * For FLASHROYAL we know all combinations
