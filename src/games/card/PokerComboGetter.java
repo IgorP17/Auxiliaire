@@ -160,7 +160,7 @@ public class PokerComboGetter {
     /**
      * If we have Care
      *
-     * @param someCards - list of cards
+     * @param someCards - list of cards a
      * @return - true if Care
      */
     private static boolean isCare(ArrayList<Card> someCards) {
