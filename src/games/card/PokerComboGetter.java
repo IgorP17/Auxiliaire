@@ -3,6 +3,9 @@ package games.card;
 import java.util.ArrayList;
 
 public class PokerComboGetter {
+
+    private static Card highCard;
+
     /**
      * Check high combination
      *
@@ -57,9 +60,20 @@ public class PokerComboGetter {
         ArrayList<Card> second = new ArrayList<>();
         second.addAll(secondHand);
         second.addAll(deal);
+
         // Get ENUM
         PokerComboEnum pokerComboEnumFirst = getComboEnum(first);
+        // Store high hand
+        Card firstHandHighCard = DeckOfCards.getCardByValSuit(highCard.getCardValue(), highCard.getSuit());
+        System.out.println(firstHandHighCard != null ? firstHandHighCard.toString() : null);
+        highCard = null;
+
+        // Second
         PokerComboEnum pokerComboEnumSecond = getComboEnum(second);
+        // Store high hand
+        Card secondHandHighCard = DeckOfCards.getCardByValSuit(highCard.getCardValue(), highCard.getSuit());
+        System.out.println(firstHandHighCard != null ? firstHandHighCard.toString() : null);
+        highCard = null;
 
         // if priority of first hand higher(0 is high) - return 1
         assert pokerComboEnumFirst != null;
@@ -74,6 +88,7 @@ public class PokerComboGetter {
             // no matter on with hand switching
             switch (pokerComboEnumSecond) {
                 // in case of flash royal draw
+                // BUT how? 2 flash royals in texas holdem
                 case FLASHROYAL:
                     return 0;
                 case STREETFLASH:
@@ -339,16 +354,23 @@ public class PokerComboGetter {
      * @return - true if we have pair
      */
     private static boolean isPair(ArrayList<Card> someCards) {
+        // sort cards
         someCards.sort(Card.cardComparator);
-        String[] s = new String[someCards.size()];
-        for (int i = 0; i < someCards.size(); i++) {
-            s[i] = someCards.get(i).getCardValue();
-        }
-        for (int i = 0; i < s.length - 1; i++) {
-            if (s[i].equalsIgnoreCase(s[i + 1])) {
+        // all other higher variants are checked, if we have i = i + 1 in sorted massive - we have pair
+        for (int i = 0; i < someCards.size() - 1; i++) {
+            if (someCards.get(i).getCardValue().equalsIgnoreCase(someCards.get(i + 1).getCardValue())) {
+                highCard = someCards.get(i);
                 return true;
             }
         }
         return false;
+    }
+
+
+    public static void main(String[] args) {
+        ArrayList<Card> firstHand = new ArrayList<>();
+        ArrayList<Card> secondHand = new ArrayList<>();
+        ArrayList<Card> deal = new ArrayList<>();
+
     }
 }

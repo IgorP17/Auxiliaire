@@ -37,6 +37,7 @@ public class PokerChance {
 
         exclude.addAll(firstHand);
         exclude.addAll(secondHand);
+        long ms = System.currentTimeMillis();
         System.out.print("Processing: " + 0 + "% " + animationChars[0 % 4] + "\r");
         for (int i = 0; i < count; i++) {
             // Show progress
@@ -97,7 +98,7 @@ public class PokerChance {
 
         // print results
         System.out.println("Results\t\t\tWIN\t\tLOS\t\tDRAW");
-        System.out.println("Fisrt hand\t\t" + Math.round(wins[0][0] * 100.0 / count)
+        System.out.println("First hand\t\t" + Math.round(wins[0][0] * 100.0 / count)
                 + "%\t\t" + Math.round(wins[0][1] * 100.0 / count)
                 + "%\t\t" + Math.round(wins[0][2] * 100.0 / count) + "%");
 
@@ -116,6 +117,8 @@ public class PokerChance {
                    mapFirstHand.get(pokerComboEnum),
                    mapSecondHand.get(pokerComboEnum));
         }
+        ms = System.currentTimeMillis() - ms;
+        System.out.println("Elapsed: " + ms + " ms");
     }
 
     /**

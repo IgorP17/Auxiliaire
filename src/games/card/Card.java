@@ -68,15 +68,28 @@ public class Card {
         return Objects.hash(idx);
     }
 
+    @Override
+    public String toString() {
+        return "Card{" +
+                "idx=" + idx +
+                ", power=" + power +
+                ", cardValue='" + cardValue + '\'' +
+                ", suit='" + suit + '\'' +
+                '}';
+    }
+
     public static void main(String[] args) {
         Card c1 = new Card("A", "♠", 0);
         Card c2 = new Card("A", "♣", 0);
         Card c3 = new Card("A", "♥", 0);
         Card c4 = new Card("A", "♦", 0);
+        Card c5 = new Card("K", "♦", 0);
         System.out.println(c1.getIdx() + c1.getCardValue() + c1.getSuit());
         System.out.println(c2.getIdx() + c2.getCardValue() + c2.getSuit());
         System.out.println(c3.getIdx() + c3.getCardValue() + c3.getSuit());
         System.out.println(c4.getIdx() + c4.getCardValue() + c4.getSuit());
-
+        System.out.println(c1.toString());
+        System.out.println(c2.toString());
+        System.out.println(c5.toString());
     }
 }

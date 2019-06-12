@@ -1,0 +1,16 @@
+Results			WIN		LOS		DRAW
+Fisrt hand		49%		17%		34%
+Second hand		17%		49%		34%
+==================================
+FLASHROYAL     50             578
+STREETFLASH    248            3939
+CARE           9226           1398
+FULLHOUSE      87382          24273
+FLASH          22564          68489
+STREET         6968           41162
+SET            122381         45398
+PAIRS          393408         228145
+PAIR           357773         420438
+HIGHCARD       0              166180
+
+Elapsed: 4692 ms
