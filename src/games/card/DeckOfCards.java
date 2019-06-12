@@ -23,77 +23,73 @@ public final class DeckOfCards {
     static {
         arrayCards = new ArrayList<>();
         // Aces
-        arrayCards.add(new Card("A", "♠"));
-        arrayCards.add(new Card("A", "♣"));
-        arrayCards.add(new Card("A", "♥"));
-        arrayCards.add(new Card("A", "♦"));
+        arrayCards.add(new Card("A", "♠", 0));
+        arrayCards.add(new Card("A", "♣", 0));
+        arrayCards.add(new Card("A", "♥", 0));
+        arrayCards.add(new Card("A", "♦", 0));
         // Kings
-        arrayCards.add(new Card("K", "♠"));
-        arrayCards.add(new Card("K", "♣"));
-        arrayCards.add(new Card("K", "♥"));
-        arrayCards.add(new Card("K", "♦"));
+        arrayCards.add(new Card("K", "♠", 1));
+        arrayCards.add(new Card("K", "♣", 1));
+        arrayCards.add(new Card("K", "♥", 1));
+        arrayCards.add(new Card("K", "♦", 1));
         // Queens
-        arrayCards.add(new Card("Q", "♠"));
-        arrayCards.add(new Card("Q", "♣"));
-        arrayCards.add(new Card("Q", "♥"));
-        arrayCards.add(new Card("Q", "♦"));
+        arrayCards.add(new Card("Q", "♠", 2));
+        arrayCards.add(new Card("Q", "♣", 2));
+        arrayCards.add(new Card("Q", "♥", 2));
+        arrayCards.add(new Card("Q", "♦", 2));
         // Jack
-        arrayCards.add(new Card("J", "♠"));
-        arrayCards.add(new Card("J", "♣"));
-        arrayCards.add(new Card("J", "♥"));
-        arrayCards.add(new Card("J", "♦"));
+        arrayCards.add(new Card("J", "♠", 3));
+        arrayCards.add(new Card("J", "♣", 3));
+        arrayCards.add(new Card("J", "♥", 3));
+        arrayCards.add(new Card("J", "♦", 3));
         // 10
-        arrayCards.add(new Card("10", "♠"));
-        arrayCards.add(new Card("10", "♣"));
-        arrayCards.add(new Card("10", "♥"));
-        arrayCards.add(new Card("10", "♦"));
+        arrayCards.add(new Card("10", "♠", 4));
+        arrayCards.add(new Card("10", "♣", 4));
+        arrayCards.add(new Card("10", "♥", 4));
+        arrayCards.add(new Card("10", "♦", 4));
         // 9
-        arrayCards.add(new Card("9", "♠"));
-        arrayCards.add(new Card("9", "♣"));
-        arrayCards.add(new Card("9", "♥"));
-        arrayCards.add(new Card("9", "♦"));
+        arrayCards.add(new Card("9", "♠", 5));
+        arrayCards.add(new Card("9", "♣", 5));
+        arrayCards.add(new Card("9", "♥", 5));
+        arrayCards.add(new Card("9", "♦", 5));
         // 8
-        arrayCards.add(new Card("8", "♠"));
-        arrayCards.add(new Card("8", "♣"));
-        arrayCards.add(new Card("8", "♥"));
-        arrayCards.add(new Card("8", "♦"));
+        arrayCards.add(new Card("8", "♠", 6));
+        arrayCards.add(new Card("8", "♣", 6));
+        arrayCards.add(new Card("8", "♥", 6));
+        arrayCards.add(new Card("8", "♦", 6));
         // 7
-        arrayCards.add(new Card("7", "♠"));
-        arrayCards.add(new Card("7", "♣"));
-        arrayCards.add(new Card("7", "♥"));
-        arrayCards.add(new Card("7", "♦"));
+        arrayCards.add(new Card("7", "♠", 7));
+        arrayCards.add(new Card("7", "♣", 7));
+        arrayCards.add(new Card("7", "♥", 7));
+        arrayCards.add(new Card("7", "♦", 7));
         // 6
-        arrayCards.add(new Card("6", "♠"));
-        arrayCards.add(new Card("6", "♣"));
-        arrayCards.add(new Card("6", "♥"));
-        arrayCards.add(new Card("6", "♦"));
+        arrayCards.add(new Card("6", "♠", 8));
+        arrayCards.add(new Card("6", "♣", 8));
+        arrayCards.add(new Card("6", "♥", 8));
+        arrayCards.add(new Card("6", "♦", 8));
         // 5
-        arrayCards.add(new Card("5", "♠"));
-        arrayCards.add(new Card("5", "♣"));
-        arrayCards.add(new Card("5", "♥"));
-        arrayCards.add(new Card("5", "♦"));
+        arrayCards.add(new Card("5", "♠", 9));
+        arrayCards.add(new Card("5", "♣", 9));
+        arrayCards.add(new Card("5", "♥", 9));
+        arrayCards.add(new Card("5", "♦", 9));
         // 4
-        arrayCards.add(new Card("4", "♠"));
-        arrayCards.add(new Card("4", "♣"));
-        arrayCards.add(new Card("4", "♥"));
-        arrayCards.add(new Card("4", "♦"));
+        arrayCards.add(new Card("4", "♠", 10));
+        arrayCards.add(new Card("4", "♣", 10));
+        arrayCards.add(new Card("4", "♥", 10));
+        arrayCards.add(new Card("4", "♦", 10));
         // 3
-        arrayCards.add(new Card("3", "♠"));
-        arrayCards.add(new Card("3", "♣"));
-        arrayCards.add(new Card("3", "♥"));
-        arrayCards.add(new Card("3", "♦"));
+        arrayCards.add(new Card("3", "♠", 11));
+        arrayCards.add(new Card("3", "♣", 11));
+        arrayCards.add(new Card("3", "♥", 11));
+        arrayCards.add(new Card("3", "♦", 11));
         // 2
-        arrayCards.add(new Card("2", "♠"));
-        arrayCards.add(new Card("2", "♣"));
-        arrayCards.add(new Card("2", "♥"));
-        arrayCards.add(new Card("2", "♦"));
+        arrayCards.add(new Card("2", "♠", 12));
+        arrayCards.add(new Card("2", "♣", 12));
+        arrayCards.add(new Card("2", "♥", 12));
+        arrayCards.add(new Card("2", "♦", 12));
     }
 
-    // Constructor
-    // TODO - nax? if it is not now singleton
-    DeckOfCards() {
 
-    }
 
     /**
      * WARNING!!! THIS RETURN FULL DECK

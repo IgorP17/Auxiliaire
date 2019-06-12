@@ -7,14 +7,15 @@ import java.util.Objects;
 public class Card {
 
     private static int count = 0;
-    private int idx;
+    private int idx, power;
     private String cardValue;
     private String suit;
 
-    Card(String cardValue, String suit) {
+    Card(String cardValue, String suit, int power) {
         this.cardValue = cardValue;
         this.suit = suit;
-        idx = count;
+        this.idx = count;
+        this.power = power;
         count++;
     }
 
@@ -28,6 +29,10 @@ public class Card {
 
     public String getSuit() {
         return suit;
+    }
+
+    public int getPower(){
+        return power;
     }
 
     /**
@@ -64,10 +69,10 @@ public class Card {
     }
 
     public static void main(String[] args) {
-        Card c1 = new Card("A", "♠");
-        Card c2 = new Card("A", "♣");
-        Card c3 = new Card("A", "♥");
-        Card c4 = new Card("A", "♦");
+        Card c1 = new Card("A", "♠", 0);
+        Card c2 = new Card("A", "♣", 0);
+        Card c3 = new Card("A", "♥", 0);
+        Card c4 = new Card("A", "♦", 0);
         System.out.println(c1.getIdx() + c1.getCardValue() + c1.getSuit());
         System.out.println(c2.getIdx() + c2.getCardValue() + c2.getSuit());
         System.out.println(c3.getIdx() + c3.getCardValue() + c3.getSuit());
