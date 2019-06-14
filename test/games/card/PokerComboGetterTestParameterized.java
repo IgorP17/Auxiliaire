@@ -15,15 +15,21 @@ import java.util.Collection;
 public class PokerComboGetterTestParameterized {
 
     private String comment;
-    private ArrayList<Card> example;
-    private PokerComboEnum expectedCombo;
+    private ArrayList<Card> firstHand;
+    private ArrayList<Card> secondHand;
+    private ArrayList<Card> deal;
+    private int winHand;
 
     public PokerComboGetterTestParameterized(String comment,
-                                             ArrayList<Card> example,
-                                             PokerComboEnum expectedCombo) {
+                                             ArrayList<Card> firstHand,
+                                             ArrayList<Card> secondHand,
+                                             ArrayList<Card> deal,
+                                             int winHand) {
         this.comment = comment;
-        this.example = example;
-        this.expectedCombo = expectedCombo;
+        this.firstHand = firstHand;
+        this.secondHand = secondHand;
+        this.deal = deal;
+        this.winHand = winHand;
     }
 
     // @Parameters( name = "{index}: fib({0})={1}" )
@@ -52,22 +58,35 @@ public class PokerComboGetterTestParameterized {
     public void checkCombination() {
         System.out.println(comment);
         for (Card c :
-                example) {
-            System.out.println(c.getCardValue() + c.getSuit());
+                firstHand) {
+            System.out.print(c.getCardValue() + c.getSuit());
         }
-        System.out.println("Expecting - " + expectedCombo);
-        System.out.println("Actual - " + PokerComboGetter.getComboEnum(example));
-        Assert.assertTrue("If expecting equals actual", PokerComboGetter.getComboEnum(example) == expectedCombo);
+        System.out.print(" ");
+        for (Card c :
+                secondHand) {
+            System.out.print(c.getCardValue() + c.getSuit());
+        }
+        System.out.print(" ");
+        for (Card c :
+                deal) {
+            System.out.print(c.getCardValue() + c.getSuit());
+        }
+        System.out.println();
+        System.out.println("Expecting - " + winHand);
+        int result = PokerComboGetter.getHighCombo(firstHand, secondHand, deal);
+        System.out.println("Actual - " + result);
+        Assert.assertTrue("If expecting equals actual", winHand == result);
     }
 
     /**
      * Reading tests
+     *
      * @return - object of tests
      */
     private static ArrayList<Object[]> readTests() {
         String comment;
-        ArrayList<Card> example;
-        PokerComboEnum expectedCombo;
+        ArrayList<Card> firstHand, secondHand, deal;
+        int winHand;
         String[] splittedString;
         ArrayList<Object[]> result = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader("test/games/card/TwoHands.txt"))) {
@@ -79,15 +98,17 @@ public class PokerComboGetterTestParameterized {
                 line = line.trim();
                 if (!line.equalsIgnoreCase("") &&
                         !line.startsWith("#") &&
-                        line.split(";").length == 4) {
+                        line.split(";").length == 5) {
 //                sb.append(line);
 //                sb.append(System.lineSeparator());
 //                System.out.println(line);
                     splittedString = line.split(";");
                     comment = splittedString[0];
-                    expectedCombo = PokerComboEnum.getEnum(Integer.parseInt(splittedString[2]));
-                    example = getArrayListOfCards(splittedString[1]);
-                    result.add(new Object[]{comment, example, expectedCombo});
+                    firstHand = getArrayListOfCards(splittedString[1]);
+                    secondHand = getArrayListOfCards(splittedString[2]);
+                    deal = getArrayListOfCards(splittedString[3]);
+                    winHand = Integer.parseInt(splittedString[4]);
+                    result.add(new Object[]{comment, firstHand, secondHand, deal, winHand});
                 }
                 line = br.readLine();
             }

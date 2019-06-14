@@ -72,12 +72,14 @@ public class PokerComboGetter {
         PokerComboEnum pokerComboEnumSecond = getComboEnum(second);
         // Store high hand
         Card secondHandHighCard = DeckOfCards.getCardByValSuit(highCard.getCardValue(), highCard.getSuit());
-        System.out.println(firstHandHighCard != null ? firstHandHighCard.toString() : null);
+        System.out.println(secondHandHighCard != null ? secondHandHighCard.toString() : null);
         highCard = null;
 
         // if priority of first hand higher(0 is high) - return 1
         assert pokerComboEnumFirst != null;
         assert pokerComboEnumSecond != null;
+        assert firstHandHighCard != null;
+        assert secondHandHighCard != null;
         if (pokerComboEnumFirst.getPriority() < pokerComboEnumSecond.getPriority()) {
             return 1;
             // else lower
@@ -114,7 +116,16 @@ public class PokerComboGetter {
                     return 9;
                 case PAIR:
                     // TODO
-                    return 10;
+                    if (firstHandHighCard.getPower() < secondHandHighCard.getPower()) {
+                        // first hand win
+                        return 1;
+                    } else if (firstHandHighCard.getPower() > secondHandHighCard.getPower()) {
+                        // second hand win
+                        return 2;
+                    } else {
+                        // draw
+                        return 0;
+                    }
                 case HIGHCARD:
                     // TODO
                     return 11;
