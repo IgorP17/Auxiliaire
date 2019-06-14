@@ -365,12 +365,4 @@ public class PokerComboGetter {
         }
         return false;
     }
-
-
-    public static void main(String[] args) {
-        ArrayList<Card> firstHand = new ArrayList<>();
-        ArrayList<Card> secondHand = new ArrayList<>();
-        ArrayList<Card> deal = new ArrayList<>();
-
-    }
 }
