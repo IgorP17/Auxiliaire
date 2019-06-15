@@ -1,6 +1,11 @@
 # Comment;First hand;Second hand;deal;expected - first/second/draw
+
 # Pair VS Pair
-# Pocket pairs
+# Pocket pairs both
 2s vs 3;2♦,2♠;3♣,3♥;A♦,K♠,Q♣,9♥,8♦;2
+As vs 3;A♦,A♠;3♣,3♥;2♦,K♠,Q♣,9♥,8♦;1
+
+
+
 
 # ♦,10♠,4♣,3♥

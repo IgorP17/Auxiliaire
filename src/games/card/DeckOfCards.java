@@ -92,19 +92,6 @@ public final class DeckOfCards {
 
 
     /**
-     * WARNING!!! THIS RETURN FULL DECK
-     * May be you mean method with excluded cards?
-     * Get shuffled deck
-     *
-     * @return - Array list of cards shuffled
-     */
-    public static ArrayList<Card> getShuffledDeck() {
-        ArrayList<Card> result = arrayCards;
-        Collections.shuffle(result);
-        return result;
-    }
-
-    /**
      * Get shuffled deck with exclusions
      *
      * @param exclude - list of cards to exclude
@@ -177,12 +164,5 @@ public final class DeckOfCards {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Card> deck = DeckOfCards.getShuffledDeck();
-        for (Card c : deck) {
-            System.out.println(c.getIdx() + "\t" + c.getCardValue() + c.getSuit());
-        }
     }
 }
