@@ -109,7 +109,6 @@ public class PokerComboGetter {
                     // TODO
                     return 9;
                 case PAIR:
-                    // TODO
                     if (firstHandHighCard < secondHandHighCard) {
                         // first hand win
                         return 1;
@@ -117,12 +116,12 @@ public class PokerComboGetter {
                         // second hand win
                         return 2;
                     } else {
-                        // draw
-                        return 0;
+                        // check high cards
+                        return checkHigh(first, second);
                     }
                 case HIGHCARD:
                     // TODO
-                    return 11;
+                    return checkHigh(first, second);
                 // IF enum isn't in scope - FAIL
                 default:
                     System.out.println("Something is wrong, stop!");
@@ -132,6 +131,21 @@ public class PokerComboGetter {
         }
     }
 
+
+    private static int checkHigh(ArrayList<Card> firstHandWithDeal, ArrayList<Card> secondHandWithDeal) {
+        firstHandWithDeal.sort(Card.cardComparator);
+        secondHandWithDeal.sort(Card.cardComparator);
+        // check first 5 cards power
+        for (int i = 0; i < 5; i++) {
+            if (firstHandWithDeal.get(i).getPower() < secondHandWithDeal.get(i).getPower()) {
+                return 1;
+            } else if (firstHandWithDeal.get(i).getPower() > secondHandWithDeal.get(i).getPower()) {
+                return 2;
+            }
+        }
+        // draw
+        return 0;
+    }
 
     /**
      * For FLASHROYAL we know all combinations
