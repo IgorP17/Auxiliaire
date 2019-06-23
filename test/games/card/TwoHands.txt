@@ -1,21 +1,28 @@
 # Comment;First hand;Second hand;deal;expected - first/second/draw
 
 # ---------- Check equals power combinations ----------
+# === Pairs VS Pairs ===
+
+
 # === Pair VS Pair ===
 # Pocket pairs both
-2s vs 3;2♦,2♠;3♣,3♥;A♦,K♠,Q♣,9♥,8♦;2
-As vs 3;A♦,A♠;3♣,3♥;2♦,K♠,Q♣,9♥,8♦;1
+Pair VS Pair - 2s vs 3;2♦,2♠;3♣,3♥;A♦,K♠,Q♣,9♥,8♦;2
+Pair VS Pair - As vs 3;A♦,A♠;3♣,3♥;2♦,K♠,Q♣,9♥,8♦;1
 # eq pocket cards
-7s vs 7;7♦,7♠;7♣,7♥;2♦,K♠,Q♣,9♥,8♦;0
+Pair VS Pair - 7s vs 7;7♦,7♠;7♣,7♥;2♦,K♠,Q♣,9♥,8♦;0
 # Kicker 1
-Qs vs Q kicker 1;Q♦,J♠;3♣,Q♥;2♦,K♠,Q♣,9♥,8♦;1
+Pair VS Pair - Qs vs Q kicker 1;Q♦,J♠;3♣,Q♥;2♦,K♠,Q♣,9♥,8♦;1
 # Kicker 2
-Qs vs Q kicker 2;Q♦,J♠;A♣,Q♥;2♦,K♠,Q♣,9♥,8♦;2
+Pair VS Pair - Qs vs Q kicker 2;Q♦,J♠;A♣,Q♥;2♦,K♠,Q♣,9♥,8♦;2
 # Pair and high on desk
-Pair and high on desk;4♦,5♠;4♣,5♥;K♦,K♠,Q♣,9♥,8♦;0
+Pair VS Pair - Pair and high on desk;4♦,5♠;4♣,5♥;K♦,K♠,Q♣,9♥,8♦;0
 
-# === High cards VS High cards ===
-
+# === High card VS High card ===
+High card VS High card - high on first;A♦,5♠;4♣,5♥;3♦,K♠,Q♣,9♥,8♦;1
+High card VS High card - high on second;4♦,5♠;4♣,A♥;3♦,K♠,Q♣,9♥,8♦;2
+High card VS High card - Draw;7♦,2♠;7♣,3♥;A♦,K♠,Q♣,9♥,8♦;0
+High card VS High card - high on first last;7♦,5♠;4♣,5♥;3♦,K♠,Q♣,9♥,8♦;1
+High card VS High card - high on second last;6♦,5♠;7♣,5♥;3♦,K♠,Q♣,9♥,8♦;2
 
 
 # ♦,10♠,4♣,3♥

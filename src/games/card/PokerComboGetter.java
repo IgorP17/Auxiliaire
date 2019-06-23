@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class PokerComboGetter {
 
-    private static int highCardPower;
+    private static ArrayList<Card> highCardList;
+    private static int highCardPower = -1;
+    private static int secondCardPower = -1;
 
     /**
      * Check high combination
@@ -64,12 +66,20 @@ public class PokerComboGetter {
         // Get ENUM
         PokerComboEnum pokerComboEnumFirst = getComboEnum(first);
         // Store high hand
-        int firstHandHighCard = highCardPower;
+        int highCardPowerFirstHand = highCardPower;
+        highCardPower = -1;
+        int secondCardPowerFirstHand = secondCardPower;
+        secondCardPower = -1;
+        ArrayList<Card> firstHandHighCard = new ArrayList<>(highCardList);
 
         // Second
         PokerComboEnum pokerComboEnumSecond = getComboEnum(second);
         // Store high hand
-        int secondHandHighCard = highCardPower;
+        int highCardPowerSecondHand = highCardPower;
+        highCardPower = -1;
+        int secondCardPowerSecondHand = secondCardPower;
+        secondCardPower = -1;
+        ArrayList<Card> secondHandHighCard = new ArrayList<>(highCardList);
 
         // if priority of first hand higher(0 is high) - return 1
         assert pokerComboEnumFirst != null;
@@ -81,6 +91,13 @@ public class PokerComboGetter {
             return 2;
             // else we need investigate!
         } else {
+            // Check high card in combo
+            if (highCardPowerFirstHand < highCardPowerSecondHand) {
+                return 1;
+            } else if ((highCardPowerFirstHand > highCardPowerSecondHand)) {
+                return 2;
+            }
+            // if high card is equal
             // no matter on with hand switching
             switch (pokerComboEnumSecond) {
                 // in case of flash royal draw
@@ -107,20 +124,27 @@ public class PokerComboGetter {
                     return 8;
                 case PAIRS:
                     // TODO
-                    return 9;
-                case PAIR:
-                    if (firstHandHighCard < secondHandHighCard) {
-                        // first hand win
+                    // check second pair
+                    if (secondCardPowerFirstHand < secondCardPowerSecondHand){
                         return 1;
-                    } else if (firstHandHighCard > secondHandHighCard) {
-                        // second hand win
+                    } else if (secondCardPowerFirstHand > secondCardPowerSecondHand){
                         return 2;
                     } else {
-                        // check high cards
-                        return checkHigh(first, second);
+                        // pairs are equals, check high list
+                        return checkHigh(firstHandHighCard, secondHandHighCard);
                     }
+                case PAIR:
+                    return checkHigh(firstHandHighCard, secondHandHighCard);
+
                 case HIGHCARD:
-                    // TODO
+                    first.sort(Card.cardComparator);
+                    // we should have 5 cards
+                    first.remove(first.size() - 1);
+                    first.remove(first.size() - 1);
+                    // we should have 5 cards
+                    second.sort(Card.cardComparator);
+                    second.remove(second.size() - 1);
+                    second.remove(second.size() - 1);
                     return checkHigh(first, second);
                 // IF enum isn't in scope - FAIL
                 default:
@@ -129,21 +153,21 @@ public class PokerComboGetter {
                     return -1;
             }
         }
+
     }
 
 
-    private static int checkHigh(ArrayList<Card> firstHandWithDeal, ArrayList<Card> secondHandWithDeal) {
-        firstHandWithDeal.sort(Card.cardComparator);
-        secondHandWithDeal.sort(Card.cardComparator);
-        // check first 5 cards power
-        for (int i = 0; i < 5; i++) {
-            if (firstHandWithDeal.get(i).getPower() < secondHandWithDeal.get(i).getPower()) {
+    private static int checkHigh(ArrayList<Card> firstHandHighCard, ArrayList<Card> secondHandHighCard) {
+        assert firstHandHighCard != null;
+        assert secondHandHighCard != null;
+        assert firstHandHighCard.size() == secondHandHighCard.size();
+        for (int i = 0; i < firstHandHighCard.size(); i++) {
+            if (firstHandHighCard.get(i).getPower() < secondHandHighCard.get(i).getPower()) {
                 return 1;
-            } else if (firstHandWithDeal.get(i).getPower() > secondHandWithDeal.get(i).getPower()) {
+            } else if (firstHandHighCard.get(i).getPower() > secondHandHighCard.get(i).getPower()) {
                 return 2;
             }
         }
-        // draw
         return 0;
     }
 
@@ -378,7 +402,24 @@ public class PokerComboGetter {
         // all other higher variants are checked, if we have i = i + 1 in sorted massive - we have pair
         for (int i = 0; i < someCards.size() - 1; i++) {
             if (someCards.get(i).getCardValue().equalsIgnoreCase(someCards.get(i + 1).getCardValue())) {
-                highCardPower = someCards.get(i).getPower();
+                // remember high card list
+                // remove pair itself
+                highCardList = null;
+                Card card1 = someCards.get(i);
+                Card card2 = someCards.get(i + 1);
+                someCards.remove(card1);
+                someCards.remove(card2);
+                // sort
+                someCards.sort(Card.cardComparator);
+                // for pair we need first 3 high cards
+                Card c1 = someCards.get(0);
+                Card c2 = someCards.get(1);
+                Card c3 = someCards.get(2);
+                highCardList = new ArrayList<>();
+                highCardList.add(c1);
+                highCardList.add(c2);
+                highCardList.add(c3);
+                highCardPower = card1.getPower();
                 return true;
             }
         }
