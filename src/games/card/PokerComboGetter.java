@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class PokerComboGetter {
 
     private static ArrayList<Card> highCardList;
-    private static int highCardPower = -1;
+    private static int firstCardPower = -1;
     private static int secondCardPower = -1;
 
     /**
@@ -66,8 +66,8 @@ public class PokerComboGetter {
         // Get ENUM
         PokerComboEnum pokerComboEnumFirst = getComboEnum(first);
         // Store high hand
-        int highCardPowerFirstHand = highCardPower;
-        highCardPower = -1;
+        int highCardPowerFirstHand = firstCardPower;
+        firstCardPower = -1;
         int secondCardPowerFirstHand = secondCardPower;
         secondCardPower = -1;
         ArrayList<Card> firstHandHighCard = new ArrayList<>(highCardList);
@@ -75,8 +75,8 @@ public class PokerComboGetter {
         // Second
         PokerComboEnum pokerComboEnumSecond = getComboEnum(second);
         // Store high hand
-        int highCardPowerSecondHand = highCardPower;
-        highCardPower = -1;
+        int highCardPowerSecondHand = firstCardPower;
+        firstCardPower = -1;
         int secondCardPowerSecondHand = secondCardPower;
         secondCardPower = -1;
         ArrayList<Card> secondHandHighCard = new ArrayList<>(highCardList);
@@ -369,19 +369,33 @@ public class PokerComboGetter {
      */
     private static boolean isPairs(ArrayList<Card> someCards) {
         someCards.sort(Card.cardComparator);
-        String[] s = new String[someCards.size()];
-        for (int i = 0; i < someCards.size(); i++) {
-            s[i] = someCards.get(i).getCardValue();
-        }
-        String firstPairValue;
-        for (int i = 0; i < s.length - 1; i++) {
-            if (s[i].equalsIgnoreCase(s[i + 1])) {
-                // found first pair
-                firstPairValue = s[i];
-                // second pair is not the same as first pair
-                for (int j = 0; j < s.length - 1; j++) {
-                    if (s[j].equalsIgnoreCase(s[j + 1]) &&
-                            !s[j].equalsIgnoreCase(firstPairValue)) {
+        Card c1, c2, c3, c4;
+        for (int i = 0; i < someCards.size() - 1; i++) {
+            if (someCards.get(i).getPower() == someCards.get(i + 1).getPower()){
+                // found first pair, searching for second
+                c1 = someCards.get(i);
+                c2 = someCards.get(i + 1);
+                for (int j = 0; j < someCards.size() - 1; j++) {
+                    if ((someCards.get(j).getPower() == someCards.get(j + 1).getPower()) && (c1.getPower() != someCards.get(j).getPower())){
+                        // found second pair
+                        // set up high cards
+                        if (someCards.get(i).getPower() < someCards.get(j).getPower()){
+                            firstCardPower = someCards.get(i).getPower();
+                            secondCardPower = someCards.get(j).getPower();
+                        } else if (someCards.get(i).getPower() > someCards.get(j).getPower()){
+                            firstCardPower = someCards.get(j).getPower();
+                            secondCardPower = someCards.get(i).getPower();
+                        }
+                        // set up 1 high card list
+                        c3 = someCards.get(j);
+                        c4 = someCards.get(j + 1);
+                        someCards.remove(c1);
+                        someCards.remove(c2);
+                        someCards.remove(c3);
+                        someCards.remove(c4);
+                        someCards.sort(Card.cardComparator);
+                        highCardList = new ArrayList<>();
+                        highCardList.add(someCards.get(0));
                         return true;
                     }
                 }
@@ -412,14 +426,11 @@ public class PokerComboGetter {
                 // sort
                 someCards.sort(Card.cardComparator);
                 // for pair we need first 3 high cards
-                Card c1 = someCards.get(0);
-                Card c2 = someCards.get(1);
-                Card c3 = someCards.get(2);
                 highCardList = new ArrayList<>();
-                highCardList.add(c1);
-                highCardList.add(c2);
-                highCardList.add(c3);
-                highCardPower = card1.getPower();
+                highCardList.add(someCards.get(0));
+                highCardList.add(someCards.get(1));
+                highCardList.add(someCards.get(2));
+                firstCardPower = card1.getPower();
                 return true;
             }
         }

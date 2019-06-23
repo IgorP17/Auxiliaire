@@ -2,7 +2,7 @@
 
 # ---------- Check equals power combinations ----------
 # === Pairs VS Pairs ===
-
+Pairs VS Pairs - kicker 1;A♦,J♠;A♣,3♥;A♠,K♠,K♣,9♥,8♦;1
 
 # === Pair VS Pair ===
 # Pocket pairs both
