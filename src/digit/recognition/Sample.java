@@ -3,12 +3,12 @@ package digit.recognition;
 import java.util.Scanner;
 
 public class Sample {
-  static int[] input = new int[9];
-  static int[] w = new int[]{2, 1, 2, 4, -4, 4, 2, -1, 2};
-  static int b = -5;
+  private static int[] input = new int[9];
+  private static int[] w = new int[]{2, 1, 2, 4, -4, 4, 2, -1, 2};
 
   public static void main(String[] args) {
     readInput();
+    int b = -5;
     int result = (input[0] * w[0])
             + (input[1] * w[1])
             + (input[2] * w[2])
