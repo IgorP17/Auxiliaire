@@ -2,7 +2,13 @@ Description
 
 In this stage, you should write such a network with two layers.
 The weights are defined in a pretty simple way:
-1 for a blue and -1 for a white. For the first output neuron, you should set 15 weights for the number 1, for the second output neuron you should set another 15 weights for the number 2 etc and the last output neuron should recognize the number 0. In the end, you should choose the maximum out of all output neurons and it will be the result of the recognition.
+1 for a blue and -1 for a white.
+
+For the first output neuron, you should set 15 weights for the number 1,
+for the second output neuron you should set another 15 weights for the number 2 etc
+and the last output neuron should recognize the number 0.
+
+In the end, you should choose the maximum out of all output neurons and it will be the result of the recognition.
 
 Now take note that the best result of recognition of the number 1 is 5, but the result of the recognition of the number 8 is 13 since the number 1 has 5 blue points and the number 8 has 13 blue points. To equalize all the numbers you need a bias. It should be:
 
