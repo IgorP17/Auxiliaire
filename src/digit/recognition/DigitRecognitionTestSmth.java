@@ -1,23 +1,16 @@
 package digit.recognition;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class DigitRecognitionTestSmth {
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
-    int[] array = Arrays.stream(scanner.nextLine().split(" "))
-            .mapToInt(Integer::parseInt)
-            .toArray();
-    int[] result = getFirstAndLast(array);
-    Arrays.stream(result).forEach(e -> System.out.print(e + " "));
+    Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+    double c = scanner.nextDouble();
+    double f = c * 1.8 + 32;
+    System.out.println(f);
   }
 
-  private static int[] getFirstAndLast(int[] array) {
-    return new int[]{array[0], array[array.length - 1]};
-  }
 
 
 }
