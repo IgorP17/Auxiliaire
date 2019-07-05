@@ -26,4 +26,7 @@ public class DigitRecognitionTestSmth {
     long[] array = Arrays.stream(scanner.nextLine().split(" "))
             .mapToLong(Long::parseLong)
             .toArray();
+
+    Use EN local
+    Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
  */
