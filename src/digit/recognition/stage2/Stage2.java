@@ -2,8 +2,8 @@ package digit.recognition.stage2;
 
 public class Stage2 {
 
-  // blue +1 white -1
-  private static int[][] w = new int[][]{
+  // w - blue +1 white -1
+  private final static int[][] w = new int[][]{
           {+1, +1, +1, +1, -1, +1, +1, -1, +1, +1, -1, +1, +1, +1, +1},//0
           {-1, +1, -1, -1, +1, -1, -1, +1, -1, -1, +1, -1, -1, +1, -1},//1
           {+1, +1, +1, -1, -1, +1, +1, +1, +1, +1, -1, -1, +1, +1, +1},//2
@@ -15,6 +15,10 @@ public class Stage2 {
           {+1, +1, +1, +1, -1, +1, +1, +1, +1, +1, -1, +1, +1, +1, +1},//8
           {+1, +1, +1, +1, -1, +1, +1, +1, +1, -1, -1, +1, +1, +1, +1}//9
   };
+  // bias
+  private final static int[] b = new int[]{-1, 6, 0, 0, 2, 0, -1, 4, -2, -1};
+  // out layer
+  private static int[] outLayer = new int[10];
 
 
 }
