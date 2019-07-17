@@ -6,17 +6,21 @@ import java.util.Scanner;
 
 public class DigitRecognitionTestSmth {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
-        int n = scanner.nextInt();
-        int a = scanner.nextInt();
-        int b = scanner.nextInt();
-        Random random = new Random();
-        random.setSeed(a + b);
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            sum += random.nextInt(b - a + 1) + a;
+        Scanner scanner = new Scanner(System.in);
+        String s;
+        while (scanner.hasNext()){
+            s = scanner.next();
+            if ("0".equalsIgnoreCase(s)){
+                break;
+            }
+            try{
+                int n = Integer.parseInt(s);
+                System.out.println(n * 10);
+            } catch (Exception e){
+                System.out.println("Invalid user input: " + s);
+            }
         }
-        System.out.println(sum);
+
     }
 
 
