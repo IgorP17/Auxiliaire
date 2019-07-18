@@ -3,3 +3,5 @@
 .idea/uiDesigner.xml
 out/*
 save.ser
+in.txt
+out.txt
