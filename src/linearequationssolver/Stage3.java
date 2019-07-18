@@ -6,6 +6,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Gaussian elimination
+ * Gauss - Jordan elimination - use this
+ * in file
+ * 3
+ * 1 1 2 9
+ * 2 4 -3 1
+ * 3 6 -5 0
+ * https://www.youtube.com/watch?v=AhUyh-2aPEc
+ */
+
 public class Stage3 {
     private static String inFile;
     private static String outFile;
