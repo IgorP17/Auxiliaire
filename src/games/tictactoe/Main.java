@@ -1,26 +1,84 @@
 package games.tictactoe;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter cells: ");
-        String s = scanner.nextLine();
-        s = s.replace("\"", "");
-        String[] f = s.split("");
-        printField(f);
-        System.out.print("Enter the coordinates: ");
-        s = scanner.nextLine();
-        while(!checkCoordsAndMove(f, s.substring(0, 1), s.substring(2, 3), "X")){
-            System.out.print("Enter the coordinates: ");
-            s = scanner.nextLine();
-        }
-        printField(f);
+    private final static Scanner scanner = new Scanner(System.in);
 
+    public static void main(String[] args) {
+
+//        System.out.print("Enter cells: ");
+//        String s = scanner.nextLine();
+//        s = s.replace("\"", "");
+//        String[] f = s.split("");
+//        printField(f);
+        String[] f = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+        printField(f);
+        String sState;
+        while (true) {
+            sState = doMove(false, f, "O", "X");
+            if (sState != null) {
+                break;
+            }
+            sState = doMove(true, f, "O", "X");
+            if (sState != null) {
+                break;
+            }
+        }
+        System.out.println(sState);
     }
 
+
+    private static String doMove(boolean isBot, String[] state, String botChar, String hChar) {
+        if (isBot) {
+            // bot move
+            easyBot(state, botChar);
+            printField(state);
+            return checkGameState(state);
+        } else {
+            // Human move
+            System.out.print("Enter the coordinates: ");
+            String s = scanner.nextLine();
+            if (s.length() < 3){
+                System.out.println("PANIC!");
+                System.exit(1);
+            }
+            while (!checkCoordsAndMove(state, s.substring(0, 1), s.substring(2, 3), hChar, false)) {
+                System.out.print("Enter the coordinates: ");
+                s = scanner.nextLine();
+            }
+            printField(state);
+            return checkGameState(state);
+        }
+    }
+
+    /**
+     * Check if game ends
+     *
+     * @param state - state
+     * @return - null if we can do move, else winner
+     */
+    private static String checkGameState(String[] state) {
+        String s = getState(state);
+        if ("Draw".equalsIgnoreCase(s)) {
+            return s;
+        }
+        if ("X wins".equalsIgnoreCase(s)) {
+            return s;
+        }
+        if ("O wins".equalsIgnoreCase(s)) {
+            return s;
+        }
+        return null;
+    }
+
+    /**
+     * Print current state
+     *
+     * @param state - state
+     */
     private static void printField(String[] state) {
         System.out.println("---------");
         System.out.printf("| %s %s %s |\n", state[0], state[1], state[2]);
@@ -30,14 +88,35 @@ public class Main {
     }
 
     /**
-     * Check coords and move
+     * Easy bot - mark random field
+     *
      * @param state - current state
-     * @param x - x
-     * @param y - y
-     * @param s - X or O
+     * @param s     - X or O
+     */
+    private static void easyBot(String[] state, String s) {
+        System.out.println("Making move level \"easy\"");
+        Random random = new Random();
+        int x = 1 + random.nextInt(3);
+        int y = 1 + random.nextInt(3);
+        boolean res = checkCoordsAndMove(state, String.valueOf(x), String.valueOf(y), s, true);
+        while (!res) {
+            x = 1 + random.nextInt(3);
+            y = 1 + random.nextInt(3);
+            res = checkCoordsAndMove(state, String.valueOf(x), String.valueOf(y), s, true);
+        }
+
+    }
+
+    /**
+     * Check coords and move
+     *
+     * @param state - current state
+     * @param x     - x
+     * @param y     - y
+     * @param s     - X or O
      * @return - false if no move, true otherwise and make move
      */
-    private static boolean checkCoordsAndMove(String[] state, String x, String y, String s) {
+    private static boolean checkCoordsAndMove(String[] state, String x, String y, String s, boolean isBot) {
         boolean isXOK = false;
         boolean isYOK = false;
         // check x
@@ -57,9 +136,11 @@ public class Main {
             return false;
         }
         // do move
-        boolean res = humanMove(state, x , y, s);
-        if (!res){
-            System.out.println("Occupied!");
+        boolean res = humanMove(state, x, y, s);
+        if (!res) {
+            if (!isBot) {
+                System.out.println("Occupied!");
+            }
             return false;
         }
         return true;
@@ -136,7 +217,6 @@ public class Main {
      */
     private static String getState(String[] state) {
         // check impossible state
-        boolean isFilled = false;
         int counterX = 0;
         int counterY = 0;
         for (String s : state) {
