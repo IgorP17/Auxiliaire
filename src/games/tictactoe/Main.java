@@ -19,7 +19,7 @@ public class Main {
 
         String sState;
         while (!isExit) {
-            if(getCommand()) {
+            if (getCommand()) {
                 String[] f = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
                 printField(f);
                 while (true) {
@@ -37,7 +37,11 @@ public class Main {
         }
     }
 
-
+    /**
+     * Do start game
+     *
+     * @return - if game can be started
+     */
     private static boolean getCommand() {
         System.out.print("Input command: ");
         String s = scanner.nextLine();
@@ -47,10 +51,10 @@ public class Main {
                     || !(sp[1].equalsIgnoreCase("user")
                     || sp[1].equalsIgnoreCase("easy"))
                     || !(sp[2].equalsIgnoreCase("user")
-                    || sp[2].equalsIgnoreCase("easy"))){
+                    || sp[2].equalsIgnoreCase("easy"))) {
                 System.out.println("Usage: start (user|easy) (user|easy)");
             } else {
-                switch (sp[1]){
+                switch (sp[1]) {
                     case "user":
                         isFirstBot = false;
                         break;
@@ -58,7 +62,7 @@ public class Main {
                         isFirstBot = true;
                         break;
                 }
-                switch (sp[2]){
+                switch (sp[2]) {
                     case "user":
                         isSecondBot = false;
                         break;
@@ -71,7 +75,7 @@ public class Main {
         } else if (s.startsWith("exit")) {
             isExit = true;
         } else {
-            System.out.println("Unknown command!");
+            System.out.println("Unknown command! Use start|exit");
         }
         return false;
     }
@@ -80,8 +84,8 @@ public class Main {
     /**
      * Make move
      *
-     * @param isBot   - is it is bot
-     * @param state   - state
+     * @param isBot  - is it is bot
+     * @param state  - state
      * @param marker - X or O
      * @return - null if we can do next move
      */
@@ -160,6 +164,18 @@ public class Main {
             res = checkCoordsAndMove(state, String.valueOf(x), String.valueOf(y), s, true);
         }
 
+    }
+
+    /**
+     * If it can win in one move (if it has two in a row), it places a third to get three in a row and win.
+     * If the opponent can win in one move, it plays the third itself to block the opponent to win.
+     * Otherwise, it makes a random move.
+     *
+     * @param state - current state
+     * @param s - X or O
+     */
+    private static void mediumBot(String[] state, String s) {
+        //TODO
     }
 
     /**
