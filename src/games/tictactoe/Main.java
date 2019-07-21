@@ -6,6 +6,8 @@ import java.util.Scanner;
 public class Main {
 
     private final static Scanner scanner = new Scanner(System.in);
+    private static boolean isFirstBot, isSecondBot;
+    private static boolean isExit = false;
 
     public static void main(String[] args) {
 
@@ -14,38 +16,91 @@ public class Main {
 //        s = s.replace("\"", "");
 //        String[] f = s.split("");
 //        printField(f);
-        String[] f = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
-        printField(f);
+
         String sState;
-        while (true) {
-            sState = doMove(false, f, "O", "X");
-            if (sState != null) {
-                break;
-            }
-            sState = doMove(true, f, "O", "X");
-            if (sState != null) {
-                break;
+        while (!isExit) {
+            if(getCommand()) {
+                String[] f = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
+                printField(f);
+                while (true) {
+                    sState = doMove(isFirstBot, f, "X");
+                    if (sState != null) {
+                        break;
+                    }
+                    sState = doMove(isSecondBot, f, "O");
+                    if (sState != null) {
+                        break;
+                    }
+                }
+                System.out.println(sState);
             }
         }
-        System.out.println(sState);
     }
 
 
-    private static String doMove(boolean isBot, String[] state, String botChar, String hChar) {
+    private static boolean getCommand() {
+        System.out.print("Input command: ");
+        String s = scanner.nextLine();
+        if (s.startsWith("start")) {
+            String[] sp = s.split(" ");
+            if (sp.length != 3
+                    || !(sp[1].equalsIgnoreCase("user")
+                    || sp[1].equalsIgnoreCase("easy"))
+                    || !(sp[2].equalsIgnoreCase("user")
+                    || sp[2].equalsIgnoreCase("easy"))){
+                System.out.println("Usage: start (user|easy) (user|easy)");
+            } else {
+                switch (sp[1]){
+                    case "user":
+                        isFirstBot = false;
+                        break;
+                    case "easy":
+                        isFirstBot = true;
+                        break;
+                }
+                switch (sp[2]){
+                    case "user":
+                        isSecondBot = false;
+                        break;
+                    case "easy":
+                        isSecondBot = true;
+                        break;
+                }
+                return true;
+            }
+        } else if (s.startsWith("exit")) {
+            isExit = true;
+        } else {
+            System.out.println("Unknown command!");
+        }
+        return false;
+    }
+
+
+    /**
+     * Make move
+     *
+     * @param isBot   - is it is bot
+     * @param state   - state
+     * @param marker - X or O
+     * @return - null if we can do next move
+     */
+    private static String doMove(boolean isBot, String[] state, String marker) {
         if (isBot) {
             // bot move
-            easyBot(state, botChar);
+            easyBot(state, marker);
             printField(state);
             return checkGameState(state);
         } else {
             // Human move
             System.out.print("Enter the coordinates: ");
             String s = scanner.nextLine();
-            if (s.length() < 3){
+            if (s.length() < 3) {
+                // TODO wait until coords receoved
                 System.out.println("PANIC!");
                 System.exit(1);
             }
-            while (!checkCoordsAndMove(state, s.substring(0, 1), s.substring(2, 3), hChar, false)) {
+            while (!checkCoordsAndMove(state, s.substring(0, 1), s.substring(2, 3), marker, false)) {
                 System.out.print("Enter the coordinates: ");
                 s = scanner.nextLine();
             }
