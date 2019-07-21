@@ -11,12 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        System.out.print("Enter cells: ");
-//        String s = scanner.nextLine();
-//        s = s.replace("\"", "");
-//        String[] f = s.split("");
-//        printField(f);
-
         String sState;
         while (!isExit) {
             if (getCommand()) {
