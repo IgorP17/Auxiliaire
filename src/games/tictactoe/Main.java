@@ -576,7 +576,7 @@ public class Main {
         private String marker;
         private String opponentMarker;
 
-        public Player(boolean isBot, Levels level, String marker, String opponentMarker) {
+        Player(boolean isBot, Levels level, String marker, String opponentMarker) {
             this.isBot = isBot;
             if (level != null) {
                 this.level = level;
@@ -587,19 +587,19 @@ public class Main {
             this.opponentMarker = opponentMarker;
         }
 
-        public String getOpponentMarker() {
+        String getOpponentMarker() {
             return opponentMarker;
         }
 
-        public boolean isBot() {
+        boolean isBot() {
             return isBot;
         }
 
-        public Levels getLevel() {
+        Levels getLevel() {
             return level;
         }
 
-        public String getMarker() {
+        String getMarker() {
             return marker;
         }
 
@@ -615,6 +615,6 @@ public class Main {
     }
 
     private enum Levels {
-        EASY, MEDIUM, HARD, NONE;
+        EASY, MEDIUM, NONE
     }
 }
