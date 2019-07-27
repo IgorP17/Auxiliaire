@@ -8,20 +8,21 @@ public class Main {
     private final static Scanner scanner = new Scanner(System.in);
     private static boolean isFirstBot, isSecondBot;
     private static boolean isExit = false;
+    private static String[] state;
 
     public static void main(String[] args) {
 
         String sState;
         while (!isExit) {
             if (getCommand()) {
-                String[] f = {" ", " ", " ", " ", " ", " ", " ", " ", " "};
-                printField(f);
+                state = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
+                printField();
                 while (true) {
-                    sState = doMove(isFirstBot, f, "X");
+                    sState = doMove(isFirstBot,"X");
                     if (sState != null) {
                         break;
                     }
-                    sState = doMove(isSecondBot, f, "O");
+                    sState = doMove(isSecondBot, "O");
                     if (sState != null) {
                         break;
                     }
@@ -79,16 +80,15 @@ public class Main {
      * Make move
      *
      * @param isBot  - is it is bot
-     * @param state  - state
      * @param marker - X or O
      * @return - null if we can do next move
      */
-    private static String doMove(boolean isBot, String[] state, String marker) {
+    private static String doMove(boolean isBot, String marker) {
         if (isBot) {
             // bot move
-            easyBot(state, marker);
-            printField(state);
-            return checkGameState(state);
+            easyBot(marker);
+            printField();
+            return checkGameState();
         } else {
             // Human move
             System.out.print("Enter the coordinates: ");
@@ -98,23 +98,22 @@ public class Main {
                 System.out.println("PANIC!");
                 System.exit(1);
             }
-            while (!checkCoordsAndMove(state, s.substring(0, 1), s.substring(2, 3), marker, false)) {
+            while (!checkCoordsAndMove(s.substring(0, 1), s.substring(2, 3), marker, false)) {
                 System.out.print("Enter the coordinates: ");
                 s = scanner.nextLine();
             }
-            printField(state);
-            return checkGameState(state);
+            printField();
+            return checkGameState();
         }
     }
 
     /**
      * Check if game ends
      *
-     * @param state - state
      * @return - null if we can do move, else winner
      */
-    private static String checkGameState(String[] state) {
-        String s = getState(state);
+    private static String checkGameState() {
+        String s = getState();
         if ("Draw".equalsIgnoreCase(s)) {
             return s;
         }
@@ -130,9 +129,8 @@ public class Main {
     /**
      * Print current state
      *
-     * @param state - state
      */
-    private static void printField(String[] state) {
+    private static void printField() {
         System.out.println("---------");
         System.out.printf("| %s %s %s |\n", state[0], state[1], state[2]);
         System.out.printf("| %s %s %s |\n", state[3], state[4], state[5]);
@@ -143,19 +141,18 @@ public class Main {
     /**
      * Easy bot - mark random field
      *
-     * @param state - current state
      * @param s     - X or O
      */
-    private static void easyBot(String[] state, String s) {
+    private static void easyBot(String s) {
         System.out.println("Making move level \"easy\"");
         Random random = new Random();
         int x = 1 + random.nextInt(3);
         int y = 1 + random.nextInt(3);
-        boolean res = checkCoordsAndMove(state, String.valueOf(x), String.valueOf(y), s, true);
+        boolean res = checkCoordsAndMove(String.valueOf(x), String.valueOf(y), s, true);
         while (!res) {
             x = 1 + random.nextInt(3);
             y = 1 + random.nextInt(3);
-            res = checkCoordsAndMove(state, String.valueOf(x), String.valueOf(y), s, true);
+            res = checkCoordsAndMove(String.valueOf(x), String.valueOf(y), s, true);
         }
 
     }
@@ -175,13 +172,12 @@ public class Main {
     /**
      * Check coords and move
      *
-     * @param state - current state
      * @param x     - x
      * @param y     - y
      * @param s     - X or O
      * @return - false if no move, true otherwise and make move
      */
-    private static boolean checkCoordsAndMove(String[] state, String x, String y, String s, boolean isBot) {
+    private static boolean checkCoordsAndMove(String x, String y, String s, boolean isBot) {
         boolean isXOK = false;
         boolean isYOK = false;
         // check x
@@ -201,7 +197,7 @@ public class Main {
             return false;
         }
         // do move
-        boolean res = humanMove(state, x, y, s);
+        boolean res = humanMove(x, y, s);
         if (!res) {
             if (!isBot) {
                 System.out.println("Occupied!");
@@ -216,12 +212,11 @@ public class Main {
      * (1, 2) (2, 2) (3, 2)
      * (1, 1) (2, 1) (3, 1)
      *
-     * @param state - state massive
      * @param x     - x coord
      * @param y     - y coord
      * @param s     - X or O
      */
-    private static boolean humanMove(String[] state, String x, String y, String s) {
+    private static boolean humanMove(String x, String y, String s) {
         int stateNum = -1;
         switch (x) {
             case "1":
@@ -277,10 +272,9 @@ public class Main {
     /**
      * Get state of the game
      *
-     * @param state - massive of fields, left top is 0, down right is 8
      * @return - state of the game
      */
-    private static String getState(String[] state) {
+    private static String getState() {
         // check impossible state
         int counterX = 0;
         int counterY = 0;
@@ -297,8 +291,8 @@ public class Main {
             return "Impossible";
         }
         // check for double winner
-        boolean xWinner = getWinner(state, "X");
-        boolean yWinner = getWinner(state, "O");
+        boolean xWinner = getWinner("X");
+        boolean yWinner = getWinner("O");
 
         if (xWinner && yWinner) {
             return "Impossible";
@@ -325,11 +319,10 @@ public class Main {
     /**
      * Get winner of game
      *
-     * @param state - massive of fields, left top is 0, down right is 8
      * @param s     - X or O or smth
      * @return - true if win in cell/row/diag found
      */
-    private static boolean getWinner(String[] state, String s) {
+    private static boolean getWinner(String s) {
         // check first row
         if (s.equalsIgnoreCase(state[0])
                 && s.equalsIgnoreCase(state[1])
