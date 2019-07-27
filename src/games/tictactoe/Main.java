@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     private final static Scanner scanner = new Scanner(System.in);
-    private static boolean isFirstBot, isSecondBot;
+    private static Player player1, player2;
     private static boolean isExit = false;
     private static String[] state;
 
@@ -18,11 +18,11 @@ public class Main {
                 state = new String[]{" ", " ", " ", " ", " ", " ", " ", " ", " "};
                 printField();
                 while (true) {
-                    sState = doMove(isFirstBot,"X");
+                    sState = doMove(player1);
                     if (sState != null) {
                         break;
                     }
-                    sState = doMove(isSecondBot, "O");
+                    sState = doMove(player2);
                     if (sState != null) {
                         break;
                     }
@@ -44,25 +44,34 @@ public class Main {
             String[] sp = s.split(" ");
             if (sp.length != 3
                     || !(sp[1].equalsIgnoreCase("user")
-                    || sp[1].equalsIgnoreCase("easy"))
+                    || sp[1].equalsIgnoreCase("easy")
+                    || sp[1].equalsIgnoreCase("medium"))
+
                     || !(sp[2].equalsIgnoreCase("user")
-                    || sp[2].equalsIgnoreCase("easy"))) {
-                System.out.println("Usage: start (user|easy) (user|easy)");
+                    || sp[2].equalsIgnoreCase("easy")
+                    || sp[2].equalsIgnoreCase("medium"))) {
+                System.out.println("Usage: start (user|easy|medium) (user|easy|medium)");
             } else {
                 switch (sp[1]) {
                     case "user":
-                        isFirstBot = false;
+                        player1 = new Player(false, null, "X", "O");
                         break;
                     case "easy":
-                        isFirstBot = true;
+                        player1 = new Player(true, Levels.EASY, "X", "O");
+                        break;
+                    case "medium":
+                        player1 = new Player(true, Levels.MEDIUM, "X", "O");
                         break;
                 }
                 switch (sp[2]) {
                     case "user":
-                        isSecondBot = false;
+                        player2 = new Player(false, null, "O", "X");
                         break;
                     case "easy":
-                        isSecondBot = true;
+                        player2 = new Player(true, Levels.EASY, "O", "X");
+                        break;
+                    case "medium":
+                        player2 = new Player(true, Levels.MEDIUM, "O", "X");
                         break;
                 }
                 return true;
@@ -79,14 +88,20 @@ public class Main {
     /**
      * Make move
      *
-     * @param isBot  - is it is bot
-     * @param marker - X or O
+     * @param player - player obj
      * @return - null if we can do next move
      */
-    private static String doMove(boolean isBot, String marker) {
-        if (isBot) {
+    private static String doMove(Player player) {
+        if (player.isBot()) {
             // bot move
-            easyBot(marker);
+            switch (player.getLevel()) {
+                case EASY:
+                    easyBot(player.getMarker(), true);
+                    break;
+                case MEDIUM:
+                    mediumBot(player.getMarker(), player.getOpponentMarker());
+                    break;
+            }
             printField();
             return checkGameState();
         } else {
@@ -98,7 +113,7 @@ public class Main {
                 System.out.println("PANIC!");
                 System.exit(1);
             }
-            while (!checkCoordsAndMove(s.substring(0, 1), s.substring(2, 3), marker, false)) {
+            while (!checkCoordsAndMove(s.substring(0, 1), s.substring(2, 3), player.getMarker(), false)) {
                 System.out.print("Enter the coordinates: ");
                 s = scanner.nextLine();
             }
@@ -128,7 +143,6 @@ public class Main {
 
     /**
      * Print current state
-     *
      */
     private static void printField() {
         System.out.println("---------");
@@ -141,10 +155,12 @@ public class Main {
     /**
      * Easy bot - mark random field
      *
-     * @param s     - X or O
+     * @param s - X or O
      */
-    private static void easyBot(String s) {
-        System.out.println("Making move level \"easy\"");
+    private static void easyBot(String s, boolean printMaking) {
+        if (printMaking) {
+            System.out.println("Making move level \"easy\"");
+        }
         Random random = new Random();
         int x = 1 + random.nextInt(3);
         int y = 1 + random.nextInt(3);
@@ -162,19 +178,198 @@ public class Main {
      * If the opponent can win in one move, it plays the third itself to block the opponent to win.
      * Otherwise, it makes a random move.
      *
-     * @param state - current state
      * @param s - X or O
      */
-    private static void mediumBot(String[] state, String s) {
-        //TODO
+    private static void mediumBot(String s, String opponentSign) {
+        boolean isMoveDone = false;
+        System.out.println("Making move level \"medium\"");
+        // check if can win
+        int[] coords = canWinInOneMove(s);
+        if (coords[0] != -1) {
+//            System.out.printf("%s can win in 1 move\n", s);
+            boolean res = checkCoordsAndMove(String.valueOf(coords[0]), String.valueOf(coords[1]), s, true);
+            if (!res) {
+                System.out.println("WTF?");
+                System.exit(1);
+            }
+            isMoveDone = true;
+        }
+        // check if can loose
+        if (!isMoveDone) {
+            coords = canWinInOneMove(opponentSign);
+            if (coords[0] != -1) {
+//                System.out.printf("%s can win in 1 move\n", opponentSign);
+                boolean res = checkCoordsAndMove(String.valueOf(coords[0]), String.valueOf(coords[1]), s, true);
+                if (!res) {
+                    System.out.println("WTF?");
+                    System.exit(1);
+                }
+                isMoveDone = true;
+            }
+        }
+        // random
+        if (!isMoveDone) {
+            easyBot(s, false);
+        }
+    }
+
+    /**
+     * Get coords if can win in 1 move
+     *
+     * @param s - X or O
+     * @return - coords for move
+     */
+    private static int[] canWinInOneMove(String s) {
+        // left down corner
+        //up
+        if (s.equalsIgnoreCase(state[6]) && s.equalsIgnoreCase(state[3])) {
+            if (state[0].equalsIgnoreCase(" ")) {
+                return new int[]{1, 3};
+            }
+        }
+        //right
+        if (s.equalsIgnoreCase(state[6]) && s.equalsIgnoreCase(state[7])) {
+            if (state[8].equalsIgnoreCase(" ")) {
+                return new int[]{3, 1};
+            }
+        }
+        //diag
+        if (s.equalsIgnoreCase(state[6]) && s.equalsIgnoreCase(state[4])) {
+            if (state[2].equalsIgnoreCase(" ")) {
+                return new int[]{3, 3};
+            }
+        }
+        // left up corner
+        // down
+        if (s.equalsIgnoreCase(state[0]) && s.equalsIgnoreCase(state[3])) {
+            if (state[6].equalsIgnoreCase(" ")) {
+                return new int[]{1, 1};
+            }
+        }
+        // right
+        if (s.equalsIgnoreCase(state[0]) && s.equalsIgnoreCase(state[1])) {
+            if (state[2].equalsIgnoreCase(" ")) {
+                return new int[]{3, 3};
+            }
+        }
+        //diag
+        if (s.equalsIgnoreCase(state[0]) && s.equalsIgnoreCase(state[4])) {
+            if (state[8].equalsIgnoreCase(" ")) {
+                return new int[]{3, 1};
+            }
+        }
+
+        // right down corner
+        // up
+        if (s.equalsIgnoreCase(state[8]) && s.equalsIgnoreCase(state[5])) {
+            if (state[2].equalsIgnoreCase(" ")) {
+                return new int[]{3, 3};
+            }
+        }
+        // left
+        if (s.equalsIgnoreCase(state[8]) && s.equalsIgnoreCase(state[7])) {
+            if (state[6].equalsIgnoreCase(" ")) {
+                return new int[]{1, 1};
+            }
+        }
+        // diag
+        if (s.equalsIgnoreCase(state[8]) && s.equalsIgnoreCase(state[4])) {
+            if (state[0].equalsIgnoreCase(" ")) {
+                return new int[]{1, 3};
+            }
+        }
+
+        // right up corner
+        // down
+        if (s.equalsIgnoreCase(state[2]) && s.equalsIgnoreCase(state[5])) {
+            if (state[8].equalsIgnoreCase(" ")) {
+                return new int[]{3, 1};
+            }
+        }
+        // left
+        if (s.equalsIgnoreCase(state[2]) && s.equalsIgnoreCase(state[1])) {
+            if (state[0].equalsIgnoreCase(" ")) {
+                return new int[]{1, 3};
+            }
+        }
+        // diag
+        if (s.equalsIgnoreCase(state[2]) && s.equalsIgnoreCase(state[4])) {
+            if (state[6].equalsIgnoreCase(" ")) {
+                return new int[]{1, 1};
+            }
+        }
+
+        // 2nd row
+        // left
+        if (s.equalsIgnoreCase(state[3]) && s.equalsIgnoreCase(state[4])) {
+            if (state[5].equalsIgnoreCase(" ")) {
+                return new int[]{3, 2};
+            }
+        }
+        // right
+        if (s.equalsIgnoreCase(state[5]) && s.equalsIgnoreCase(state[4])) {
+            if (state[3].equalsIgnoreCase(" ")) {
+                return new int[]{1, 2};
+            }
+        }
+        // mid
+        if (s.equalsIgnoreCase(state[3]) && s.equalsIgnoreCase(state[5])) {
+            if (state[4].equalsIgnoreCase(" ")) {
+                return new int[]{2, 2};
+            }
+        }
+
+        // 2nd col
+        // up
+        if (s.equalsIgnoreCase(state[1]) && s.equalsIgnoreCase(state[4])) {
+            if (state[7].equalsIgnoreCase(" ")) {
+                return new int[]{2, 1};
+            }
+        }
+        // down
+        if (s.equalsIgnoreCase(state[7]) && s.equalsIgnoreCase(state[4])) {
+            if (state[1].equalsIgnoreCase(" ")) {
+                return new int[]{2, 3};
+            }
+        }
+        // mid
+        if (s.equalsIgnoreCase(state[1]) && s.equalsIgnoreCase(state[7])) {
+            if (state[4].equalsIgnoreCase(" ")) {
+                return new int[]{2, 2};
+            }
+        }
+
+        // mids
+        if (s.equalsIgnoreCase(state[0]) && s.equalsIgnoreCase(state[6])) {
+            if (state[3].equalsIgnoreCase(" ")) {
+                return new int[]{1, 2};
+            }
+        }
+        if (s.equalsIgnoreCase(state[6]) && s.equalsIgnoreCase(state[8])) {
+            if (state[7].equalsIgnoreCase(" ")) {
+                return new int[]{2, 1};
+            }
+        }
+        if (s.equalsIgnoreCase(state[8]) && s.equalsIgnoreCase(state[2])) {
+            if (state[5].equalsIgnoreCase(" ")) {
+                return new int[]{3, 2};
+            }
+        }
+        if (s.equalsIgnoreCase(state[2]) && s.equalsIgnoreCase(state[0])) {
+            if (state[1].equalsIgnoreCase(" ")) {
+                return new int[]{2, 3};
+            }
+        }
+
+        return new int[]{-1, -1};
     }
 
     /**
      * Check coords and move
      *
-     * @param x     - x
-     * @param y     - y
-     * @param s     - X or O
+     * @param x - x
+     * @param y - y
+     * @param s - X or O
      * @return - false if no move, true otherwise and make move
      */
     private static boolean checkCoordsAndMove(String x, String y, String s, boolean isBot) {
@@ -212,9 +407,9 @@ public class Main {
      * (1, 2) (2, 2) (3, 2)
      * (1, 1) (2, 1) (3, 1)
      *
-     * @param x     - x coord
-     * @param y     - y coord
-     * @param s     - X or O
+     * @param x - x coord
+     * @param y - y coord
+     * @param s - X or O
      */
     private static boolean humanMove(String x, String y, String s) {
         int stateNum = -1;
@@ -319,7 +514,7 @@ public class Main {
     /**
      * Get winner of game
      *
-     * @param s     - X or O or smth
+     * @param s - X or O or smth
      * @return - true if win in cell/row/diag found
      */
     private static boolean getWinner(String s) {
@@ -369,5 +564,57 @@ public class Main {
         return s.equalsIgnoreCase(state[2])
                 && s.equalsIgnoreCase(state[4])
                 && s.equalsIgnoreCase(state[6]);
+    }
+
+
+    /**
+     * Player class
+     */
+    private static class Player {
+        private boolean isBot;
+        private Levels level;
+        private String marker;
+        private String opponentMarker;
+
+        public Player(boolean isBot, Levels level, String marker, String opponentMarker) {
+            this.isBot = isBot;
+            if (level != null) {
+                this.level = level;
+            } else {
+                this.level = Levels.NONE;
+            }
+            this.marker = marker;
+            this.opponentMarker = opponentMarker;
+        }
+
+        public String getOpponentMarker() {
+            return opponentMarker;
+        }
+
+        public boolean isBot() {
+            return isBot;
+        }
+
+        public Levels getLevel() {
+            return level;
+        }
+
+        public String getMarker() {
+            return marker;
+        }
+
+        @Override
+        public String toString() {
+            return "Is Bot = "
+                    + isBot + "\n"
+                    + "Level = "
+                    + level.toString() + "\n"
+                    + "Marker = "
+                    + marker;
+        }
+    }
+
+    private enum Levels {
+        EASY, MEDIUM, HARD, NONE;
     }
 }
