@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>How to make your Tic Tac Toe game unbeatable by using the minimax algorithm</title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism.css">
+    <link rel="stylesheet" type="text/css" href="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-unescaped-markup.css">
+
+    <link href="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/css.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/screen.css">
+    <link rel="stylesheet" type="text/css" href="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/algolia-search.css">
+    
+    <script src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/algoliasearch.js"></script>
+    <script src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/autocomplete.js"></script>
+
+    <link rel="shortcut icon" href="https://www.freecodecamp.org/news/favicon.png" type="image/png">
+    <link rel="canonical" href="https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/amp/">
+    
+    <meta property="og:site_name" content="Developer News">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to make your Tic Tac Toe game unbeatable by using the minimax algorithm">
+    <meta property="og:description" content="by ahmad abdolsaheb
+
+How to make your Tic Tac Toe game unbeatable by using the minimax algorithm
+I struggled for hours scrolling through tutorials, watching videos, and banging
+my head on the desk trying to build an unbeatable Tic Tac Toe game with a
+reliable Artificial Intelligence. So if you are going through a similar journey,
+I would like to introduce you to the Minimax algorithm.
+
+Like a professional chess player, this algorithm sees a few steps ahead and puts
+itself in the shoes of its opp">
+    <meta property="og:url" content="https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/">
+    <meta property="og:image" content="https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg">
+    <meta property="article:published_time" content="2017-02-18T05:50:57.000Z">
+    <meta property="article:modified_time" content="2017-02-01T07:40:39.000Z">
+    <meta property="article:tag" content="Programming">
+    <meta property="article:tag" content="JavaScript">
+    <meta property="article:tag" content="Artificial Intelligence">
+    <meta property="article:tag" content="Software Development">
+    <meta property="article:tag" content="Gaming">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to make your Tic Tac Toe game unbeatable by using the minimax algorithm">
+    <meta name="twitter:description" content="by ahmad abdolsaheb
+
+How to make your Tic Tac Toe game unbeatable by using the minimax algorithm
+I struggled for hours scrolling through tutorials, watching videos, and banging
+my head on the desk trying to build an unbeatable Tic Tac Toe game with a
+reliable Artificial Intelligence. So if you are going through a similar journey,
+I would like to introduce you to the Minimax algorithm.
+
+Like a professional chess player, this algorithm sees a few steps ahead and puts
+itself in the shoes of its opp">
+    <meta name="twitter:url" content="https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/">
+    <meta name="twitter:image" content="https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg">
+    <meta name="twitter:label1" content="Written by">
+    <meta name="twitter:data1" content="freeCodeCamp.org">
+    <meta name="twitter:label2" content="Filed under">
+    <meta name="twitter:data2" content="Programming, JavaScript, Artificial Intelligence, Software Development, Gaming">
+    <meta name="twitter:site" content="@freecodecamp">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="405">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Developer News",
+        "logo": "https://cdn-media-1.freecodecamp.org/ghost/2018/12/FCC-logo-white.png"
+    },
+    "author": {
+        "@type": "Person",
+        "name": "freeCodeCamp.org",
+        "image": {
+            "@type": "ImageObject",
+            "url": "//www.gravatar.com/avatar/fcda43852608626fe46d7fd43145766e?s=250&d=mm&r=x",
+            "width": 250,
+            "height": 250
+        },
+        "url": "https://www.freecodecamp.org/news/author/freecodecamp/",
+        "sameAs": []
+    },
+    "headline": "How to make your Tic Tac Toe game unbeatable by using the minimax algorithm",
+    "url": "https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/",
+    "datePublished": "2017-02-18T05:50:57.000Z",
+    "dateModified": "2017-02-01T07:40:39.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg",
+        "width": 800,
+        "height": 405
+    },
+    "keywords": "Programming, JavaScript, Artificial Intelligence, Software Development, Gaming",
+    "description": "by ahmad abdolsaheb\n\nHow to make your Tic Tac Toe game unbeatable by using the minimax algorithm\nI struggled for hours scrolling through tutorials, watching videos, and banging\nmy head on the desk trying to build an unbeatable Tic Tac Toe game with a\nreliable Artificial Intelligence. So if you are going through a similar journey,\nI would like to introduce you to the Minimax algorithm.\n\nLike a professional chess player, this algorithm sees a few steps ahead and puts\nitself in the shoes of its opp",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://www.freecodecamp.org/news/"
+    }
+}
+    </script>
+
+    <meta name="generator" content="Ghost 2.25">
+    <link rel="alternate" type="application/rss+xml" title="Developer News" href="https://www.freecodecamp.org/news/rss/">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-55446531-20');
+</script>
+
+<style id="fit-vids-style">.fluid-width-video-container{flex-grow: 1;width:100%;}.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style></head>
+
+<body class="post-template tag-programming tag-javascript tag-artificial-intelligence tag-software-development tag-gaming">
+
+    <div class="site-wrapper">
+        <nav class="site-nav nav-padding">
+    <div class="site-nav-left">
+        <form onsubmit="event.preventDefault();">
+  <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input type="search" placeholder="Search 5,000+ tutorials" id="search-input" class="aa-input" autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" style="position: relative; vertical-align: top;" dir="auto"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Lato, sans-serif; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: optimizelegibility; text-transform: none;"></pre><span class="aa-dropdown-menu" style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;" role="listbox" id="algolia-autocomplete-listbox-0"><div class="aa-dataset-1"></div></span></span>
+</form>
+
+<script>
+  const client = algoliasearch('QMJYL5WYTI', '4318af87aa3ce128708f1153556c6108');
+  const index = client.initIndex('news');
+  autocomplete('#search-input', { hint: false }, [
+    {
+      source: autocomplete.sources.hits(index, { hitsPerPage: 8 }),
+      debounce: 250,
+      templates: {
+        suggestion: (suggestion, result) => {
+          return `
+            <a href="${suggestion.url}">
+              <div class="algolia-result">
+                <span>${suggestion._highlightResult.title.value}</span>
+              </div>
+            </a>
+          `;
+        },
+        empty: (options) => {
+          return `
+            <div class="algolia-result">
+              No tutorials found
+            </div>
+          `;
+        },
+        footer: (query, result) => {
+          if (!query.isEmpty) {
+            return `
+              <a href="https://freecodecamp.org/news/search?query=${result.query}">
+                <div class="algolia-result algolia-footer">
+                  <span>See all results for ${result.query}</span>
+                </div>
+              </a>
+            `;
+          }
+        }
+      }
+    }
+  ]).on('autocomplete:selected', (event, suggestion, dataset, context) => {
+    // Set to true if hit is selected by mouse or enter key
+    hitSelected = true;
+    // Do nothing on click, as the browser will already do it
+    if (context.selectionMethod === 'click') {
+      return;
+    }
+    // Change the page, for example, on other events
+    window.location.assign(suggestion.url);
+  });
+
+  // If no hits in the Autocomplete dropdown are highlighted,
+  // treat input like normal search bar
+  const input = document.getElementById("search-input");
+  let hitSelected;
+
+  input.addEventListener("keydown", (event) => {
+    const searchQuery = input.value;
+    if (event.key === "Enter" && !hitSelected) {
+      window.location.assign(`https://freecodecamp.org/news/search?query=${searchQuery}`);
+    }
+  });
+</script>    </div>
+    <div class="site-nav-middle">
+        <a class="site-nav-logo" href="https://www.freecodecamp.org/news"><img src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/FCC-logo-white.png" alt="Developer News"></a>
+    </div>
+    <div class="site-nav-right main-nav">
+        <div class="main-nav-group">
+            <ul class="nav" role="menu">
+    <li class="nav-learn" role="menuitem"><a href="https://learn.freecodecamp.org/">Learn</a></li>
+    <li class="nav-forum" role="menuitem"><a href="https://www.freecodecamp.org/forum/">Forum</a></li>
+    <li class="nav-news" role="menuitem"><a href="https://www.freecodecamp.org/news/">News</a></li>
+</ul>
+
+        </div>
+    </div>
+    <button class="site-nav-right toggle-button-nav">
+        Menu
+    </button>
+</nav>
+
+
+        
+
+
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+
+        <article class="post-full post tag-programming tag-javascript tag-artificial-intelligence tag-software-development tag-gaming ">
+
+            <header class="post-full-header">
+                <section class="post-full-meta">
+                    <time class="post-full-meta-date" datetime="2017-02-18">18 February 2017</time>
+                    <span class="date-divider">/</span>
+                    <a href="https://www.freecodecamp.org/news/tag/programming/">
+                        #Programming
+                    </a>
+                </section>
+                <h1 class="post-full-title">How to make your Tic Tac Toe game unbeatable by using the minimax algorithm</h1>
+            </header>
+
+            <div class="post-full-author-header">
+
+
+            </div>
+
+            
+<div class="social-row">
+    <button class="twitter" onclick="window.open('https://twitter.com/share?text=How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm&amp;url=https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/', 'share-twitter', 'width=550,height=235');return false;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path>
+    </svg> <span>&nbsp;Tweet this to your followers</span></button>
+    <div></div>
+    <button class="email" onclick="window.location.href = 'mailto:?subject=helpful freeCodeCamp article: How to make your Tic Tac Toe game unbeatable by using the minimax algorithm  &amp;body=How to make your Tic Tac Toe game unbeatable by using the minimax algorithm https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/';">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="32" height="32">
+    <defs>
+        <path d="M0 100L640 100L320 360L0 100Z" id="b1cw6CIsqS"></path>
+        <path d="M0 537.18L0 160L320 420L640 160L640 541.1L0 537.18Z" id="aAHuzNbff"></path>
+    </defs>
+    <g>
+
+        <use xlink:href="#b1cw6CIsqS" opacity="1" fill-opacity="1"></use>
+        <path d="M0 100L640 100L320 360L0 100Z" id="c2GF8nL4hl" fill="white" fill-opacity="1" filter="url(#shadow605849)"></path>
+        <use xlink:href="#aAHuzNbff" opacity="1" fill-opacity="1"></use>
+        <path d="M0 537.18L0 160L320 420L640 160L640 541.1L0 537.18Z" id="a5mitN1KH" fill="white" fill-opacity="1" filter="url(#shadow15043397)"></path>
+
+    </g>
+</svg> <span>Email this to a friend</span></button>
+
+    <div></div>
+    <button class="facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://www.freecodecamp.org/news/author/freecodecamp/', 'share-facebook','width=580,height=296');return false;">
+        <!-- Facebook Filled icon by Icons8 -->
+
+
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="32" height="32">
+    <defs>
+        <path d="M640 321.89C640 482.61 523.62 615.43 369.16 638.11C368.42 630.47 367.98 556.08 367.83 414.93C395.49 414.61 420.42 414.27 442.61 413.9C446.4 380.3 452.55 347.37 456.62 323.22C425.51 322.93 388.88 323.31 367.83 323.22C368.37 281.18 368.35 303.77 367.83 262.54C372.62 222.64 384.99 209.96 459.86 213.65C459.57 203.36 460.61 151.4 459.86 133.3C460.87 134.09 279.13 86.74 269.33 241.43C268.52 265.86 268.65 290.49 269.33 323.22C265.63 322.84 238.44 322.84 187.75 323.22L187.75 414.93L269.33 414.93C270.65 564.06 270.21 638.45 268 638.11C114.78 614.35 0 481.73 0 321.89C0 145.28 143.39 1.89 320 1.89C496.61 1.89 640 145.28 640 321.89Z" id="bS1mFenfS"></path>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <use xlink:href="#bS1mFenfS"></use>
+            </g>
+        </g>
+    </g>
+</svg> <span>Share this with your friends</span></button>
+</div>
+            <figure class="post-full-image">
+                <img srcset="https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg 300w,
+                            https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg 600w,
+                            https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg 1000w,
+                            https://cdn-media-1.freecodecamp.org/images/1*y2B2auvIpUI0vSLtT2KWyg.jpeg 2000w" sizes="(max-width: 800px) 400px,
+                            (max-width: 1170px) 700px,
+                            1400px" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/1y2B2auvIpUI0vSLtT2KWyg.jpg" alt="How to make your Tic Tac Toe game unbeatable by using the minimax algorithm">
+            </figure>
+
+            <section class="post-full-content">
+                <div class="post-content medium-migrated-article">
+                    <p>by ahmad abdolsaheb</p><h1 id="how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm">How to make your Tic Tac Toe game unbeatable by using the minimax algorithm</h1><!--kg-card-begin: image--><figure class="kg-card kg-image-card"><img src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/USWJIyJEJbLApk1InengNKf00I1xRUJ9OusE.jpg" class="kg-image"></figure><!--kg-card-end: image--><p>I
+ struggled for hours scrolling through tutorials, watching videos, and 
+banging my head on the desk trying to build an unbeatable Tic Tac Toe 
+game with a reliable Artificial Intelligence. So if you are going 
+through a similar journey, I would like to introduce you to the Minimax 
+algorithm.</p><p>Like a professional chess player, this algorithm sees a
+ few steps ahead and puts itself in the shoes of its opponent. It keeps 
+playing ahead until it reaches a terminal arrangement of the board (<strong>terminal state</strong>)
+ resulting in a tie, a win, or a loss. Once in a terminal state, the AI 
+will assign an arbitrary positive score (+10) for a win, a negative 
+score (-10) for a loss, or a neutral score (0) for a tie.</p><p>At the 
+same time, the algorithm evaluates the moves that lead to a terminal 
+state based on the players’ turn. It will choose the move with maximum 
+score when it is the AI’s turn and choose the move with the minimum 
+score when it is the human player’s turn. Using this strategy, Minimax 
+avoids losing to the human player.</p><p>Try it for yourself in the following game.</p><p>A Minimax algorithm can be best defined as a recursive function that does the following things:</p><ol><li>return a value if a terminal state is found (+10, 0, -10)</li><li>go through available spots on the board</li><li>call the minimax function on each available spot (recursion)</li><li>evaluate returning values from function calls</li><li>and return the best value</li></ol><p>If you are new to the concept of recursion, I recommend watching this <a href="https://www.youtube.com/watch?v=VrrnjYgDBEk" rel="noopener">video</a> from Harvard’s CS50.</p><p>To
+ completely grasp the Minimax’s thought process, let’s implement it in 
+code and see it in action in the following two sections.</p><h3 id="minimax-in-code">Minimax in Code</h3><p>For
+ this tutorial you will be working on a near end state of the game which
+ is shown in figure 2 below. Since minimax evaluates every state of the 
+game (hundreds of thousands), a near end state allows you to follow up 
+with minimax’s recursive calls easier(9).</p><p>For the following figure, assume the AI is X and the human player is O.</p><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/iYDAcMcMvbr0lBISCQqM-mBbfhqDx2sPqcYl.png" class="kg-image"><figcaption>figure 2 sample of game state</figcaption></figure><!--kg-card-end: image--><p>To
+ work with the Ti Tac Toe board easier, you should define it as an array
+ with 9 items. Each item will have its index as a value. This will come 
+handy later on. Because the above board is already populated with some X
+ and Y moves, let us define the board with the X and Y moves already in 
+it (<em>origBoard</em>).</p><!--kg-card-begin: code--><pre><code>var origBoard = ["O",1,"X","X",4,"X",6,"O","O"];</code></pre><!--kg-card-end: code--><p>Then declare <em>aiPlayer </em>and<em> huPlayer </em>variables and set them to “X” and “O” respectively<em>.</em></p><p>Additionally,
+ you need a function that looks for winning combinations and returns 
+true if it finds one, and a function that lists the indexes of available
+ spots in the board.</p><p>Now let’s dive into the good parts by defining the Minimax function with two arguments <em>newBoard</em> and <em>player</em>. Then, you need to find the indexes of the available spots in the board and set them to a variable called <em>availSpots</em>.</p><p>Also,
+ you need to check for terminal states and return a value accordingly. 
+If O wins you should return -10, if X wins you should return +10. In 
+addition, if the length of the <em>availableSpots</em> array is zero, that means there is no more room to play, the game has resulted in a tie, and you should return zero.</p><p>Next, you need to collect the scores from each of the empty spots to evaluate later. Therefore, make an array called <em>moves</em> and loop through empty spots while collecting each move’s index and score in an object called <em>move</em>.</p><p>Then, set the index number of the empty spot that was stored as a number in the <em>origBoard</em> to the index property of the <em>move</em> object. Later, set the empty spot on the <em>newboard</em> to the current player and call the <em>minimax </em>function with other player and the newly changed <em>newboard</em>. Next, you should store the object resulted from the <em>minimax</em> function call that includes a <em>score</em> property to the <em>score</em> property of the <em>move</em> object.</p><blockquote><em>If
+ the minimax function does not find a terminal state, it keeps 
+recursively going level by level deeper into the game. This recursion 
+happens until it reaches a terminal state and returns a score one level 
+up.</em></blockquote><p>Finally, Minimax resets <em>newBoard</em> to what it was before and pushes the <em>move</em> object to the <em>moves </em>array.</p><p>Then, the minimax algorithm needs to evaluate the best<em> move</em> in the <em>moves</em> array. It should choose the <em>move</em> with the highest score when AI is playing and the <em>move</em> with the lowest score when the human is playing. Therefore, If the <em>player</em> is <em>aiPlayer</em>, it sets a variable called <em>bestScore </em>to a very low number and loops through the <em>moves </em>array, if a <em>move</em> has a higher <em>score</em> than <em>bestScore</em>, the algorithm stores that <em>move</em>. In case there are moves with similar score, only the first one will be stored.</p><p>The same evaluation process happens when <em>player</em> is <em>huPlayer</em>, but this time <em>bestScore</em> would be set to a high number and Minimax looks for a move with the lowest score to store.</p><p>At the end, Minimax returns the object stored in <em>bestMove</em>.</p><blockquote><em>That is it for the minimax function. :) you can find the above algorithm on <a href="https://github.com/ahmadabdolsaheb/minimaxarticle" rel="noopener">github</a> and <a href="https://codepen.io/abdolsa/pen/mABGoz?editors=1011" rel="noopener">codepen</a>. Play around with different boards and check the results in the console.</em></blockquote><p>In
+ the next section, let’s go over the code line by line to better 
+understand how the minimax function behaves given the board shown in 
+figure 2.</p><h3 id="minimax-in-action">Minimax in action</h3><p>Using the following figure, let’s follow the algorithm’s function calls (<strong>FC</strong>) one by one.</p><p>Note:
+ In figure 3, large numbers represent each function call and levels 
+refer to how many steps ahead of the game the algorithm is playing.</p><!--kg-card-begin: image--><figure class="kg-card kg-image-card kg-card-hascaption"><img src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/K1y8jFFT0JeL14tHaAum8lF2cs7WXsQOOp9j.png" class="kg-image"><figcaption>Figure 3 Minimax function call by function call</figcaption></figure><!--kg-card-end: image--><p><strong><em>1.</em></strong><em>origBoard </em>and <em>aiPlayer</em>
+ is fed to the algorithm. The algorithm makes a list of the three empty 
+spots it finds, checks for terminal states, and loops through every 
+empty spot starting from the first one. Then, it changes the <em>newBoard</em> by placing the <em>aiPlayer </em>in the first empty spot.<em> </em>After that,<em> </em>it calls itself with <em>newBoard </em>and the <em>huPlayer </em>and waits for the FC to return a value.</p><p><strong>2. </strong>While
+ the first FC is still running, the second one starts by making a list 
+of the two empty spots it finds, checks for terminal states, and loops 
+through the empty spot starting from the first one. Then, it changes the
+ <em>newBoard</em> by placing the <em>huPlayer </em>in the first empty spot.<em> </em>After that<em> </em>it calls itself with <em>newBoard </em>and the <em>aiPlayer </em>and waits for the FC to return a value.</p><p><strong>3. </strong>Finally
+ the algorithm makes a list of the empty spots, and finds a win for the 
+human player after checking for terminal states. Therefore, it returns 
+an object with a score property and value of -10.</p><blockquote><em>Since the second FC listed two empty spots, Minimax changes the </em>newBoard <em>by placing </em>huPlayer<em> in the second empty spot. Then, it calls itself with the new board and the </em>aiPlayer<em>.</em></blockquote><p><strong>4.</strong>
+ The algorithm makes a list of the empty spots, and finds a win for the 
+human player after checking for terminal states. Therefore, it returns 
+an object with a score property and value of -10.</p><blockquote><em>On the second FC, the algorithm collects the values coming from lower levels (3rd and 4th FC). Since </em>huPlayer<em>’s
+ turn resulted in the two values, the algorithm chooses the lowest of 
+the two values. Because both of the values are similar, it chooses the 
+first one and returns it up to the first FC.</em></blockquote><blockquote><em>At this point the first FC has evaluated the score of moving </em>aiPlayer<em> in the first empty spot. Next, it changes the </em>newBoard <em>by placing </em>aiPlayer<em> in the second empty spot. Then, it calls itself with the </em>newBoard<em> and the </em>huPlayer<em>.</em></blockquote><p><strong>5.</strong>
+ On the fifth FC, The algorithm makes a list of the empty spots, and 
+finds a win for the human player after checking for terminal states. 
+Therefore, it returns an object with a score property and value of +10.</p><blockquote><em>After that, the first FC moves on by changing the </em>newBoard <em>and placing </em>aiPlayer<em> in the third empty spot. Then, it calls itself with the new board and the </em>huPlayer<em>.</em></blockquote><p><strong>6.</strong>
+ The 6th FC starts by making a list of two empty spots it finds, checks 
+for terminal states, and loops through the two empty spots starting from
+ the first one. Then, it changes the <em>newBoard</em> by placing the <em>huPlayer </em>in the first empty spot.<em> </em>After that,<em> </em>it calls itself with <em>newBoard </em>and the <em>aiPlayer </em>and waits for the FC to return a score.</p><p><strong>7.</strong>
+ Now the algorithm is two level deep into the recursion. It makes a list
+ of the one empty spot it finds, checks for terminal states, and changes
+ the <em>newBoard</em> by placing the <em>aiPlayer </em>in the empty spot.<em> </em>After that,<em> </em>it calls itself with <em>newBoard </em>and the <em>huPlayer </em>and waits for the FC to return a score so it can evaluate it.</p><p><strong>8. </strong>On the 8th FC,<strong> </strong>the algorithm makes an empty list of empty spots, and finds a win for the <em>aiPlayer</em> after checking for terminal states. Therefore, it returns an object with score property and value of +10 one level up (7th FC).</p><blockquote><em>The 7th FC only received one positive value from lower levels (8th FC). Because </em>aiPlayer’s turn <em>resulted
+ in that value, the algorithm needs to return the highest value it has 
+received from lower levels. Therefore, it returns its only positive 
+value (+10) one level up (6th FC).</em></blockquote><blockquote><em>Since the 6th FC listed two empty spots, Minimax changes </em>newBoard<em> by placing </em>huPlayer<em> in the second empty spot. Then, calls itself with the new board and the </em>aiPlayer<em>.</em></blockquote><p><strong>9. </strong>Next, the algorithm makes a list of the empty spots, and finds a win for the <em>aiPlayer</em> after checking for terminal states. Therefore, it returns an object with score properties and value of +10.</p><blockquote><em>At
+ this point, the 6 FC has to choose between the score (+10)that was sent
+ up from the 7th FC (returned originally from from the 8 FC) and the 
+score (-10) returned from the 9th FC. Since </em>huPlayer<em>’s turn 
+resulted in those two returned values, the algorithm finds the minimum 
+score (-10) and returns it upwards as an object containing score and 
+index properties.</em></blockquote><blockquote><em>Finally, all three 
+branches of the first FC have been evaluated ( -10, +10, -10). But 
+because aiPlayer’s turn resulted in those values, the algorithm returns 
+an object containing the highest score (+10) and its index (4).</em></blockquote><p><strong>In the above scenario, Minimax concludes that moving the X to the middle of the board results in the best outcome. :)</strong></p><h3 id="the-end-">The End!</h3><p>By
+ now you should be able to understand the logic behind the Minimax 
+algorithm. Using this logic try to implement a Minimax algorithm 
+yourself or find the above sample on<strong> </strong><a href="https://github.com/ahmadabdolsaheb/minimaxarticle" rel="noopener">github</a> or <a href="https://codepen.io/abdolsa/pen/mABGoz?editors=1011" rel="noopener">codepen</a> and optimize it.</p><p><em>Thanks
+ for reading! If you liked this story, please recommend it by clicking 
+the ❤ button on the side and sharing it on social media.</em></p><p><em>Special thanks to Tuba Yilmaz, Rick McGavin, and Javid Askerov</em> <em>for reviewing this article.</em></p>
+                </div>
+            </section>
+
+
+            
+<div class="social-row">
+    <button class="twitter" onclick="window.open('https://twitter.com/share?text=How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm&amp;url=https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/', 'share-twitter', 'width=550,height=235');return false;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+    <path d="M30.063 7.313c-.813 1.125-1.75 2.125-2.875 2.938v.75c0 1.563-.188 3.125-.688 4.625a15.088 15.088 0 0 1-2.063 4.438c-.875 1.438-2 2.688-3.25 3.813a15.015 15.015 0 0 1-4.625 2.563c-1.813.688-3.75 1-5.75 1-3.25 0-6.188-.875-8.875-2.625.438.063.875.125 1.375.125 2.688 0 5.063-.875 7.188-2.5-1.25 0-2.375-.375-3.375-1.125s-1.688-1.688-2.063-2.875c.438.063.813.125 1.125.125.5 0 1-.063 1.5-.25-1.313-.25-2.438-.938-3.313-1.938a5.673 5.673 0 0 1-1.313-3.688v-.063c.813.438 1.688.688 2.625.688a5.228 5.228 0 0 1-1.875-2c-.5-.875-.688-1.813-.688-2.75 0-1.063.25-2.063.75-2.938 1.438 1.75 3.188 3.188 5.25 4.25s4.313 1.688 6.688 1.813a5.579 5.579 0 0 1 1.5-5.438c1.125-1.125 2.5-1.688 4.125-1.688s3.063.625 4.188 1.813a11.48 11.48 0 0 0 3.688-1.375c-.438 1.375-1.313 2.438-2.563 3.188 1.125-.125 2.188-.438 3.313-.875z"></path>
+    </svg> <span>&nbsp;Tweet this to your followers</span></button>
+    <div></div>
+    <button class="email" onclick="window.location.href = 'mailto:?subject=helpful freeCodeCamp article: How to make your Tic Tac Toe game unbeatable by using the minimax algorithm  &amp;body=How to make your Tic Tac Toe game unbeatable by using the minimax algorithm https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/';">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="32" height="32">
+    <defs>
+        <path d="M0 100L640 100L320 360L0 100Z" id="b1cw6CIsqS"></path>
+        <path d="M0 537.18L0 160L320 420L640 160L640 541.1L0 537.18Z" id="aAHuzNbff"></path>
+    </defs>
+    <g>
+
+        <use xlink:href="#b1cw6CIsqS" opacity="1" fill-opacity="1"></use>
+        <path d="M0 100L640 100L320 360L0 100Z" id="c2GF8nL4hl" fill="white" fill-opacity="1" filter="url(#shadow605849)"></path>
+        <use xlink:href="#aAHuzNbff" opacity="1" fill-opacity="1"></use>
+        <path d="M0 537.18L0 160L320 420L640 160L640 541.1L0 537.18Z" id="a5mitN1KH" fill="white" fill-opacity="1" filter="url(#shadow15043397)"></path>
+
+    </g>
+</svg> <span>Email this to a friend</span></button>
+
+    <div></div>
+    <button class="facebook" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://www.freecodecamp.org/news/author/freecodecamp/', 'share-facebook','width=580,height=296');return false;">
+        <!-- Facebook Filled icon by Icons8 -->
+
+
+
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640" width="32" height="32">
+    <defs>
+        <path d="M640 321.89C640 482.61 523.62 615.43 369.16 638.11C368.42 630.47 367.98 556.08 367.83 414.93C395.49 414.61 420.42 414.27 442.61 413.9C446.4 380.3 452.55 347.37 456.62 323.22C425.51 322.93 388.88 323.31 367.83 323.22C368.37 281.18 368.35 303.77 367.83 262.54C372.62 222.64 384.99 209.96 459.86 213.65C459.57 203.36 460.61 151.4 459.86 133.3C460.87 134.09 279.13 86.74 269.33 241.43C268.52 265.86 268.65 290.49 269.33 323.22C265.63 322.84 238.44 322.84 187.75 323.22L187.75 414.93L269.33 414.93C270.65 564.06 270.21 638.45 268 638.11C114.78 614.35 0 481.73 0 321.89C0 145.28 143.39 1.89 320 1.89C496.61 1.89 640 145.28 640 321.89Z" id="bS1mFenfS"></path>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <use xlink:href="#bS1mFenfS"></use>
+            </g>
+        </g>
+    </g>
+</svg> <span>Share this with your friends</span></button>
+</div>
+            <script type="text/javascript">
+                function loadDiscourseComments() {
+                    document.getElementById('discourse-comments').innerHTML = '';
+                    DiscourseEmbed = {
+                        discourseUrl: 'https://www.freecodecamp.org/forum/',
+                        discourseEmbedUrl: 'https://www.freecodecamp.org/news/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37/'
+                    };
+                    var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                    d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                }
+                if (window && window.addEventListener) {
+                    window.addEventListener('load', function () {
+                        document.getElementById('trigger-load-comments').onclick = loadDiscourseComments;
+                    });
+                }
+            </script>
+
+            <div id="discourse-comments">
+                <button id="trigger-load-comments">Show comments</button>
+            </div>
+
+        </article>
+    </div>
+</main>
+
+
+
+
+
+<aside class="read-next outer">
+    <div class="inner">
+        <div class="read-next-feed">
+            <article class="read-next-card" style="background-image: url(/news/content/images/size/w600/2019/06/background.png)">
+                <header class="read-next-card-header">
+                    <p class="read-next-card-header-sitetitle">Countinue reading about</p>
+                    <h3 class="read-next-card-header-title"><a href="https://www.freecodecamp.org/news/tag/programming/">Programming</a></h3>
+                </header>
+                <div class="read-next-card-content">
+                    <ul>
+                        <li><a href="https://www.freecodecamp.org/news/understand-scala-variances-building-restaurants/">How to understand Scala variances by building restaurants</a></li>
+                        <li><a href="https://www.freecodecamp.org/news/things-all-developers-should-learn-in-college/">Things All Developers Should Learn In College</a></li>
+                        <li><a href="https://www.freecodecamp.org/news/beginners-working-guide-to-javascript-generators/">Beginner's working guide to JavaScript generators</a></li>
+                    </ul>
+                </div>
+                <footer class="read-next-card-footer">
+                    <a href="https://www.freecodecamp.org/news/tag/programming/">See all 2728 posts
+                        →</a>
+                </footer>
+            </article>
+
+            <article class="post-card post tag-privacy tag-security tag-tech tag-media tag-technology ">
+
+    <a class="post-card-image-link" href="https://www.freecodecamp.org/news/dont-be-fooled-by-the-guardian-s-misleading-reporting-whatsapp-s-encryption-works-just-fine-if-you-d2a9a3ef6731/">
+        <img class="post-card-image" srcset="https://cdn-media-1.freecodecamp.org/images/1*qz8dtxtJlyNpNiyNhzIJ4Q.jpeg 300w,
+                    https://cdn-media-1.freecodecamp.org/images/1*qz8dtxtJlyNpNiyNhzIJ4Q.jpeg 600w,
+                    https://cdn-media-1.freecodecamp.org/images/1*qz8dtxtJlyNpNiyNhzIJ4Q.jpeg 1000w,
+                    https://cdn-media-1.freecodecamp.org/images/1*qz8dtxtJlyNpNiyNhzIJ4Q.jpeg 2000w" sizes="(max-width: 1000px) 400px, 700px" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/1qz8dtxtJlyNpNiyNhzIJ4Q.jpg" alt="WhatsApp chose convenience over privacy, here’s how you can fix this">
+    </a>
+
+    <div class="post-card-content">
+
+        <div class="post-card-content-link">
+
+            <header class="post-card-header">
+                <span class="post-card-tags">
+                    <a href="https://www.freecodecamp.org/news/tag/privacy/">
+                        #Privacy
+                    </a>
+                </span>
+                <h2 class="post-card-title">
+                    <a href="https://www.freecodecamp.org/news/dont-be-fooled-by-the-guardian-s-misleading-reporting-whatsapp-s-encryption-works-just-fine-if-you-d2a9a3ef6731/">
+                        WhatsApp chose convenience over privacy, here’s how you can fix this
+                    </a>
+                </h2>
+            </header>
+
+        </div>
+
+
+        <footer class="post-card-meta">
+
+            <time class="meta-item-single">2 years ago</time>
+
+
+        </footer>
+
+    </div>
+
+</article>
+            <article class="post-card post tag-python tag-programming tag-django tag-testing tag-software-development ">
+
+    <a class="post-card-image-link" href="https://www.freecodecamp.org/news/how-to-testing-django-signals-like-a-pro-c7ed74279311/">
+        <img class="post-card-image" srcset="https://cdn-media-1.freecodecamp.org/images/1*UTaOKkC0_Ha3DgqrzrcPzw.jpeg 300w,
+                    https://cdn-media-1.freecodecamp.org/images/1*UTaOKkC0_Ha3DgqrzrcPzw.jpeg 600w,
+                    https://cdn-media-1.freecodecamp.org/images/1*UTaOKkC0_Ha3DgqrzrcPzw.jpeg 1000w,
+                    https://cdn-media-1.freecodecamp.org/images/1*UTaOKkC0_Ha3DgqrzrcPzw.jpeg 2000w" sizes="(max-width: 1000px) 400px, 700px" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/1UTaOKkC0_Ha3DgqrzrcPzw.jpg" alt="How to test Django Signals like a pro">
+    </a>
+
+    <div class="post-card-content">
+
+        <div class="post-card-content-link">
+
+            <header class="post-card-header">
+                <span class="post-card-tags">
+                    <a href="https://www.freecodecamp.org/news/tag/python/">
+                        #Python
+                    </a>
+                </span>
+                <h2 class="post-card-title">
+                    <a href="https://www.freecodecamp.org/news/how-to-testing-django-signals-like-a-pro-c7ed74279311/">
+                        How to test Django Signals like a pro
+                    </a>
+                </h2>
+            </header>
+
+        </div>
+
+
+        <footer class="post-card-meta">
+
+            <time class="meta-item-single">2 years ago</time>
+
+
+        </footer>
+
+    </div>
+
+</article>
+        </div>
+    </div>
+</aside>
+
+
+
+
+        <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-row">
+            <div class="footer-desc-col">
+                <p>freeCodeCamp is a donor-supported tax-exempt 501(c)(3)
+                    nonprofit organization (United States Federal Tax
+                    Identification Number: 82-0779546)
+                </p>
+                <p>
+                    Our mission: to help people learn to code for free. We
+                    accomplish this by creating thousands of videos, articles, and
+                    interactive coding lessons - all freely available to the
+                    public. We also have thousands of freeCodeCamp study groups
+                    around the world.
+                </p>
+                <p>
+                    Donations to freeCodeCamp go toward our education initiatives,
+                    and help pay for servers, services, and staff. You can&nbsp;<a href="https://freecodecamp.org/donate" class="inline" rel="noopener noreferrer" target="_blank">make a tax-deductible donation here</a>.
+                </p>
+            </div>
+            <div class="footer-col-1">
+                <div class="col-header">Our Nonprofit</div>
+                <a href="https://freecodecamp.org/about">About</a><a href="https://freecodecamp.org/donate">Donate</a><a href="https://freecodecamp.org/shop" rel="noopener noreferrer" target="_blank">Shop</a><a href="https://sponsors.freecodecamp.org/">Sponsors</a><a href="mailto:team@freecodecamp.org">Email
+                    Us</a>
+            </div>
+            <div class="footer-col-2">
+                <div class="col-header">Our Community</div>
+                <a href="https://freecodecamp.org/news" rel="noopener noreferrer" target="_blank">News</a><a href="https://www.linkedin.com/school/free-code-camp/people/" rel="noopener noreferrer" target="_blank">Alumni Network</a><a href="https://study-group-directory.freecodecamp.org/" rel="noopener noreferrer" target="_blank">Study Groups</a><a href="https://freecodecamp.org/forum" rel="noopener noreferrer" target="_blank">Forum</a><a href="https://gitter.im/FreeCodeCamp/home" rel="noopener noreferrer" target="_blank">Gitter</a><a href="https://github.com/freeCodeCamp/" rel="noopener noreferrer" target="_blank">GitHub</a><a href="https://freecodecamp.org/support">Support</a><a href="https://freecodecamp.org/academic-honesty">Academic Honesty</a><a href="https://freecodecamp.org/code-of-conduct">Code of Conduct</a><a href="https://freecodecamp.org/privacy-policy">Privacy Policy</a><a href="https://freecodecamp.org/terms-of-service">Terms of Service</a>
+            </div>
+            <div class="footer-col-3">
+                <div class="col-header">Our Learning Resources</div>
+                <a href="https://learn.freecodecamp.org/">Learn</a><a href="https://guide.freecodecamp.org/">Guide</a><a href="https://www.youtube.com/freecodecamp" rel="noopener noreferrer" target="_blank">Youtube</a><a href="https://podcast.freecodecamp.org/" rel="noopener noreferrer" target="_blank">Podcast</a><a href="https://twitter.com/freecodecamp" rel="noopener noreferrer" target="_blank">Twitter</a><a href="https://instagram.com/freecodecamp" rel="noopener noreferrer" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+</footer>
+    </div>
+
+
+    <script>
+        var images = document.querySelectorAll('.kg-gallery-image img');
+        images.forEach(function (image) {
+            var container = image.closest('.kg-gallery-image');
+            var width = image.attributes.width.value;
+            var height = image.attributes.height.value;
+            var ratio = width / height;
+            container.style.flex = ratio + ' 1 0%';
+        })
+    </script>
+
+
+    <script src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/jquery-3.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
+        </script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/jquery.js"></script>
+
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-unescaped-markup.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-markup-templating.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-bash.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-c.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-clojure.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-cpp.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-csharp.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-css.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-docker.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-elixir.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-erlang.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-git.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-go.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-graphql.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-haskell.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-java.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-javascript.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-json.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-jsx.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-kotlin.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-lua.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-markup.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-php.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-python.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-r.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-ruby.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-rust.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-scala.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-sql.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-swift.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-typescript.js"></script>
+    <script type="text/javascript" src="How%20to%20make%20your%20Tic%20Tac%20Toe%20game%20unbeatable%20by%20using%20the%20minimax%20algorithm_files/prism-yaml.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        // Start fitVids
+        var $postContent = $(".post-full-content");
+        $postContent.fitVids();
+        // End fitVids
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".toggle-button-nav").click(function () {
+            $(".nav").toggleClass("show-main-nav-items");
+            $(".site-nav").toggleClass("expand-nav");
+            $(".toggle-button-nav").toggleClass("reverse-toggle-color");
+            $(".site-nav-left").toggleClass("display-search");
+        });
+    });
+</script>
+
+
+    
+
+
+
+</body></html>
