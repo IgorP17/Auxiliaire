@@ -9,10 +9,10 @@ public class HardLevel {
 
     // this is the board flattened and filled with some values to easier asses the Artificial Inteligence.
 //    private static String[] origBoard = new String[]{"O", "1", "X", "X", "4", "X", "6", "O", "O"};
-//    private static String[] origBoard = new String[]{"O", "1", "X", " ", "X", "X", "6", "O", "O"};
-    private static String[] origBoard = new String[]{" ", "O", "X",
-                                                     " ", "X", " ",
-                                                     "O", " ", " "};
+    private static String[] origBoard = new String[]{"O", "1", "X", " ", "X", "X", "6", "O", "O"};
+//    private static String[] origBoard = new String[]{" ", "O", "X",
+//                                                     " ", "X", " ",
+//                                                     "O", " ", " "};
     //keeps count of function calls
     private static int fc = 0;
 
