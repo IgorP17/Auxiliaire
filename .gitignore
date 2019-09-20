@@ -2,6 +2,7 @@
 .idea/vcs.xml
 .idea/uiDesigner.xml
 .idea/encodings.xml
+.idea/misc.xml
 out/*
 save.ser
 in.txt
