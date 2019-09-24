@@ -7,7 +7,9 @@ package games.sudoku;
  */
 public class Cell {
 
+    // is cell filled with value
     private boolean filled;
+    // filled value, otherwise null
     private Integer value;
 
     /**
@@ -26,8 +28,8 @@ public class Cell {
                 this.value = value;
             }
         } else {
-            filled = false;
-            value = null;
+            this.filled = false;
+            this.value = null;
         }
 
     }
