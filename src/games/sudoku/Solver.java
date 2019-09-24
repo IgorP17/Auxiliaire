@@ -5,28 +5,47 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Functional interface for manipulating with sudoku board
+ */
+interface DoSomeThingFunc {
+    String func(Board board);
+}
+
+
 public class Solver {
 
-    private static Cell[][] board = new Cell[9][9];
+    /**
+     * Define method that will handle lambda (aka implements interface)
+     *
+     * @param doSomeThingFunc - lambda
+     * @param board           - board
+     * @return - as lambda return
+     */
+    static String process(DoSomeThingFunc doSomeThingFunc, Board board) {
+        return doSomeThingFunc.func(board);
+    }
+
+    // Board
+    private static Board board = new Board(
+            "/home/igor/Projects/Java/Auxiliaire/src/games/sudoku/ex1.txt");
 
     public static void main(String[] args) {
-        readFile("/home/igor/Projects/Java/Auxiliaire/src/games/sudoku/sample.txt");
-
-
+        process(initObjectFromFile, board);
+        process(printBoard, board);
     }
 
     /**
-     * Read and create board
-     * @param pathToFile
-     * @return
+     * Lambda for initialisation board from file
      */
-    private static Cell[][] readFile(String pathToFile){
-
-        try(BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
+    static DoSomeThingFunc initObjectFromFile = (DoSomeThingFunc) -> {
+        System.out.println("=== initObjectFromFile starts");
+        // Try with resource
+        try (BufferedReader br = new BufferedReader(new FileReader(board.getPathToFile()))) {
             String line = br.readLine();
 
             while (line != null) {
-                System.out.println(line);
+//                System.out.println(line);
                 line = br.readLine();
             }
 
@@ -34,9 +53,21 @@ public class Solver {
             System.out.println("File not found!");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("Exception in readFile");
+            System.out.println("Exception in lambda initObjectFromFile");
             e.printStackTrace();
         }
-        return new Cell[0][];
-    }
+
+        System.out.println("=== initObjectFromFile ends");
+
+        return "OK";
+    };
+
+    /**
+     * Lambda for print board
+     */
+    static DoSomeThingFunc printBoard = (DoSomeThingFunc) -> {
+        System.out.println("=== printBoard starts");
+        System.out.println("=== printBoard ends");
+        return "OK";
+    };
 }
