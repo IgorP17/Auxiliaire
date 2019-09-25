@@ -28,7 +28,7 @@ public class Solver {
 
     // Board
     private static Board board = new Board(
-            "/home/igor/Projects/Java/Auxiliaire/src/games/sudoku/ex1.txt");
+            "./src/games/sudoku/ex1.txt");
 
     public static void main(String[] args) {
         process(initObjectFromFile, board);
@@ -41,11 +41,29 @@ public class Solver {
     static DoSomeThingFunc initObjectFromFile = (DoSomeThingFunc) -> {
         System.out.println("=== initObjectFromFile starts");
         // Try with resource
+        int j = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(board.getPathToFile()))) {
             String line = br.readLine();
-
             while (line != null) {
-//                System.out.println(line);
+                line = line.trim().replace(" ", "");
+
+                if (!line.isEmpty()){
+                    String[] vals = line.split(";");
+                    if (vals.length != 9){
+                        throw new RuntimeException("Ellegal numbers of input string!");
+                    }
+                    for (int i = 0; i < 9; i++) {
+                        Cell cell;
+                        if ("_".equals(vals[i])){
+                            cell = new Cell(false, null);
+                        } else {
+                            cell = new Cell(true, Integer.parseInt(vals[i]));
+                        }
+                        board.setIJ(i, j, cell);
+                    }
+                    j++;
+                }
+
                 line = br.readLine();
             }
 
@@ -67,6 +85,7 @@ public class Solver {
      */
     static DoSomeThingFunc printBoard = (DoSomeThingFunc) -> {
         System.out.println("=== printBoard starts");
+
         System.out.println("=== printBoard ends");
         return "OK";
     };
