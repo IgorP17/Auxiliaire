@@ -39,7 +39,7 @@ public class Solver {
      * Lambda for initialisation board from file
      */
     static DoSomeThingFunc initObjectFromFile = (DoSomeThingFunc) -> {
-        System.out.println("=== initObjectFromFile starts");
+//        System.out.println("=== initObjectFromFile starts");
         // Try with resource
         int j = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(board.getPathToFile()))) {
@@ -47,14 +47,14 @@ public class Solver {
             while (line != null) {
                 line = line.trim().replace(" ", "");
 
-                if (!line.isEmpty()){
+                if (!line.isEmpty()) {
                     String[] vals = line.split(";");
-                    if (vals.length != 9){
+                    if (vals.length != 9) {
                         throw new RuntimeException("Ellegal numbers of input string!");
                     }
                     for (int i = 0; i < 9; i++) {
                         Cell cell;
-                        if ("_".equals(vals[i])){
+                        if ("_".equals(vals[i])) {
                             cell = new Cell(false, null);
                         } else {
                             cell = new Cell(true, Integer.parseInt(vals[i]));
@@ -75,7 +75,7 @@ public class Solver {
             e.printStackTrace();
         }
 
-        System.out.println("=== initObjectFromFile ends");
+//        System.out.println("=== initObjectFromFile ends");
 
         return "OK";
     };
@@ -84,9 +84,26 @@ public class Solver {
      * Lambda for print board
      */
     static DoSomeThingFunc printBoard = (DoSomeThingFunc) -> {
-        System.out.println("=== printBoard starts");
+        System.out.println("-------------------------------------");
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
 
-        System.out.println("=== printBoard ends");
+                System.out.print("| " +
+                        (board.getIJ(i, j).getValue() == null
+                                ? "_"
+                                : board.getIJ(i, j).getValue())
+                        + " ");
+            }
+            System.out.println("|");
+        }
+//        System.out.println("=== printBoard ends");
         return "OK";
+    };
+
+    /**
+     * Lambda for print state
+     */
+    static DoSomeThingFunc printState = (DoSomeThingFunc) -> {
+      return "OK";
     };
 }
