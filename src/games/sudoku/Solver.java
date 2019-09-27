@@ -11,7 +11,7 @@ public class Solver {
      * @param board           - board
      * @return - as lambda return
      */
-    static OperResultsEnum process(DoSomeThingFuncInterface doSomeThingFuncInterface, Board board) {
+    private static OperResultsEnum process(DoSomeThingFuncInterface doSomeThingFuncInterface, Board board) {
         return doSomeThingFuncInterface.func(board);
     }
 
@@ -22,6 +22,7 @@ public class Solver {
     public static void main(String[] args) {
         process(initObjectFromFile, board);
         process(printBoard, board);
+        process(printState, board);
     }
 
 

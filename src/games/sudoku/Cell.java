@@ -1,5 +1,7 @@
 package games.sudoku;
 
+import java.util.ArrayList;
+
 /**
  * Class cell
  * <p>
@@ -7,10 +9,14 @@ package games.sudoku;
  */
 public class Cell {
 
+    // pos i j
+    private int posI, posJ;
     // is cell filled with value
     private boolean filled;
     // filled value, otherwise null
     private Integer value;
+    // candidates
+    private ArrayList<Integer> candidates = new ArrayList<>();
 
     /**
      * Constructor
@@ -18,7 +24,9 @@ public class Cell {
      * @param filled - is filled
      * @param value  - filled with value
      */
-    Cell(boolean filled, Integer value) {
+    Cell(boolean filled, Integer value, int posI, int posJ) {
+        this.posI = posI;
+        this.posJ = posJ;
 
         if (filled) {
             if (value == null) {
@@ -34,11 +42,22 @@ public class Cell {
 
     }
 
+    @Override
+    //TODO
+    public String toString(){
+        return
+                String.format("[%d][%d], filled = %s, v = %s",
+                        posI,
+                        posJ,
+                        filled ? "1" : "0",
+                        value == null ? "_" : value);
+    }
+
     /**
      * Is cell filled with value
      * @return - is filled
      */
-    public boolean isFilled() {
+    boolean isFilled() {
         return filled;
     }
 
@@ -60,5 +79,21 @@ public class Cell {
         }
         this.filled = true;
         this.value = value;
+    }
+
+    /**
+     * Add candidate value to cell
+     * @param c - candidate int
+     */
+    void addCandidate(Integer c){
+        candidates.add(c);
+    }
+
+    /**
+     * Remove candidate from cell
+     * @param c
+     */
+    void removeCandidate(Integer c){
+        candidates.remove(c);
     }
 }

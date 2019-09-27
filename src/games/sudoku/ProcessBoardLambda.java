@@ -5,12 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ProcessBoardLambda {
+class ProcessBoardLambda {
 
     /**
      * Lambda for initialisation board from file
      */
     static DoSomeThingFuncInterface initObjectFromFile = (board) -> {
+        System.out.println("=== Init starts");
         // Try with resource
         int j = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(board.getPathToFile()))) {
@@ -26,9 +27,9 @@ public class ProcessBoardLambda {
                     for (int i = 0; i < Board.DIM; i++) {
                         Cell cell;
                         if ("_".equals(vals[i])) {
-                            cell = new Cell(false, null);
+                            cell = new Cell(false, null, i, j);
                         } else {
-                            cell = new Cell(true, Integer.parseInt(vals[i]));
+                            cell = new Cell(true, Integer.parseInt(vals[i]), i, j);
                         }
                         board.setIJ(i, j, cell);
                     }
@@ -45,7 +46,7 @@ public class ProcessBoardLambda {
             System.out.println("Exception in lambda initObjectFromFile");
             e.printStackTrace();
         }
-
+        System.out.println("=== Init ends");
         return OperResultsEnum.OK;
     };
 
@@ -53,6 +54,7 @@ public class ProcessBoardLambda {
      * Lambda for print board
      */
     static DoSomeThingFuncInterface printBoard = (board) -> {
+        System.out.println("=== Print starts");
         System.out.println("-------------------------------------");
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
@@ -66,6 +68,7 @@ public class ProcessBoardLambda {
             System.out.println("|");
         }
         System.out.println("-------------------------------------");
+        System.out.println("=== Print ends");
         return OperResultsEnum.OK;
     };
 
@@ -73,9 +76,14 @@ public class ProcessBoardLambda {
      * Lambda for print state
      */
     static DoSomeThingFuncInterface printState = (board) -> {
+        System.out.println("=== Print state starts");
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                System.out.println(board.getIJ(i,j).toString());
+            }
+        }
+        System.out.println("=== Print state ends");
         return OperResultsEnum.OK;
     };
-
-
 
 }

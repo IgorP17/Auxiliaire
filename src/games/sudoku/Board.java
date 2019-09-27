@@ -16,7 +16,6 @@ public class Board {
     }
 
 
-
     // Getters setters
     String getPathToFile() {
         return pathToFile;
@@ -28,5 +27,15 @@ public class Board {
 
     Cell getIJ(int i, int j){
         return allField[i][j];
+    }
+
+    int getFilledCells(){
+        int count = 0;
+        for (int i = 0; i < DIM; i++) {
+            for (int j = 0; j < DIM; j++) {
+                if (allField[i][j].isFilled()) count++;
+            }
+        }
+        return count;
     }
 }
