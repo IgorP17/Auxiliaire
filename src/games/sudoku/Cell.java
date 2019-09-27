@@ -46,7 +46,7 @@ public class Cell {
      * Get filled value
      * @return - value or null if not filled
      */
-    public Integer getValue() {
+    Integer getValue() {
         return value;
     }
 

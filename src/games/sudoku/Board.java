@@ -3,9 +3,14 @@ package games.sudoku;
 public class Board {
 
     // Board 9 by 9
-    private static Cell[][] allField = new Cell[10][10];
+    public final static int DIM = 9;
+    private static Cell[][] allField = new Cell[DIM][DIM];
     private String pathToFile;
 
+    /**
+     * Constructor
+     * @param pathToFile - file to read sudoku
+     */
     Board(String pathToFile){
         this.pathToFile = pathToFile;
     }
@@ -13,15 +18,15 @@ public class Board {
 
 
     // Getters setters
-    public String getPathToFile() {
+    String getPathToFile() {
         return pathToFile;
     }
 
-    public void setIJ(int i, int j, Cell cell){
+    void setIJ(int i, int j, Cell cell){
         allField[i][j] = cell;
     }
 
-    public Cell getIJ(int i, int j){
+    Cell getIJ(int i, int j){
         return allField[i][j];
     }
 }
