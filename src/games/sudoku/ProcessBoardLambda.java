@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 class ProcessBoardLambda {
 
@@ -77,13 +81,36 @@ class ProcessBoardLambda {
      */
     static DoSomeThingFuncInterface printState = (board) -> {
         System.out.println("=== Print state starts");
+        int filled = board.getFilledCells();
+        System.out.println("Filled count = " + filled);
+        System.out.println("Empty count = " + (Board.DIM * Board.DIM - filled));
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
-                System.out.println(board.getIJ(i,j).toString());
+                System.out.println(board.getIJ(i, j).toString());
             }
         }
         System.out.println("=== Print state ends");
         return OperResultsEnum.OK;
     };
 
+    /**
+     * Lambda for initial candidates filling
+     */
+    static DoSomeThingFuncInterface initialFill = (board) -> {
+        ArrayList<Integer> candidates;
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                if (!board.getIJ(i, j).isFilled()) {
+                    candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+                    // get filled in area 3 x 3
+
+                    // get filled in row
+
+                    // get filled in column
+                }
+
+            }
+        }
+        return OperResultsEnum.OK;
+    };
 }

@@ -44,17 +44,24 @@ public class Cell {
 
     @Override
     //TODO
-    public String toString(){
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        for (Integer i :
+                candidates) {
+            s.append(i).append(";");
+        }
         return
-                String.format("[%d][%d], filled = %s, v = %s",
+                String.format("[%d][%d], filled = %s, v = %s, candidates = %s",
                         posI,
                         posJ,
                         filled ? "1" : "0",
-                        value == null ? "_" : value);
+                        value == null ? "_" : value,
+                        s);
     }
 
     /**
      * Is cell filled with value
+     *
      * @return - is filled
      */
     boolean isFilled() {
@@ -63,6 +70,7 @@ public class Cell {
 
     /**
      * Get filled value
+     *
      * @return - value or null if not filled
      */
     Integer getValue() {
@@ -71,10 +79,11 @@ public class Cell {
 
     /**
      * Set value to cell
+     *
      * @param value - int value
      */
     public void setValue(Integer value) {
-        if (this.filled){
+        if (this.filled) {
             throw new RuntimeException("Attempt to set value to filled cell!");
         }
         this.filled = true;
@@ -83,17 +92,19 @@ public class Cell {
 
     /**
      * Add candidate value to cell
+     *
      * @param c - candidate int
      */
-    void addCandidate(Integer c){
+    void addCandidate(Integer c) {
         candidates.add(c);
     }
 
     /**
      * Remove candidate from cell
+     *
      * @param c
      */
-    void removeCandidate(Integer c){
+    void removeCandidate(Integer c) {
         candidates.remove(c);
     }
 }

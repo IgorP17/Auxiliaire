@@ -8,7 +8,7 @@ public class Solver {
      * Define method that will handle lambda (aka implements interface)
      *
      * @param doSomeThingFuncInterface - lambda
-     * @param board           - board
+     * @param board                    - board
      * @return - as lambda return
      */
     private static OperResultsEnum process(DoSomeThingFuncInterface doSomeThingFuncInterface, Board board) {
