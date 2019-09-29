@@ -93,6 +93,7 @@ class ProcessBoardLambda {
      * Lambda for initial candidates filling
      */
     static DoSomeThingFuncInterface initialFill = (board) -> {
+        System.out.println("=== Initial fill starts");
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
                 Cell currentCell = board.getIJ(i, j);
@@ -105,7 +106,7 @@ class ProcessBoardLambda {
                     // get filled in row and remove
                     for (int k = 0; k < Board.DIM; k++) {
                         if (k != j) {
-                            if(board.getIJ(i, k).isFilled()){
+                            if (board.getIJ(i, k).isFilled()) {
                                 System.out.printf("Got filled [%d][%d] with value %d, remove candidate\n",
                                         i, k,
                                         board.getIJ(i, k).getValue());
@@ -116,7 +117,7 @@ class ProcessBoardLambda {
                     // get filled in column and remove
                     for (int k = 0; k < Board.DIM; k++) {
                         if (k != i) {
-                            if(board.getIJ(k, j).isFilled()){
+                            if (board.getIJ(k, j).isFilled()) {
                                 System.out.printf("Got filled [%d][%d] with value %d, remove candidate\n",
                                         k, j,
                                         board.getIJ(k, j).getValue());
@@ -127,7 +128,7 @@ class ProcessBoardLambda {
                     // get filled in area 3 x 3
                     for (int k = 0; k < Board.DIM; k++) {
                         for (int l = 0; l < Board.DIM; l++) {
-                            if (!(i == k && j == l)){// not a current cell
+                            if (!(i == k && j == l)) {// not a current cell
                                 // the same 3 x 3
                                 if (board.getIJ(k, l).getThreeID() == currentCell.getThreeID()) {
                                     // and filled
@@ -145,6 +146,41 @@ class ProcessBoardLambda {
 
             }
         }
+        System.out.println("=== Initial fill ends");
         return OperResultsEnum.OK;
+    };
+
+    /**
+     * Lambda for fill alone candidates
+     */
+    static DoSomeThingFuncInterface fillAlone = (board) -> {
+        Cell currentCell;
+        int value;
+        boolean smthFilled = false;
+        System.out.println("=== Fill alone starts");
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                currentCell = board.getIJ(i, j);
+                if (!currentCell.isFilled()) {
+                    if (currentCell.getCandidates().size() == 1) {
+                        value = currentCell.getCandidates().get(0);
+                        System.out.printf("Filling [%d][%d] with value %d\n",
+                                i, j, value);
+                        smthFilled = true;
+                        // set value
+                        currentCell.setValue(value);
+                        // remove value from other candidates
+                        for (int k = 0; k < Board.DIM; k++) {
+                            board.getIJ(k, j).removeCandidate(value);
+                        }
+                        for (int k = 0; k < Board.DIM; k++) {
+                            board.getIJ(i, k).removeCandidate(value);
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("=== Initial fill ends");
+        return smthFilled? OperResultsEnum.NEW_CELL_FILLED : OperResultsEnum.NOTHING_FILLED;
     };
 }

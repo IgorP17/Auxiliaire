@@ -19,7 +19,7 @@ public class Cell {
     // candidates
     private ArrayList<Integer> candidates = new ArrayList<>();
     //
-    private int threeID = -1;
+    private int threeID;
 
     /**
      * Constructor
@@ -42,11 +42,19 @@ public class Cell {
             this.filled = false;
             this.value = null;
         }
+        detectAndSetThree(posI, posJ);
 
-        // detect 3x3 square id
-        // 0 1 2
-        // 3 4 5
-        // 6 7 8
+    }
+
+    /**
+     * Detect 3x3 square id
+     * 0 1 2
+     * 3 4 5
+     * 6 7 8
+     * @param posI - i th pos
+     * @param posJ - j th pos
+     */
+    private void detectAndSetThree(int posI, int posJ) {
         if (posI <= 2){
             if (posJ <= 2){
                 threeID = 0;
@@ -72,7 +80,6 @@ public class Cell {
                 threeID = 8;
             }
         }
-
     }
 
     @Override
@@ -126,10 +133,18 @@ public class Cell {
     /**
      * Remove candidate from cell
      *
-     * @param c
+     * @param c - candidate value
      */
     void removeCandidate(Integer c) {
         candidates.remove(c);
+    }
+
+    /**
+     * Return candidates
+     * @return - array list of candidates
+     */
+    ArrayList<Integer> getCandidates(){
+        return candidates;
     }
 
     /**
@@ -139,7 +154,7 @@ public class Cell {
         candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
-    public int getThreeID() {
+    int getThreeID() {
         return threeID;
     }
 }

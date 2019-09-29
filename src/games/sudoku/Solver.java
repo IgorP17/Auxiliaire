@@ -24,6 +24,8 @@ public class Solver {
         process(initObjectFromFile, board);
         // fill board with candidates
         process(initialFill, board);
+        // check alones
+        OperResultsEnum res = process(fillAlone, board);
         // print board
         process(printBoard, board);
         // print state
