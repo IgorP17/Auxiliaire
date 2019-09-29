@@ -97,16 +97,38 @@ class ProcessBoardLambda {
      * Lambda for initial candidates filling
      */
     static DoSomeThingFuncInterface initialFill = (board) -> {
-        ArrayList<Integer> candidates;
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
-                if (!board.getIJ(i, j).isFilled()) {
-                    candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+                Cell currentCell = board.getIJ(i, j);
+                if (!currentCell.isFilled()) {
+                    System.out.printf("Cell [%d] [%d] - is empty, set all possible candidates\n",
+                            i, j);
+//                    candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+                    currentCell.fillAllCandidates();
+
+                    // get filled in row and remove
+                    for (int k = 0; k < Board.DIM; k++) {
+                        if (k != j) {
+                            if(board.getIJ(i, k).isFilled()){
+                                System.out.printf("Got filled [%d][%d] with value %d, remove candidate\n",
+                                        i, k,
+                                        board.getIJ(i, k).getValue());
+                                currentCell.removeCandidate(board.getIJ(i, k).getValue());
+                            }
+                        }
+                    }
+                    // get filled in column and remove
+                    for (int k = 0; k < Board.DIM; k++) {
+                        if (k != i) {
+                            if(board.getIJ(k, j).isFilled()){
+                                System.out.printf("Got filled [%d][%d] with value %d, remove candidate\n",
+                                        k, j,
+                                        board.getIJ(k, j).getValue());
+                                currentCell.removeCandidate(board.getIJ(k, j).getValue());
+                            }
+                        }
+                    }
                     // get filled in area 3 x 3
-
-                    // get filled in row
-
-                    // get filled in column
                 }
 
             }

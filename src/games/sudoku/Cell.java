@@ -1,6 +1,7 @@
 package games.sudoku;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class cell
@@ -17,6 +18,8 @@ public class Cell {
     private Integer value;
     // candidates
     private ArrayList<Integer> candidates = new ArrayList<>();
+    //
+    private int threeID = -1;
 
     /**
      * Constructor
@@ -40,10 +43,39 @@ public class Cell {
             this.value = null;
         }
 
+        // detect 3x3 square id
+        // 0 1 2
+        // 3 4 5
+        // 6 7 8
+        if (posI <= 2){
+            if (posJ <= 2){
+                threeID = 0;
+            } else if (posJ <= 5){
+                threeID = 1;
+            } else {
+                threeID = 2;
+            }
+        } else if (posI <= 5){
+            if (posJ <= 2){
+                threeID = 3;
+            } else if (posJ <= 5){
+                threeID = 4;
+            } else {
+                threeID = 5;
+            }
+        } else {
+            if (posJ <= 2){
+                threeID = 6;
+            } else if (posJ <= 5){
+                threeID = 7;
+            } else {
+                threeID = 8;
+            }
+        }
+
     }
 
     @Override
-    //TODO
     public String toString() {
         StringBuilder s = new StringBuilder();
         for (Integer i :
@@ -51,11 +83,12 @@ public class Cell {
             s.append(i).append(";");
         }
         return
-                String.format("[%d][%d], filled = %s, v = %s, candidates = %s",
+                String.format("[%d][%d], filled = %s, v = %s, 3x3 id = %d, candidates = %s",
                         posI,
                         posJ,
                         filled ? "1" : "0",
                         value == null ? "_" : value,
+                        threeID,
                         s);
     }
 
@@ -91,20 +124,22 @@ public class Cell {
     }
 
     /**
-     * Add candidate value to cell
-     *
-     * @param c - candidate int
-     */
-    void addCandidate(Integer c) {
-        candidates.add(c);
-    }
-
-    /**
      * Remove candidate from cell
      *
      * @param c
      */
     void removeCandidate(Integer c) {
         candidates.remove(c);
+    }
+
+    /**
+     * Set all possible candidates
+     */
+    void fillAllCandidates(){
+        candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+    }
+
+    public int getThreeID() {
+        return threeID;
     }
 }

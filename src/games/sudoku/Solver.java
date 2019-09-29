@@ -21,6 +21,7 @@ public class Solver {
 
     public static void main(String[] args) {
         process(initObjectFromFile, board);
+        process(initialFill, board);
         process(printBoard, board);
         process(printState, board);
     }
