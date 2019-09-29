@@ -20,9 +20,13 @@ public class Solver {
             "./src/games/sudoku/ex1.txt");
 
     public static void main(String[] args) {
+        // load file
         process(initObjectFromFile, board);
+        // fill board with candidates
         process(initialFill, board);
+        // print board
         process(printBoard, board);
+        // print state
         process(printState, board);
     }
 

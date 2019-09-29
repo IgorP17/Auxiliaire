@@ -4,10 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 class ProcessBoardLambda {
 
@@ -129,6 +125,22 @@ class ProcessBoardLambda {
                         }
                     }
                     // get filled in area 3 x 3
+                    for (int k = 0; k < Board.DIM; k++) {
+                        for (int l = 0; l < Board.DIM; l++) {
+                            if (!(i == k && j == l)){// not a current cell
+                                // the same 3 x 3
+                                if (board.getIJ(k, l).getThreeID() == currentCell.getThreeID()) {
+                                    // and filled
+                                    if (board.getIJ(k, l).isFilled()) {
+                                        System.out.printf("3 x 3 - Got filled [%d][%d] with value %d, remove candidate\n",
+                                                k, l,
+                                                board.getIJ(k, l).getValue());
+                                        currentCell.removeCandidate(board.getIJ(k, l).getValue());
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
 
             }
