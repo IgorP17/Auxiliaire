@@ -122,7 +122,7 @@ public class Cell {
      *
      * @param value - int value
      */
-    public void setValue(Integer value) {
+    void setValue(Integer value) {
         if (this.filled) {
             throw new RuntimeException("Attempt to set value to filled cell!");
         }
