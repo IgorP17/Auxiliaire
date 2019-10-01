@@ -169,7 +169,7 @@ class ProcessBoardLambda {
                         smthFilled = true;
                         // set value
                         currentCell.setValue(value);
-                        board.removeCandidate(i, j, value);
+                        board.removeCandidateFromOthers(i, j, value);
                     }
                 }
             }

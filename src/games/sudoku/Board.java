@@ -39,7 +39,7 @@ class Board {
         return count;
     }
 
-    void removeCandidate(int i, int j, int value){
+    void removeCandidateFromOthers(int i, int j, int value){
         // remove value from other candidates
         for (int k = 0; k < Board.DIM; k++) {
             this.getIJ(k, j).removeCandidate(value);
