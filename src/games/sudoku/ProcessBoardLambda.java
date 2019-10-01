@@ -27,11 +27,11 @@ class ProcessBoardLambda {
                     for (int i = 0; i < Board.DIM; i++) {
                         Cell cell;
                         if ("_".equals(vals[i])) {
-                            cell = new Cell(false, null, i, j);
+                            cell = new Cell(false, null, j, i);
                         } else {
-                            cell = new Cell(true, Integer.parseInt(vals[i]), i, j);
+                            cell = new Cell(true, Integer.parseInt(vals[i]), j, i);
                         }
-                        board.setIJ(i, j, cell);
+                        board.setIJ(j, i, cell);
                     }
                     j++;
                 }
