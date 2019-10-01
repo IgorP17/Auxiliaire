@@ -24,8 +24,15 @@ public class Solver {
         process(initObjectFromFile, board);
         // fill board with candidates
         process(initialFill, board);
-        // check alones
-        OperResultsEnum res = process(fillAlone, board);
+        OperResultsEnum res;
+        for (int i = 0; i < 1; i++) {//limit to some iterations
+            // check alones
+            do {
+                res = process(fillAlone, board);
+            }while (res == OperResultsEnum.NEW_CELL_FILLED);
+            //check hidden alones
+        }
+
         // print board
         process(printBoard, board);
         // print state

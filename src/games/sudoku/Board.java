@@ -38,4 +38,14 @@ public class Board {
         }
         return count;
     }
+
+    void removeCandidate(int i, int j, int value){
+        // remove value from other candidates
+        for (int k = 0; k < Board.DIM; k++) {
+            this.getIJ(k, j).removeCandidate(value);
+        }
+        for (int k = 0; k < Board.DIM; k++) {
+            this.getIJ(i, k).removeCandidate(value);
+        }
+    }
 }

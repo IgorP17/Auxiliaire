@@ -169,13 +169,7 @@ class ProcessBoardLambda {
                         smthFilled = true;
                         // set value
                         currentCell.setValue(value);
-                        // remove value from other candidates
-                        for (int k = 0; k < Board.DIM; k++) {
-                            board.getIJ(k, j).removeCandidate(value);
-                        }
-                        for (int k = 0; k < Board.DIM; k++) {
-                            board.getIJ(i, k).removeCandidate(value);
-                        }
+                        board.removeCandidate(i, j, value);
                     }
                 }
             }
