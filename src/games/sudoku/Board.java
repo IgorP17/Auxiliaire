@@ -1,9 +1,9 @@
 package games.sudoku;
 
-public class Board {
+class Board {
 
     // Board 9 by 9
-    public final static int DIM = 9;
+    final static int DIM = 9;
     private static Cell[][] allField = new Cell[DIM][DIM];
     private String pathToFile;
 
