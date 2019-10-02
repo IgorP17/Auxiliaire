@@ -175,6 +175,35 @@ class ProcessBoardLambda {
             }
         }
         System.out.println("=== Initial fill ends");
-        return smthFilled? OperResultsEnum.NEW_CELL_FILLED : OperResultsEnum.NOTHING_FILLED;
+        return smthFilled ? OperResultsEnum.NEW_CELL_FILLED : OperResultsEnum.NOTHING_FILLED;
+    };
+
+    static DoSomeThingFuncInterface fillHiddenAlone = board -> {
+        Cell currentCell;
+        boolean isAlone;
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                currentCell = board.getIJ(i, j);
+                // if current cell is not filled
+                if (!currentCell.isFilled()) {
+                    // for all candidates
+                    for (int v :
+                            currentCell.getCandidates()) {
+                        // assume candidate alone
+                        isAlone = true;
+                        // check if it is hidden alone in row
+                        // set false if in other cell we found the same candidate
+
+                        // check if it is hidden alone in column
+
+                        // check if it is hidden alone in 3x3
+
+                        // if it is alone set it
+
+                    }
+                }
+            }
+        }
+        return OperResultsEnum.NOTHING_FILLED;
     };
 }
