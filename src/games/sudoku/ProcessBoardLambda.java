@@ -174,11 +174,12 @@ class ProcessBoardLambda {
                 }
             }
         }
-        System.out.println("=== Initial fill ends");
+        System.out.println("=== Fill alone ends");
         return smthFilled ? OperResultsEnum.NEW_CELL_FILLED : OperResultsEnum.NOTHING_FILLED;
     };
 
     static DoSomeThingFuncInterface fillHiddenAlone = board -> {
+        System.out.println("=== Fill hidden starts");
         Cell currentCell;
         boolean isAlone;
         for (int i = 0; i < Board.DIM; i++) {
@@ -193,17 +194,47 @@ class ProcessBoardLambda {
                         isAlone = true;
                         // check if it is hidden alone in row
                         // set false if in other cell we found the same candidate
-
+                        for (int k = 0; k < Board.DIM; k++) {
+                            if (k != j) {
+                                if (board.getIJ(i, k).getCandidates().contains(v)) {
+                                    isAlone = false;
+                                }
+                            }
+                        }
                         // check if it is hidden alone in column
-
+                        for (int k = 0; k < Board.DIM; k++) {
+                            if (k != i) {
+                                if (board.getIJ(k, j).getCandidates().contains(v)) {
+                                    isAlone = false;
+                                }
+                            }
+                        }
                         // check if it is hidden alone in 3x3
+                        for (int k = 0; k < Board.DIM; k++) {
+                            for (int l = 0; l < Board.DIM; l++) {
+                                if (!(i == k && j == l)) {
+                                    // the same 3 x 3
+                                    if (currentCell.getThreeID() == board.getIJ(k, l).getThreeID()) {
+                                        if (board.getIJ(k, l).getCandidates().contains(v)){
+                                            isAlone = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         // if it is alone set it
-
+                        if (isAlone){
+                            System.out.printf("Found hidden alone at [%d] [%d] = %d\n",
+                                    i, j, v);
+                            currentCell.setValue(v);
+                            board.removeCandidateFromOthers(i, j, v);
+                        }
                     }
                 }
             }
         }
+        System.out.println("=== Fill hidden ends");
         return OperResultsEnum.NOTHING_FILLED;
     };
 }

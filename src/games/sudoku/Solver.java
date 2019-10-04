@@ -20,23 +20,31 @@ public class Solver {
             "./src/games/sudoku/ex1.txt");
 
     public static void main(String[] args) {
+        boolean solved = false;
         // load file
         process(initObjectFromFile, board);
         // fill board with candidates
         process(initialFill, board);
         OperResultsEnum res;
-        for (int i = 0; i < 1; i++) {//limit to some iterations
+        for (int i = 0; i < 2; i++) {//limit to some iterations
             // check alones
             do {
                 res = process(fillAlone, board);
-            }while (res == OperResultsEnum.NEW_CELL_FILLED);
+            } while (res == OperResultsEnum.NEW_CELL_FILLED);
+            // if no cell filled it may mean that all filled
+            if (board.getFilledCells() == Board.DIM * Board.DIM) {
+                solved = true;
+                break;
+            }
             //check hidden alones
+            process(fillHiddenAlone, board);
         }
 
         // print board
         process(printBoard, board);
-        // print state
-        process(printState, board);
+        // print state, if not solved
+        if (!solved)
+            process(printState, board);
     }
 
 
