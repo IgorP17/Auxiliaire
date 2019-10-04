@@ -178,6 +178,9 @@ class ProcessBoardLambda {
         return smthFilled ? OperResultsEnum.NEW_CELL_FILLED : OperResultsEnum.NOTHING_FILLED;
     };
 
+    /**
+     * Lambda for fill hidden alone candidates
+     */
     static DoSomeThingFuncInterface fillHiddenAlone = board -> {
         System.out.println("=== Fill hidden starts");
         Cell currentCell;
@@ -236,5 +239,17 @@ class ProcessBoardLambda {
         }
         System.out.println("=== Fill hidden ends");
         return OperResultsEnum.NOTHING_FILLED;
+    };
+
+    /**
+     * Lambda for check constrain of solved board
+     */
+    static DoSomeThingFuncInterface checkBoard = board -> {
+        if (board.getFilledCells() != Board.DIM * Board.DIM){
+            System.out.println("Board is not ready!");
+            return OperResultsEnum.FAIL;
+        }
+
+        return OperResultsEnum.OK;
     };
 }
