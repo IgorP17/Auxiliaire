@@ -128,6 +128,7 @@ public class Cell {
         }
         this.filled = true;
         this.value = value;
+        this.candidates.clear();
     }
 
     /**

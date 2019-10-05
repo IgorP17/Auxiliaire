@@ -185,7 +185,8 @@ class ProcessBoardLambda {
     static DoSomeThingFuncInterface fillHiddenAlone = board -> {
         System.out.println("=== Fill hidden starts");
         Cell currentCell;
-        boolean isAlone;
+        boolean isAlone = true;
+        int aloneValue = -1;
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
                 currentCell = board.getIJ(i, j);
@@ -196,6 +197,7 @@ class ProcessBoardLambda {
                             currentCell.getCandidates()) {
                         // assume candidate alone
                         isAlone = true;
+                        aloneValue = v;
                         // check if it is hidden alone in row
                         // set false if in other cell we found the same candidate
                         for (int k = 0; k < Board.DIM; k++) {
@@ -228,12 +230,13 @@ class ProcessBoardLambda {
                         }
 
                         // if it is alone set it
-                        if (isAlone) {
-                            System.out.printf("Found hidden alone at [%d] [%d] = %d\n",
-                                    i, j, v);
-                            currentCell.setValue(v);
-                            board.removeCandidateFromOthers(i, j, v);
-                        }
+                        if (isAlone) break;
+                    }
+                    if (isAlone) {
+                        System.out.printf("Found hidden alone at [%d] [%d] = %d\n",
+                                i, j, aloneValue);
+                        currentCell.setValue(aloneValue);
+                        board.removeCandidateFromOthers(i, j, aloneValue);
                     }
                 }
             }
