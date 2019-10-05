@@ -26,7 +26,8 @@ public class Solver {
         // fill board with candidates
         process(initialFill, board);
         OperResultsEnum res;
-        for (int i = 0; i < 2; i++) {//limit to some iterations
+        for (int i = 0; i < 5; i++) {//limit to some iterations
+            System.out.println("=== Step #" + i);
             // check alones
             do {
                 res = process(fillAlone, board);
@@ -42,9 +43,16 @@ public class Solver {
 
         // print board
         process(printBoard, board);
+
         // print state, if not solved
         if (!solved)
             process(printState, board);
+        else {
+            res = process(checkBoard, board);
+            if (res == OperResultsEnum.FAIL){
+                throw new RuntimeException("Wrong solution!");
+            }
+        }
     }
 
 
