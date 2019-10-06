@@ -51,30 +51,31 @@ public class Cell {
      * 0 1 2
      * 3 4 5
      * 6 7 8
+     *
      * @param posI - i th pos
      * @param posJ - j th pos
      */
     private void detectAndSetThree(int posI, int posJ) {
-        if (posI <= 2){
-            if (posJ <= 2){
+        if (posI <= 2) {
+            if (posJ <= 2) {
                 threeID = 0;
-            } else if (posJ <= 5){
+            } else if (posJ <= 5) {
                 threeID = 1;
             } else {
                 threeID = 2;
             }
-        } else if (posI <= 5){
-            if (posJ <= 2){
+        } else if (posI <= 5) {
+            if (posJ <= 2) {
                 threeID = 3;
-            } else if (posJ <= 5){
+            } else if (posJ <= 5) {
                 threeID = 4;
             } else {
                 threeID = 5;
             }
         } else {
-            if (posJ <= 2){
+            if (posJ <= 2) {
                 threeID = 6;
-            } else if (posJ <= 5){
+            } else if (posJ <= 5) {
                 threeID = 7;
             } else {
                 threeID = 8;
@@ -142,20 +143,38 @@ public class Cell {
 
     /**
      * Return candidates
+     *
      * @return - array list of candidates
      */
-    ArrayList<Integer> getCandidates(){
+    ArrayList<Integer> getCandidates() {
         return candidates;
     }
 
     /**
      * Set all possible candidates
      */
-    void fillAllCandidates(){
+    void fillAllCandidates() {
         candidates = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
     }
 
     int getThreeID() {
         return threeID;
+    }
+
+    /**
+     * Compare candidates, assume list is ordered
+     *
+     * @param toCompare - list to compare
+     * @return - true if equals, false otherwise
+     */
+    boolean compareCandidates(ArrayList<Integer> toCompare) {
+        if (toCompare == null) return false;
+        if (candidates.size() != toCompare.size()) return false;
+        for (int i = 0; i < candidates.size(); i++) {
+            if (!candidates.get(i).equals(toCompare.get(i))){
+                return false;
+            }
+        }
+        return true;
     }
 }

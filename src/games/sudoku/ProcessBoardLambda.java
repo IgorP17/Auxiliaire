@@ -283,10 +283,86 @@ class ProcessBoardLambda {
                     }
                 }
                 // check unique in 3x3
+                for (int k = 0; k < Board.DIM; k++) {
+                    for (int l = 0; l < Board.DIM; l++) {
+                        // not a current cell
+                        if (!(i == k && j == l)) {
+                            // the same 3 x 3
+                            if (currentCell.getThreeID() ==
+                                    board.getIJ(k, l).getThreeID()) {
+                                if (currentCell.getValue().equals(
+                                        board.getIJ(k, l).getValue())) {
+                                    return OperResultsEnum.FAIL;
+                                }
+                            }
+                        }
+                    }
+                }
 
             }
         }
         System.out.println("=== Check board ends");
+        return OperResultsEnum.OK;
+    };
+
+    /**
+     * Labda for find open twos TODO
+     */
+    static DoSomeThingFuncInterface findOpenTwos = board -> {
+        System.out.println("=== Open Twos starts");
+        Cell currentCell;
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                currentCell = board.getIJ(i, j);
+                if (currentCell.getCandidates().size() != 2) continue;
+
+                // searching in row TODO
+
+                // searching in col TODO
+
+                // searching in 3 x 3
+                if (!currentCell.isFilled()) {
+                    for (int k = 0; k < Board.DIM; k++) {
+                        for (int l = 0; l < Board.DIM; l++) {
+                            // cell not filled
+                            if (board.getIJ(k, l).isFilled()) continue;
+                            // not a current cell
+                            if (!(i == k && j == l)) {
+                                // the same 3 x 3
+                                if (currentCell.getThreeID() == board.getIJ(k, l).getThreeID()) {
+                                    // check if the same candidates
+                                    if (currentCell.compareCandidates(board.getIJ(k, l).getCandidates())) {
+                                        System.out.printf(
+                                                "Found same candidates for [%d][%d] and [%d][%d]\n",
+                                                i, j, k, l);
+                                        // for each candidate
+                                        for (int cand :
+                                                currentCell.getCandidates()) {
+                                            for (int m = 0; m < Board.DIM; m++) {
+                                                for (int n = 0; n < Board.DIM; n++) {
+                                                    if (!(i == m && j == n)){
+                                                        if (!(k == m && l == n)){
+                                                            if (currentCell.getThreeID() ==
+                                                            board.getIJ(m, n).getThreeID()){
+                                                                System.out.printf("Remove candidate %d from [%d][%d]\n",
+                                                                        cand, m, n);
+                                                                board.getIJ(m, n).removeCandidate(cand);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        System.out.println("=== Open Twos ends");
         return OperResultsEnum.OK;
     };
 }

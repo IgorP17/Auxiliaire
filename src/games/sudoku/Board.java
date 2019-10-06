@@ -47,5 +47,15 @@ class Board {
         for (int k = 0; k < Board.DIM; k++) {
             this.getIJ(i, k).removeCandidate(value);
         }
+        int threeID = this.getIJ(i, j).getThreeID();
+        for (int k = 0; k < Board.DIM; k++) {
+            for (int l = 0; l < Board.DIM; l++) {
+                if (!(i == k && j == l)){
+                    if (this.getIJ(k, l).getThreeID() == threeID){
+                        this.getIJ(k, l).removeCandidate(value);
+                    }
+                }
+            }
+        }
     }
 }

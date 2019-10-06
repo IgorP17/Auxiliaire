@@ -39,6 +39,8 @@ public class Solver {
             }
             //check hidden alones
             process(fillHiddenAlone, board);
+            // open twos
+            process(findOpenTwos, board);
         }
 
         // print board
