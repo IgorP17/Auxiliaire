@@ -306,7 +306,7 @@ class ProcessBoardLambda {
     };
 
     /**
-     * Labda for find open twos TODO
+     * Labda for find open twos
      */
     static DoSomeThingFuncInterface findOpenTwos = board -> {
         System.out.println("=== Open Twos starts");
@@ -316,9 +316,32 @@ class ProcessBoardLambda {
                 currentCell = board.getIJ(i, j);
                 if (currentCell.getCandidates().size() != 2) continue;
 
-                // searching in row TODO
+                if (currentCell.isFilled()) continue;
+
+                // searching in row
+                for (int k = 0; k < Board.DIM; k++) {
+                    // skip current cell
+                    if ( j == k) continue;
+                    if (currentCell.compareCandidates(board.getIJ(i, k).getCandidates())) {
+                        System.out.printf(
+                                "Found same candidates in row for [%d][%d] and [%d][%d]\n",
+                                i, j, i, k);
+                        for (int cand :
+                                currentCell.getCandidates()) {
+                            for (int l = 0; l < Board.DIM; l++) {
+                                if (!(j == l || k == l)) {
+                                    System.out.printf("Remove candidate %d from [%d][%d]\n",
+                                            cand, i, l);
+                                    board.getIJ(i, l).removeCandidate(cand);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 // searching in col TODO
+
+
 
                 // searching in 3 x 3
                 if (!currentCell.isFilled()) {
@@ -333,17 +356,17 @@ class ProcessBoardLambda {
                                     // check if the same candidates
                                     if (currentCell.compareCandidates(board.getIJ(k, l).getCandidates())) {
                                         System.out.printf(
-                                                "Found same candidates for [%d][%d] and [%d][%d]\n",
+                                                "Found same candidates in 3 x 3 for [%d][%d] and [%d][%d]\n",
                                                 i, j, k, l);
                                         // for each candidate
                                         for (int cand :
                                                 currentCell.getCandidates()) {
                                             for (int m = 0; m < Board.DIM; m++) {
                                                 for (int n = 0; n < Board.DIM; n++) {
-                                                    if (!(i == m && j == n)){
-                                                        if (!(k == m && l == n)){
+                                                    if (!(i == m && j == n)) {
+                                                        if (!(k == m && l == n)) {
                                                             if (currentCell.getThreeID() ==
-                                                            board.getIJ(m, n).getThreeID()){
+                                                                    board.getIJ(m, n).getThreeID()) {
                                                                 System.out.printf("Remove candidate %d from [%d][%d]\n",
                                                                         cand, m, n);
                                                                 board.getIJ(m, n).removeCandidate(cand);
