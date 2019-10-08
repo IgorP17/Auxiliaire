@@ -339,8 +339,26 @@ class ProcessBoardLambda {
                     }
                 }
 
-                // searching in col TODO
-
+                // searching in col
+                for (int k = 0; k < Board.DIM; k++) {
+                    // skip current cell
+                    if ( i == k) continue;
+                    if (currentCell.compareCandidates(board.getIJ(k, j).getCandidates())) {
+                        System.out.printf(
+                                "Found same candidates in row for [%d][%d] and [%d][%d]\n",
+                                i, j, k, j);
+                        for (int cand :
+                                currentCell.getCandidates()) {
+                            for (int l = 0; l < Board.DIM; l++) {
+                                if (!(i == l || k == l)) {
+                                    System.out.printf("Remove candidate %d from [%d][%d]\n",
+                                            cand, l, j);
+                                    board.getIJ(l, j).removeCandidate(cand);
+                                }
+                            }
+                        }
+                    }
+                }
 
 
                 // searching in 3 x 3
