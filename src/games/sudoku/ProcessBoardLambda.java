@@ -207,6 +207,11 @@ class ProcessBoardLambda {
                                 }
                             }
                         }
+                        // if it is alone set it
+                        if (isAlone) break;
+
+                        // assume candidate alone
+                        isAlone = true;
                         // check if it is hidden alone in column
                         for (int k = 0; k < Board.DIM; k++) {
                             if (k != i) {
@@ -215,6 +220,11 @@ class ProcessBoardLambda {
                                 }
                             }
                         }
+                        // if it is alone set it
+                        if (isAlone) break;
+
+                        // assume candidate alone
+                        isAlone = true;
                         // check if it is hidden alone in 3x3
                         for (int k = 0; k < Board.DIM; k++) {
                             for (int l = 0; l < Board.DIM; l++) {
