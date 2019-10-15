@@ -1,6 +1,8 @@
 package games.sudoku;
 
-class Board {
+import java.io.Serializable;
+
+class Board implements Serializable {
 
     // Board 9 by 9
     final static int DIM = 9;
