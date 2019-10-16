@@ -268,6 +268,7 @@ class ProcessBoardLambda {
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
                 currentCell = board.getIJ(i, j);
+                if (currentCell.getValue() == -1) return OperResultsEnum.FAIL;
                 // check unique in row
                 for (int k = 0; k < Board.DIM; k++) {
                     if (j != k) {

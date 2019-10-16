@@ -90,22 +90,25 @@ public class Solver {
         System.out.printf("Found pair of candidates at [%d][%d] vals = [%d, %d]\n",
                 pI, pJ, vals[0], vals[1]);
         // try them
-        for (int v:
-             new int[]{vals[0], vals[1]}) {
+        for (int v :
+                new int[]{vals[1], vals[0]}) {
             System.out.printf("Trying candidate %d at [%d][%d]\n",
                     v, pI, pJ);
             // load board (for first candidate not necessary)
             try {
                 board = Serialize.deSerializeMe();
+                System.out.println("Deser");
+                process(printBoard, board);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
+                throw new RuntimeException("Cannot deserialize!");
             }
             board.setIJ(pI, pJ, new Cell(true, v, pI, pJ));
             board.removeCandidateFromOthers(pI, pJ, v);
             // and try to brain again
             tryBrain();
             // if solved then break
-            if (solved) break;
+            if (solved && (OperResultsEnum.OK == process(checkBoard, board))) break;
         }
 
         System.out.println("====== Guess ends");
