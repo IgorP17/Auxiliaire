@@ -6,7 +6,7 @@ class Board implements Serializable {
     private static final long serialVersionUID = 7L;
     // Board 9 by 9
     final static int DIM = 9;
-    private static Cell[][] allField = new Cell[DIM][DIM];
+    private Cell[][] allField = new Cell[DIM][DIM];
     private String pathToFile;
 
     /**

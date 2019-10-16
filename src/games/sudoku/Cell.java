@@ -1,5 +1,6 @@
 package games.sudoku;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -8,8 +9,8 @@ import java.util.Arrays;
  * <p>
  * Cell can be filled with some value or not
  */
-public class Cell {
-
+public class Cell implements Serializable {
+    private static final long serialVersionUID = 7L;
     // pos i j
     private int posI, posJ;
     // is cell filled with value
