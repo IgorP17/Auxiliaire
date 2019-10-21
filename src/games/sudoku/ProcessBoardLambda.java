@@ -56,19 +56,19 @@ class ProcessBoardLambda {
      */
     static DoSomeThingFuncInterface printBoard = (board) -> {
         System.out.println("=== Print starts");
-        System.out.println("-------------------------------------");
+        System.out.println("---------------------------------------------");
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
-
                 System.out.print("| " +
                         (board.getIJ(i, j).getValue() == null
                                 ? "_"
                                 : board.getIJ(i, j).getValue())
                         + " ");
+                if ((j + 1) % 3 == 0 && j != 8) System.out.print("\t");
             }
             System.out.println("|");
+            if ((i + 1) % 3 == 0) System.out.println("---------------------------------------------");
         }
-        System.out.println("-------------------------------------");
         System.out.println("=== Print ends");
         return OperResultsEnum.OK;
     };
