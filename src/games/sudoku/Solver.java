@@ -32,6 +32,8 @@ public class Solver {
 
         // try some analytics
         tryBrain();
+        process(printBoard, board);
+        process(printState, board);
 
         // if !solved
         if (!solved) {
