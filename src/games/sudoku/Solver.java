@@ -32,13 +32,13 @@ public class Solver {
 
         // try some analytics
         tryBrain();
-        process(printBoard, board);
-        process(printState, board);
+//        process(printBoard, board);
+//        process(printState, board);
 
         // if !solved
-        if (!solved) {
-            guess();
-        }
+//        if (!solved) {
+//            guess();
+//        }
 
         // print board
         process(printBoard, board);
@@ -137,6 +137,8 @@ public class Solver {
             process(fillHiddenAlone, board);
             // open twos
             process(findOpenTwos, board);
+            // pointer pair
+            process(pointerPair, board);
         }
         System.out.println("====== Try Brain ends");
     }

@@ -1,6 +1,7 @@
 package games.sudoku;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 class Board implements Serializable {
     private static final long serialVersionUID = 7L;
@@ -59,5 +60,29 @@ class Board implements Serializable {
                 }
             }
         }
+    }
+
+    /**
+     * Get all cells from small square except current
+     * @param sI - current row
+     * @param sJ - current col
+     * @return - array list of cells
+     */
+    ArrayList<Cell> getTheSameSmallSquare(int sI, int sJ){
+        ArrayList<Cell> result = new ArrayList<>();
+        int smallSquareID = this.getIJ(sI, sJ).getThreeID();
+        for (int i = 0; i < Board.DIM; i++) {
+            for (int j = 0; j < Board.DIM; j++) {
+                // if cell is the same square id
+                if (smallSquareID == allField[i][j].getThreeID()){
+                    // and not a current cell
+                    if (!(i == sI && j == sJ)){
+                        // add to result
+                        result.add(allField[i][j]);
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

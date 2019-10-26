@@ -162,6 +162,14 @@ public class Cell implements Serializable {
         return threeID;
     }
 
+    int getPosI() {
+        return posI;
+    }
+
+    int getPosJ() {
+        return posJ;
+    }
+
     /**
      * Compare candidates, assume list is ordered
      *
@@ -172,7 +180,7 @@ public class Cell implements Serializable {
         if (toCompare == null) return false;
         if (candidates.size() != toCompare.size()) return false;
         for (int i = 0; i < candidates.size(); i++) {
-            if (!candidates.get(i).equals(toCompare.get(i))){
+            if (!candidates.get(i).equals(toCompare.get(i))) {
                 return false;
             }
         }
