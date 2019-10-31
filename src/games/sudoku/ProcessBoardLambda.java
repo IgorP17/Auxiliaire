@@ -359,7 +359,7 @@ class ProcessBoardLambda {
                     if (i == k) continue;
                     if (currentCell.compareCandidates(board.getIJ(k, j).getCandidates())) {
                         System.out.printf(
-                                "Found same candidates in row for [%d][%d] and [%d][%d]\n",
+                                "Found same candidates in col for [%d][%d] and [%d][%d]\n",
                                 i, j, k, j);
                         for (int cand :
                                 currentCell.getCandidates()) {
