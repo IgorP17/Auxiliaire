@@ -431,7 +431,7 @@ class ProcessBoardLambda {
                 candidates = currentCell.getCandidates();
                 // if cell not filled
                 if (!currentCell.isFilled()) {
-                    // ROW
+                    // ====== ROWS ======
                     // searching in row
                     // for each candidate
                     for (Integer cand :
