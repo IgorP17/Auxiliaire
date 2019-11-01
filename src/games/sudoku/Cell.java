@@ -92,11 +92,11 @@ public class Cell implements Serializable {
             s.append(i).append(";");
         }
         return
-                String.format("[%d][%d], filled = %s, v = %s, 3x3 id = %d, candidates = %s",
+                String.format("[%d][%d], Filled = %s, Value = %s, 3x3 id = %d, candidates = %s",
                         posI,
                         posJ,
-                        filled ? "1" : "0",
-                        value == null ? "_" : value,
+                        filled ? "TRUE " : "FALSE",
+                        value == null ? " " : value,
                         threeID,
                         s);
     }

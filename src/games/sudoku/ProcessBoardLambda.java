@@ -87,6 +87,7 @@ class ProcessBoardLambda {
         for (int i = 0; i < Board.DIM; i++) {
             for (int j = 0; j < Board.DIM; j++) {
                 System.out.println(board.getIJ(i, j).toString());
+                System.out.println("----------------------------------------------");
             }
         }
         System.out.println("=== Print state ends");
@@ -457,9 +458,12 @@ class ProcessBoardLambda {
                                                 if (!(sCell.getPosI() == i && sCell.getPosJ() == j)) {
                                                     // not a seeking cell
                                                     if (!(sCell.getPosI() == i && sCell.getPosJ() == k)) {
-                                                        // has the same cand
-                                                        if (sCell.getCandidates().contains(cand)) {
-                                                            isPointer = false;
+                                                        // not a cell in the ROW of 3x3 - allow 3 pointer
+                                                        if (sCell.getPosI() != i) {
+                                                            // has the same cand
+                                                            if (sCell.getCandidates().contains(cand)) {
+                                                                isPointer = false;
+                                                            }
                                                         }
                                                     }
                                                 }
