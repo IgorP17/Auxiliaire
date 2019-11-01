@@ -117,7 +117,7 @@ public class Solver {
     }
 
     /**
-     * Try methods alone, hidden alone, open twos
+     * Try methods alone, hidden alone, open twos...
      */
     private static void tryBrain() {
         System.out.println("====== Try Brain starts");
@@ -139,6 +139,8 @@ public class Solver {
             process(findOpenTwos, board);
             // pointer pair
             process(pointerPair, board);
+            // Open 3
+            process(findOpenThrees, board);
         }
         System.out.println("====== Try Brain ends");
     }
