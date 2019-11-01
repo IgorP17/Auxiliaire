@@ -522,14 +522,17 @@ class ProcessBoardLambda {
                 if (!cellA.isFilled()) {
                     // num of candidates should be 2 or 3
                     if (cellA.getCandidates().size() == 3) {
-                        // var 1 TODO
+                        // ====== VAR 1 ====== TODO
+                        // (abc)(abc)(abc)
 
-                        // var 2 TODO
+                        // ====== VAR 2 ====== TODO
+                        //(abc)(abc)(ab)
 
-                        // var 3 TODO
+                        // ====== VAR 3 ====== TODO
+                        // (abc)(ab)(bc)
 
                     } else if (cellA.getCandidates().size() == 2) {
-                        // VAR 4
+                        // ====== VAR 4 ======
                         // (ab)(bc)(ac)
                         // assume we have (ab) in current cell
                         a = cellA.getCandidates().get(0);
