@@ -146,8 +146,8 @@ class ProcessBoardLambda {
                             }
                         }
                     }
+                    System.out.println();
                 }
-
             }
         }
         System.out.println("=== Initial fill ends");
@@ -344,8 +344,6 @@ class ProcessBoardLambda {
                                 currentCell.getCandidates()) {
                             for (int l = 0; l < Board.DIM; l++) {
                                 if (!(j == l || k == l)) {
-                                    System.out.printf("Remove candidate %d from [%d][%d]\n",
-                                            cand, i, l);
                                     board.getIJ(i, l).removeCandidate(cand);
                                 }
                             }
@@ -365,8 +363,6 @@ class ProcessBoardLambda {
                                 currentCell.getCandidates()) {
                             for (int l = 0; l < Board.DIM; l++) {
                                 if (!(i == l || k == l)) {
-                                    System.out.printf("Remove candidate %d from [%d][%d]\n",
-                                            cand, l, j);
                                     board.getIJ(l, j).removeCandidate(cand);
                                 }
                             }
@@ -399,8 +395,6 @@ class ProcessBoardLambda {
                                                         if (!(k == m && l == n)) {
                                                             if (currentCell.getThreeID() ==
                                                                     board.getIJ(m, n).getThreeID()) {
-                                                                System.out.printf("Remove candidate %d from [%d][%d]\n",
-                                                                        cand, m, n);
                                                                 board.getIJ(m, n).removeCandidate(cand);
                                                             }
                                                         }
@@ -498,8 +492,6 @@ class ProcessBoardLambda {
 
         // iterate over cand for remove
         for (Map.Entry<Cell, Integer> entry : forRemove.entrySet()) {
-            System.out.printf("Remove at [%d][%d] candidate %d\n",
-                    entry.getKey().getPosI(), entry.getKey().getPosJ(), entry.getValue());
             entry.getKey().removeCandidate(entry.getValue());
         }
         System.out.println("=== Pointer Pair ends");

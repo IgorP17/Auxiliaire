@@ -139,7 +139,10 @@ public class Cell implements Serializable {
      * @param c - candidate value
      */
     void removeCandidate(Integer c) {
-        candidates.remove(c);
+        if (candidates.remove(c)){
+            System.out.printf("Removed candidate %d from [%d][%d]\n",
+                    c, posI, posJ);
+        }
     }
 
     /**
