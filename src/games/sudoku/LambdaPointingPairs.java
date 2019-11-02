@@ -59,7 +59,7 @@ class LambdaPointingPairs {
                                                 }
                                             }
                                             if (isPointer) {
-                                                System.out.printf("Seems we have row pointer " +
+                                                System.out.printf("Seems we have ROW pointer " +
                                                                 "at [%d][%d] and [%d][%d] value = %d\n",
                                                         i, j, i, k, cand);
                                                 // remove candidate from other small squares in a row
@@ -79,7 +79,61 @@ class LambdaPointingPairs {
                         }
                     }
 
-                    // TODO COL
+                    // COL
+                    for (Integer cand :
+                            candidates) {
+                        // searching in COL
+                        for (int k = 0; k < Board.DIM; k++) {
+                            // not a current cell
+                            if (i != k) {
+                                // cell is not filled
+                                seekingCell = board.getIJ(k, j);
+                                if (!seekingCell.isFilled()) {
+                                    // cell has he same candidate
+                                    if (seekingCell.getCandidates().contains(cand)) {
+                                        // candidate should be in the same small square
+                                        if (seekingCell.getThreeID() == currentCell.getThreeID()) {
+                                            // candidate not present in other rows in the small square
+                                            ArrayList<Cell> sSquare = board.getTheSameSmallSquare(i, j);
+                                            // assume we have pointer
+                                            boolean isPointer = true;
+                                            // for each cell
+                                            for (Cell sCell :
+                                                    sSquare) {
+                                                // not a current cell
+                                                if (!(sCell.getPosI() == i && sCell.getPosJ() == j)) {
+                                                    // not a seeking cell
+                                                    if (!(sCell.getPosI() == k && sCell.getPosJ() == j)) {
+                                                        // not a cell in the COL of 3x3 - allow 3 pointer
+                                                        if (sCell.getPosI() != j) {
+                                                            // has the same cand
+                                                            if (sCell.getCandidates().contains(cand)) {
+                                                                isPointer = false;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            if (isPointer) {
+                                                System.out.printf("Seems we have COL pointer " +
+                                                                "at [%d][%d] and [%d][%d] value = %d\n",
+                                                        i, j, k, j, cand);
+                                                // remove candidate from other small squares in a row
+                                                for (int l = 0; l < Board.DIM; l++) {
+                                                    // not the same small square
+                                                    if (!(board.getIJ(l, j).getThreeID() == currentCell.getThreeID())) {
+                                                        System.out.printf("Mark for remove candidate %d at [%d][%d]\n",
+                                                                cand, l, j);
+                                                        forRemove.put(board.getIJ(l, j), cand);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
