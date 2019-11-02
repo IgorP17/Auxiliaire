@@ -1,8 +1,13 @@
 package games.sudoku;
 
-import java.io.IOException;
-
-import static games.sudoku.ProcessBoardLambda.*;
+import static games.sudoku.LambdaFillAlone.fillAlone;
+import static games.sudoku.LambdaFillHiddenAlone.fillHiddenAlone;
+import static games.sudoku.LambdaInitObjectFromFile.initObjectFromFile;
+import static games.sudoku.LambdaInitialFill.initialFill;
+import static games.sudoku.LambdaOpenThree.findOpenThrees;
+import static games.sudoku.LambdaOpenTwos.findOpenTwos;
+import static games.sudoku.LambdaPointingPairs.pointingPairs;
+import static games.sudoku.LambdaPrintBoardState.*;
 
 public class Solver {
 
@@ -54,10 +59,7 @@ public class Solver {
         }
     }
 
-    /**
-     * Guess some pairs
-     */
-    private static void guess() {
+    /*private static void guess() {
         System.out.println("====== Guess starts");
         try {
             // save current state
@@ -114,7 +116,7 @@ public class Solver {
         }
 
         System.out.println("====== Guess ends");
-    }
+    }*/
 
     /**
      * Try methods alone, hidden alone, open twos...
@@ -138,7 +140,7 @@ public class Solver {
             // open twos
             process(findOpenTwos, board);
             // pointer pair
-            process(pointerPair, board);
+            process(pointingPairs, board);
             // Open 3
             process(findOpenThrees, board);
         }
