@@ -18,6 +18,10 @@ class Board implements Serializable {
         this.pathToFile = pathToFile;
     }
 
+    // allow wo path to file
+    Board(){
+        this.pathToFile = null;
+    }
 
     // Getters setters
     String getPathToFile() {
