@@ -5,13 +5,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static games.sudoku.LambdaPrintBoardState.printBoard;
+
 
 @RunWith(Parameterized.class)
 public class RegressionTests {
@@ -19,8 +19,6 @@ public class RegressionTests {
     private static OperResultsEnum process(DoSomeThingFuncInterface doSomeThingFuncInterface, Board board) {
         return doSomeThingFuncInterface.func(board);
     }
-
-    static int counter = 0;
 
     // this is for repeatable tests
     private String comment;
