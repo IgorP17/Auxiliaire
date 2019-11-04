@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 
-
+// @RunWith
 @RunWith(Parameterized.class)
 public class RegressionTests {
 
@@ -30,7 +30,7 @@ public class RegressionTests {
         this.board = board;
     }
 
-    // This will return set of data
+    // NB This will return set of data
     // name = "{index}: {0} - test ID and first of readTests line
     @Parameterized.Parameters(name = "{index}: {0}")
     public static Collection<Object[]> data() {
