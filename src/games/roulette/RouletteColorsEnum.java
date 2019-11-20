@@ -1,7 +1,10 @@
 package games.roulette;
 
-public enum RouletteColorsEnum {
+/**
+ * Enum for roulette colors
+ */
+enum RouletteColorsEnum {
 
-    BLACK, RED, ZERO;
+    BLACK, RED, ZERO
 
 }
