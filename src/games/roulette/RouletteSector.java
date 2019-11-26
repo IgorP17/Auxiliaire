@@ -1,5 +1,6 @@
 package games.roulette;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -107,5 +108,19 @@ class RouletteSector {
                 "colorsEnum=" + colorsEnum +
                 ", number=" + number +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RouletteSector sector = (RouletteSector) o;
+        return number == sector.number &&
+                colorsEnum == sector.colorsEnum;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(colorsEnum, number);
     }
 }
