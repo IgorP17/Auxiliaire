@@ -6,49 +6,32 @@ public class RouletteBetItem {
     private RouletteBetTypesEnum rouletteBetTypesEnum;
     private int betAmount;
     private int winAmount;
-    private String className;
+    private Strategy strategy;
 
     RouletteBetItem(RouletteSector rouletteSector,
                     RouletteBetTypesEnum rouletteBetTypesEnum,
                     int betAmoun,
                     int winAmount,
-                    String className){
+                    Strategy strategy) {
         this.rouletteSector = rouletteSector;
         this.rouletteBetTypesEnum = rouletteBetTypesEnum;
         this.betAmount = betAmoun;
         this.winAmount = winAmount;
-        this.className = className;
-    }
-
-
-
-
-
-    // compare
-    boolean compare(RouletteSector sector){
-        return rouletteSector.equals(sector);
+        this.strategy = strategy;
     }
 
     // getters
 
-    public RouletteSector getRouletteSector() {
+    RouletteSector getRouletteSector() {
         return rouletteSector;
-    }
-
-    public RouletteBetTypesEnum getRouletteBetTypesEnum() {
-        return rouletteBetTypesEnum;
-    }
-
-    public int getBetAmount() {
-        return betAmount;
     }
 
     public int getWinAmount() {
         return winAmount;
     }
 
-    public String getClassName() {
-        return className;
+    public Strategy getStrategy() {
+        return strategy;
     }
 
     @Override
@@ -58,7 +41,7 @@ public class RouletteBetItem {
                 ", rouletteBetTypesEnum=" + rouletteBetTypesEnum +
                 ", betAmount=" + betAmount +
                 ", winAmount=" + winAmount +
-                ", className='" + className + '\'' +
+                ", strategy=" + strategy.getClass().getSimpleName() +
                 '}';
     }
 }
