@@ -2,7 +2,7 @@ package games.roulette;
 
 import java.util.Random;
 
-public class SimpleRandomStrategy extends Strategy {
+class SimpleRandomStrategy extends Strategy {
 
 
     @Override
@@ -13,14 +13,19 @@ public class SimpleRandomStrategy extends Strategy {
             case 0:
                 return betTable.doBetTypeHRedBlack(RouletteColorsEnum.RED,
                         RouletteBetTypesEnum.TYPE_H.getMinAmount(),
-                        this.getClass().getName());
+                        this);
             case 1:
                 return betTable.doBetTypeHRedBlack(RouletteColorsEnum.BLACK,
                         RouletteBetTypesEnum.TYPE_H.getMinAmount(),
-                        this.getClass().getSimpleName());
+                        this);
             default:
                 System.out.println("!!! Error out of range");
                 return false;
         }
+    }
+
+    @Override
+    void notification(RouletteSector sector, int winAmount) {
+        System.out.println("OK, got " + winAmount + " " + sector);
     }
 }

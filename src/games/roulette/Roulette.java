@@ -34,8 +34,10 @@ public class Roulette {
                 betTable.getBets()) {
             if (item.getRouletteSector().equals(winSector)) {
                 System.out.println(item);
-                // need notify strategy
-                item.getStrategy();
+                // need notify strategy +
+                item.getStrategy().notification(winSector, item.getWinAmount());
+            } else {// TODO
+                item.getStrategy().notification(winSector, -item.getWinAmount());
             }
         }
 
