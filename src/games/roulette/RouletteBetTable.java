@@ -61,6 +61,13 @@ class RouletteBetTable {
         return true;
     }
 
+    /**
+     * Clean all bets
+     */
+    void cleanBets(){
+        bets.clear();
+    }
+
     // getters
     ArrayList<RouletteBetItem> getBets() {
         return bets;

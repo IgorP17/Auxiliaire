@@ -8,12 +8,12 @@ public class Roulette {
         RouletteBetTable betTable = new RouletteBetTable();
         RouletteSector winSector;
         ArrayList<Strategy> strategies = new ArrayList<>();
-        strategies.add(new SimpleRandomStrategy());
+        strategies.add(new SimpleRandomStrategy(1_000_000));
 
         for (Strategy strategy:
              strategies) {
             // strategy bet
-            if (!strategy.bet(betTable)){
+            if (!strategy.makeBet(betTable)){
                 System.out.println("!!! Strategy " + strategy.getClass().getSimpleName()
                         + " make no bet");
             }
@@ -36,10 +36,18 @@ public class Roulette {
                 System.out.println(item);
                 // need notify strategy +
                 item.getStrategy().notification(winSector, item.getWinAmount());
-            } else {// TODO
-                item.getStrategy().notification(winSector, -item.getWinAmount());
             }
         }
+
+        // show
+        System.out.println("Strategies:");
+        for (Strategy strategy:
+             strategies) {
+            System.out.println(strategy);
+        }
+
+        // clean table for next
+        betTable.cleanBets();
 
     }
 
