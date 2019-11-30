@@ -2,7 +2,8 @@ package games.roulette;
 
 abstract class Strategy {
 
-    private int total;
+    protected int total;
+    private int winCount = 0;
 
     Strategy(int total){
         this.total = total;
@@ -23,6 +24,7 @@ abstract class Strategy {
     void notification(RouletteSector sector, int winAmount) {
         System.out.println("OK, got " + winAmount + " " + sector);
         total = total + winAmount;
+        winCount++;
     }
 
     // getters
@@ -31,12 +33,15 @@ abstract class Strategy {
         return total;
     }
 
+    int getWinCount() {
+        return winCount;
+    }
+
     @Override
     public String toString() {
         return "Strategy{" +
                 "total=" + total +
+                ", winCount=" + winCount +
                 '}';
     }
-
-
 }
