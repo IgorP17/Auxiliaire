@@ -46,8 +46,9 @@ abstract class Strategy {
 
     @Override
     public String toString() {
-        return "Strategy{" +
-                "total=" + total +
+        return "Strategy{name=" +
+                this.getClass().getSimpleName() +
+                ", total=" + total +
                 ", winCount=" + winCount +
                 '}';
     }
