@@ -26,11 +26,11 @@ public class RouletteBetItem {
         return rouletteSector;
     }
 
-    public int getWinAmount() {
+    int getWinAmount() {
         return winAmount;
     }
 
-    public Strategy getStrategy() {
+    Strategy getStrategy() {
         return strategy;
     }
 

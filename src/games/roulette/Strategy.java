@@ -3,38 +3,45 @@ package games.roulette;
 abstract class Strategy {
 
     protected int total;
+    protected int betAmount;
     private int winCount = 0;
 
-    Strategy(int total){
+    Strategy(int total) {
         this.total = total;
     }
 
-    boolean makeBet(RouletteBetTable betTable){
-        if (total <= 0){
+    boolean makeBet(RouletteBetTable betTable) {
+        if (total <= 0) {
             return false;
         }
-        total = total - bet(betTable);
-        return true;
+        // this should init/change betAmount
+        boolean result = bet(betTable);
+        total = total - betAmount;
+        return result;
     }
 
     // override me
-    abstract int bet(RouletteBetTable betTable);
+    abstract boolean bet(RouletteBetTable betTable);
 
-    // override me
-    void notification(RouletteSector sector, int winAmount) {
-        System.out.println("OK, got " + winAmount + " " + sector);
+    /**
+     * Receive wins
+     *
+     * @param winAmount - amount
+     */
+    void notification(int winAmount) {
+        System.out.println("OK, got " + winAmount);
         total = total + winAmount;
         winCount++;
     }
 
-    // getters
-
-    int getTotal() {
-        return total;
-    }
-
-    int getWinCount() {
-        return winCount;
+    /**
+     * Receive win sector
+     * This can be override to save history
+     *
+     * @param winSector - win sector
+     */
+    void notification(RouletteSector winSector) {
+        System.out.println("OK, got " + winSector);
     }
 
     @Override

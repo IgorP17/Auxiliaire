@@ -10,28 +10,25 @@ class SimpleRandomStrategy extends Strategy {
     }
 
     @Override
-    int bet(RouletteBetTable betTable) {
-        int amount = total <  RouletteBetTypesEnum.TYPE_H.getMinAmount() ?
+    boolean bet(RouletteBetTable betTable) {
+        betAmount = total < RouletteBetTypesEnum.TYPE_H.getMinAmount() ?
                 total : RouletteBetTypesEnum.TYPE_H.getMinAmount();
 
         Random random = new Random();
         int x = random.nextInt(2);
         switch (x) {
             case 0:
-                betTable.doBetTypeHRedBlack(RouletteColorsEnum.RED,
-                        amount,
+                return betTable.doBetTypeHRedBlack(RouletteColorsEnum.RED,
+                        betAmount,
                         this);
-                break;
             case 1:
-                betTable.doBetTypeHRedBlack(RouletteColorsEnum.BLACK,
-                        amount,
+                return betTable.doBetTypeHRedBlack(RouletteColorsEnum.BLACK,
+                        betAmount,
                         this);
-                break;
             default:
                 System.out.println("!!! Error out of range");
-                return 0;
+                return false;
         }
-        return amount;
     }
 
 }

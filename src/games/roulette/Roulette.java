@@ -37,11 +37,17 @@ public class Roulette {
                 if (item.getRouletteSector().equals(winSector)) {
                     System.out.println(item);
                     // need notify strategy +
-                    item.getStrategy().notification(winSector, item.getWinAmount());
+                    item.getStrategy().notification(item.getWinAmount());
                 }
             }
 
-            // show
+            // notify all strategies about win sector
+            for (Strategy strategy:
+                 strategies) {
+                strategy.notification(winSector);
+            }
+
+            // show strategies
             System.out.println("Played round: " + i);
             System.out.println("Strategies:");
             for (Strategy strategy :
@@ -49,7 +55,7 @@ public class Roulette {
                 System.out.println(strategy);
             }
 
-            // clean table for next
+            // clean table for next round
             betTable.cleanBets();
         }
     }
