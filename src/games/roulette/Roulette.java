@@ -5,13 +5,16 @@ import java.util.ArrayList;
 public class Roulette {
 
     public static void main(String[] args) {
+        int startAmount = 1_000_000;
         RouletteBetTable betTable = new RouletteBetTable();
         RouletteSector winSector;
         ArrayList<Strategy> strategies = new ArrayList<>();
-        strategies.add(new SimpleRandomStrategy(1_000_000));
+
+        strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
+        strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1_000; i++) {
             for (Strategy strategy :
                     strategies) {
                 // strategy bet
@@ -41,6 +44,7 @@ public class Roulette {
                 }
             }
 
+            System.out.println("Notify strategies:");
             // notify all strategies about win sector
             for (Strategy strategy:
                  strategies) {

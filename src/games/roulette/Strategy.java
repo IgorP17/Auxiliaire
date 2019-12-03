@@ -5,9 +5,11 @@ abstract class Strategy {
     protected int total;
     protected int betAmount;
     private int winCount = 0;
+    private int initialSum;
 
     Strategy(int total) {
         this.total = total;
+        this.initialSum = total;
     }
 
     boolean makeBet(RouletteBetTable betTable) {
@@ -29,7 +31,7 @@ abstract class Strategy {
      * @param winAmount - amount
      */
     void notification(int winAmount) {
-        System.out.println("OK, got " + winAmount);
+        System.out.println(this.getClass().getSimpleName() + ": OK, got " + winAmount);
         total = total + winAmount;
         winCount++;
     }
@@ -41,7 +43,7 @@ abstract class Strategy {
      * @param winSector - win sector
      */
     void notification(RouletteSector winSector) {
-        System.out.println("OK, got " + winSector);
+        System.out.println(this.getClass().getSimpleName() + ": OK, got " + winSector);
     }
 
     @Override
@@ -50,6 +52,7 @@ abstract class Strategy {
                 this.getClass().getSimpleName() +
                 ", total=" + total +
                 ", winCount=" + winCount +
+                ", balance=" + (total - initialSum) +
                 '}';
     }
 }

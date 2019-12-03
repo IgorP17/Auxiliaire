@@ -2,10 +2,10 @@ package games.roulette;
 
 import java.util.Random;
 
-class SimpleRandomStrategy extends Strategy {
+class SimpleRandomColorStrategyTypeH extends Strategy {
 
 
-    SimpleRandomStrategy(int total) {
+    SimpleRandomColorStrategyTypeH(int total) {
         super(total);
     }
 
