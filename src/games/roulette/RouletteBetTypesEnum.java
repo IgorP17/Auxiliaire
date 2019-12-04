@@ -8,7 +8,7 @@ public enum RouletteBetTypesEnum {
     TYPE_D(8, 100, 0),
     TYPE_E(5, 100, 0),
     TYPE_F(2, 100, 0),
-    TYPE_G(1, 100, 0),
+    TYPE_G(2, 100, 0),
     TYPE_H(1, 100, 10000); //
 
     private int payRoll;
