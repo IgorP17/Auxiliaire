@@ -1,5 +1,7 @@
 package games.roulette;
 
+import java.util.Comparator;
+
 abstract class Strategy {
 
     protected int total;
@@ -54,5 +56,26 @@ abstract class Strategy {
                 ", winCount=" + winCount +
                 ", balance=" + (total - initialSum) +
                 '}';
+    }
+
+    int getBalance(){
+        return total - initialSum;
+    }
+}
+
+/**
+ * Compare strategies - use balance
+ */
+class StrategyComparator implements Comparator<Strategy>{
+
+    @Override
+    public int compare(Strategy o1, Strategy o2) {
+        System.out.println("S1:");
+        System.out.println(o1);
+        System.out.println("S2:");
+        System.out.println(o2);
+        int compare = Integer.compare(o1.getBalance(), o2.getBalance());
+        System.out.println(compare);
+        return compare;
     }
 }

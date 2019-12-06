@@ -14,7 +14,7 @@ public class Roulette {
         strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
 
 
-        for (int i = 0; i < 10_000; i++) {
+        for (int i = 0; i < 1_000; i++) {
             for (Strategy strategy :
                     strategies) {
                 // strategy bet
@@ -52,6 +52,9 @@ public class Roulette {
             }
 
             // show strategies
+            // sort by balance
+            //Collections.sort(strategies, new StrategyComparator());
+            strategies.sort(new StrategyComparator());
             System.out.println("Played round: " + i);
             System.out.println("Strategies:");
             for (Strategy strategy :
