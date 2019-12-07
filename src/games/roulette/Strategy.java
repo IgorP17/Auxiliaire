@@ -58,7 +58,7 @@ abstract class Strategy {
                 '}';
     }
 
-    int getBalance(){
+    int getBalance() {
         return total - initialSum;
     }
 }
@@ -66,16 +66,21 @@ abstract class Strategy {
 /**
  * Compare strategies - use balance
  */
-class StrategyComparator implements Comparator<Strategy>{
+class StrategyComparator implements Comparator<Strategy> {
 
     @Override
     public int compare(Strategy o1, Strategy o2) {
-        System.out.println("S1:");
-        System.out.println(o1);
-        System.out.println("S2:");
-        System.out.println(o2);
-        int compare = Integer.compare(o1.getBalance(), o2.getBalance());
-        System.out.println(compare);
+        // sort in desc order
+        /*
+        f( student1.getTotalMarks() > student2.getTotalMarks() ){
+            return -1;
+        }else if( student1.getTotalMarks() < student2.getTotalMarks() ){
+            return 1;
+        }else{
+            return 0;
+        }
+         */
+        int compare = Integer.compare(o2.getBalance(), o1.getBalance());
         return compare;
     }
 }
