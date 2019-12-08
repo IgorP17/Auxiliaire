@@ -3,7 +3,7 @@ package games.card;
 import java.io.*;
 import java.util.*;
 
-public class PokerChance {
+class PokerChance {
 
     private static ArrayList<Card> firstHand = new ArrayList<>();
     private static ArrayList<Card> secondHand = new ArrayList<>();

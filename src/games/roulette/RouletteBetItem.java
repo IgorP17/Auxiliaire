@@ -1,6 +1,6 @@
 package games.roulette;
 
-public class RouletteBetItem {
+class RouletteBetItem {
 
     private RouletteSector rouletteSector;
     private RouletteBetTypesEnum rouletteBetTypesEnum;

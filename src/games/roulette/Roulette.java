@@ -2,7 +2,7 @@ package games.roulette;
 
 import java.util.ArrayList;
 
-public class Roulette {
+class Roulette {
 
     public static void main(String[] args) {
         int startAmount = 1_000_000;
@@ -12,6 +12,7 @@ public class Roulette {
 
         strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
         strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
+        strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
 
 
         for (int i = 0; i < 1_000; i++) {

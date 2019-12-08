@@ -29,6 +29,27 @@ class RouletteBetTable {
         return true;
     }
 
+    boolean doBetTypeB(RoulettePairsEnum pairsEnum, int amount, Strategy strategy){
+        if (amount < RouletteBetTypesEnum.TYPE_B.getMinAmount() ||
+                amount > RouletteBetTypesEnum.TYPE_B.getMaxAmount()) {
+            System.out.println("!!! Wrong bet amount for type B");
+            return false;
+        }
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(pairsEnum.getA()),
+                RouletteBetTypesEnum.TYPE_B,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_B.getPayRoll(),
+                strategy));
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(pairsEnum.getB()),
+                RouletteBetTypesEnum.TYPE_B,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_B.getPayRoll(),
+                strategy));
+        return true;
+    }
+
     /**
      * Bet on RED or BLACK
      *
