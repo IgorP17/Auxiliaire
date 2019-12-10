@@ -1,8 +1,8 @@
 package games.roulette;
 
-class SimpleRandomPairsStrategyTypeB extends Strategy {
+class SimpleRandomTriplesStrategyTypeC extends Strategy {
 
-    SimpleRandomPairsStrategyTypeB(int total) {
+    SimpleRandomTriplesStrategyTypeC(int total) {
         super(total);
     }
 
@@ -10,8 +10,8 @@ class SimpleRandomPairsStrategyTypeB extends Strategy {
     boolean bet(RouletteBetTable betTable) {
         betAmount = RouletteBetTypesEnum.TYPE_B.getMinAmount();
 
-        return betTable.doBetTypeB(
-                RandomEnum.randomEnum(RoulettePairsEnum.class),
+        return betTable.doBetTypeC(
+                RandomEnum.randomEnum(RouletteTriplesEnum.class),
                 betAmount,
                 this);
     }

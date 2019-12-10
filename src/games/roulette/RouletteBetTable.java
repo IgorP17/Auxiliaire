@@ -29,6 +29,13 @@ class RouletteBetTable {
         return true;
     }
 
+    /**
+     * Bet on pairs
+     * @param pairsEnum - pairs
+     * @param amount - amount
+     * @param strategy - calling class
+     * @return - true if bet set, false otherwise
+     */
     boolean doBetTypeB(RoulettePairsEnum pairsEnum, int amount, Strategy strategy){
         if (amount < RouletteBetTypesEnum.TYPE_B.getMinAmount() ||
                 amount > RouletteBetTypesEnum.TYPE_B.getMaxAmount()) {
@@ -49,6 +56,41 @@ class RouletteBetTable {
                 strategy));
         return true;
     }
+
+    /**
+     * Bet on triples
+     * @param triplesEnum - triple
+     * @param amount - amount
+     * @param strategy - calling class
+     * @return - true if bet set, false otherwise
+     */
+    boolean doBetTypeC(RouletteTriplesEnum triplesEnum, int amount, Strategy strategy) {
+        if (amount < RouletteBetTypesEnum.TYPE_C.getMinAmount() ||
+                amount > RouletteBetTypesEnum.TYPE_C.getMaxAmount()) {
+            System.out.println("!!! Wrong bet amount for type C");
+            return false;
+        }
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(triplesEnum.getA()),
+                RouletteBetTypesEnum.TYPE_C,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_C.getPayRoll(),
+                strategy));
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(triplesEnum.getB()),
+                RouletteBetTypesEnum.TYPE_C,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_C.getPayRoll(),
+                strategy));
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(triplesEnum.getC()),
+                RouletteBetTypesEnum.TYPE_C,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_C.getPayRoll(),
+                strategy));
+        return true;
+    }
+
 
     /**
      * Bet on RED or BLACK

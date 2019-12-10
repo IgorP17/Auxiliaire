@@ -13,6 +13,7 @@ class Roulette {
         strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
         strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
         strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
+        strategies.add(new SimpleRandomTriplesStrategyTypeC(startAmount));
 
 
         for (int i = 0; i < 1_000; i++) {
