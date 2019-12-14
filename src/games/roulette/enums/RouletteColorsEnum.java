@@ -1,4 +1,4 @@
-package games.roulette;
+package games.roulette.enums;
 
 /**
  * Enum for roulette colors

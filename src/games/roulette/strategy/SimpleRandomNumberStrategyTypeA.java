@@ -1,7 +1,7 @@
 package games.roulette.strategy;
 
 import games.roulette.RouletteBetTable;
-import games.roulette.RouletteBetTypesEnum;
+import games.roulette.enums.RouletteBetTypesEnum;
 
 import java.util.Random;
 

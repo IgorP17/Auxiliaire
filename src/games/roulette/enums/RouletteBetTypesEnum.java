@@ -1,11 +1,11 @@
-package games.roulette;
+package games.roulette.enums;
 
 public enum RouletteBetTypesEnum {
 
     TYPE_A(35, 100, 1000), // direct bet
     TYPE_B(17, 100, 2000), // pairs
     TYPE_C(11, 100, 3000), // triples
-    TYPE_D(8, 100, 0),
+    TYPE_D(8, 100, 4000), // fours
     TYPE_E(5, 100, 0),
     TYPE_F(2, 100, 0),
     TYPE_G(2, 100, 0),
@@ -22,7 +22,7 @@ public enum RouletteBetTypesEnum {
     }
 
     // getters
-    int getPayRoll() {
+    public int getPayRoll() {
         return payRoll;
     }
 

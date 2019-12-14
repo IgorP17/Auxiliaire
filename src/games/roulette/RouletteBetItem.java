@@ -1,5 +1,6 @@
 package games.roulette;
 
+import games.roulette.enums.RouletteBetTypesEnum;
 import games.roulette.strategy.Strategy;
 
 class RouletteBetItem {
@@ -12,12 +13,12 @@ class RouletteBetItem {
 
     RouletteBetItem(RouletteSector rouletteSector,
                     RouletteBetTypesEnum rouletteBetTypesEnum,
-                    int betAmoun,
+                    int betAmount,
                     int winAmount,
                     Strategy strategy) {
         this.rouletteSector = rouletteSector;
         this.rouletteBetTypesEnum = rouletteBetTypesEnum;
-        this.betAmount = betAmoun;
+        this.betAmount = betAmount;
         this.winAmount = winAmount;
         this.strategy = strategy;
     }

@@ -1,5 +1,6 @@
 package games.roulette;
 
+import games.roulette.enums.*;
 import games.roulette.strategy.Strategy;
 
 import java.util.ArrayList;
@@ -91,6 +92,50 @@ public class RouletteBetTable {
                 RouletteBetTypesEnum.TYPE_C,
                 amount,
                 amount * RouletteBetTypesEnum.TYPE_C.getPayRoll(),
+                strategy));
+        return true;
+    }
+
+
+    /**
+     * Bet on fours
+     * @param rouletteFoursEnum - fours
+     * @param amount - amount
+     * @param strategy - calling class
+     * @return - true if bet set, false otherwise
+     */
+    public boolean doBetTypeD(RouletteFoursEnum rouletteFoursEnum, int amount, Strategy strategy) {
+        if (amount < RouletteBetTypesEnum.TYPE_D.getMinAmount() ||
+                amount > RouletteBetTypesEnum.TYPE_D.getMaxAmount()) {
+            System.out.println("!!! Wrong bet amount for type D");
+            return false;
+        }
+
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(rouletteFoursEnum.getA()),
+                RouletteBetTypesEnum.TYPE_D,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_D.getPayRoll(),
+                strategy));
+
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(rouletteFoursEnum.getB()),
+                RouletteBetTypesEnum.TYPE_D,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_D.getPayRoll(),
+                strategy));
+
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(rouletteFoursEnum.getC()),
+                RouletteBetTypesEnum.TYPE_D,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_D.getPayRoll(),
+                strategy));
+        bets.add(new RouletteBetItem(
+                RouletteSector.getSectorByNumber(rouletteFoursEnum.getD()),
+                RouletteBetTypesEnum.TYPE_D,
+                amount,
+                amount * RouletteBetTypesEnum.TYPE_D.getPayRoll(),
                 strategy));
         return true;
     }

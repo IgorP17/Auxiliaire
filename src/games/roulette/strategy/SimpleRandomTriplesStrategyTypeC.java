@@ -1,9 +1,9 @@
 package games.roulette.strategy;
 
-import games.roulette.RandomEnum;
+import games.roulette.enums.RandomEnum;
 import games.roulette.RouletteBetTable;
-import games.roulette.RouletteBetTypesEnum;
-import games.roulette.RouletteTriplesEnum;
+import games.roulette.enums.RouletteBetTypesEnum;
+import games.roulette.enums.RouletteTriplesEnum;
 
 public class SimpleRandomTriplesStrategyTypeC extends Strategy {
 
@@ -13,7 +13,7 @@ public class SimpleRandomTriplesStrategyTypeC extends Strategy {
 
     @Override
     boolean bet(RouletteBetTable betTable) {
-        betAmount = RouletteBetTypesEnum.TYPE_B.getMinAmount();
+        betAmount = RouletteBetTypesEnum.TYPE_C.getMinAmount();
 
         return betTable.doBetTypeC(
                 RandomEnum.randomEnum(RouletteTriplesEnum.class),

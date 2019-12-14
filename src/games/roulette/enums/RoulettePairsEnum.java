@@ -1,4 +1,4 @@
-package games.roulette;
+package games.roulette.enums;
 
 public enum RoulettePairsEnum {
 
@@ -70,11 +70,11 @@ public enum RoulettePairsEnum {
 
     // getters
 
-    int getA() {
+    public int getA() {
         return a;
     }
 
-    int getB() {
+    public int getB() {
         return b;
     }
 }

@@ -1,4 +1,4 @@
-package games.roulette;
+package games.roulette.enums;
 
 import java.util.Random;
 

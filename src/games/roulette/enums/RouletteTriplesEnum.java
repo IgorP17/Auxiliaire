@@ -1,4 +1,4 @@
-package games.roulette;
+package games.roulette.enums;
 
 public enum RouletteTriplesEnum {
 
@@ -30,15 +30,15 @@ public enum RouletteTriplesEnum {
 
     // getters
 
-    int getA() {
+    public int getA() {
         return a;
     }
 
-    int getB() {
+    public int getB() {
         return b;
     }
 
-    int getC() {
+    public int getC() {
         return c;
     }
 }

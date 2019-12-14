@@ -1,8 +1,8 @@
 package games.roulette.strategy;
 
 import games.roulette.RouletteBetTable;
-import games.roulette.RouletteBetTypesEnum;
-import games.roulette.RouletteColorsEnum;
+import games.roulette.enums.RouletteBetTypesEnum;
+import games.roulette.enums.RouletteColorsEnum;
 
 import java.util.Random;
 
