@@ -1,6 +1,6 @@
 package games.roulette;
 
-enum RouletteBetTypesEnum {
+public enum RouletteBetTypesEnum {
 
     TYPE_A(35, 100, 1000), // direct bet
     TYPE_B(17, 100, 2000), // pairs

@@ -1,11 +1,15 @@
-package games.roulette;
+package games.roulette.strategy;
+
+import games.roulette.RouletteBetTable;
+import games.roulette.RouletteBetTypesEnum;
+import games.roulette.RouletteColorsEnum;
 
 import java.util.Random;
 
-class SimpleRandomColorStrategyTypeH extends Strategy {
+public class SimpleRandomColorStrategyTypeH extends Strategy {
 
 
-    SimpleRandomColorStrategyTypeH(int total) {
+    public SimpleRandomColorStrategyTypeH(int total) {
         super(total);
     }
 

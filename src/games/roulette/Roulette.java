@@ -1,24 +1,30 @@
 package games.roulette;
 
+import games.roulette.strategy.*;
+
 import java.util.ArrayList;
 
 class Roulette {
 
+    private ArrayList<Strategy> strategies = new ArrayList<>();
+    private int startAmount = 1_000_000;
+    private int rounds = 1_000;
+
+
     public static void main(String[] args) {
-        int startAmount = 1_000_000;
+        Roulette roulette = new Roulette();
         RouletteBetTable betTable = new RouletteBetTable();
         RouletteSector winSector;
-        ArrayList<Strategy> strategies = new ArrayList<>();
 
-        strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
-        strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
-        strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
-        strategies.add(new SimpleRandomTriplesStrategyTypeC(startAmount));
+        roulette.strategies.add(new SimpleRandomColorStrategyTypeH(roulette.startAmount));
+        roulette.strategies.add(new SimpleRandomNumberStrategyTypeA(roulette.startAmount));
+        roulette.strategies.add(new SimpleRandomPairsStrategyTypeB(roulette.startAmount));
+        roulette.strategies.add(new SimpleRandomTriplesStrategyTypeC(roulette.startAmount));
 
 
-        for (int i = 0; i < 1_000; i++) {
+        for (int i = 0; i < roulette.rounds; i++) {
             for (Strategy strategy :
-                    strategies) {
+                    roulette.strategies) {
                 // strategy bet
                 if (!strategy.makeBet(betTable)) {
                     System.out.println("!!! Strategy " + strategy.getClass().getSimpleName()
@@ -26,11 +32,7 @@ class Roulette {
                 }
             }
             // bets
-            System.out.println("Bets are:");
-            for (RouletteBetItem item :
-                    betTable.getBets()) {
-                System.out.println(item);
-            }
+            roulette.showBets(betTable);
 
             // spin
             winSector = RouletteSector.getRandomSector();
@@ -46,26 +48,50 @@ class Roulette {
                 }
             }
 
-            System.out.println("Notify strategies:");
-            // notify all strategies about win sector
-            for (Strategy strategy:
-                 strategies) {
-                strategy.notification(winSector);
-            }
+            // notify about wis sector
+            roulette.notifyWinSector(roulette, winSector);
 
             // show strategies
             // sort by balance
             //Collections.sort(strategies, new StrategyComparator());
-            strategies.sort(new StrategyComparator());
-            System.out.println("Played round: " + i);
+            roulette.strategies.sort(new StrategyComparator());
+            System.out.println("Played round: " + (i + 1));
             System.out.println("Strategies:");
             for (Strategy strategy :
-                    strategies) {
+                    roulette.strategies) {
                 System.out.println(strategy);
             }
 
             // clean table for next round
             betTable.cleanBets();
+        }
+    }
+
+    /**
+     * Show bets
+     *
+     * @param betTable - bet table
+     */
+    private void showBets(RouletteBetTable betTable) {
+        System.out.println("Bets are:");
+        for (RouletteBetItem item :
+                betTable.getBets()) {
+            System.out.println(item);
+        }
+    }
+
+    /**
+     * Notify strategies about win sector
+     *
+     * @param roulette  - roulette
+     * @param winSector - win sector
+     */
+    private void notifyWinSector(Roulette roulette, RouletteSector winSector) {
+        System.out.println("Notify strategies:");
+        // notify all strategies about win sector
+        for (Strategy strategy :
+                roulette.strategies) {
+            strategy.notification(winSector);
         }
     }
 

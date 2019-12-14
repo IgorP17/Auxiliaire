@@ -8,7 +8,7 @@ import java.util.Random;
  * 1. Generate random sector
  */
 
-class RouletteSector {
+public class RouletteSector {
 
     private RouletteColorsEnum colorsEnum;
     private int number;

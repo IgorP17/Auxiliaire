@@ -1,8 +1,13 @@
-package games.roulette;
+package games.roulette.strategy;
 
-class SimpleRandomPairsStrategyTypeB extends Strategy {
+import games.roulette.RandomEnum;
+import games.roulette.RouletteBetTable;
+import games.roulette.RouletteBetTypesEnum;
+import games.roulette.RoulettePairsEnum;
 
-    SimpleRandomPairsStrategyTypeB(int total) {
+public class SimpleRandomPairsStrategyTypeB extends Strategy {
+
+    public SimpleRandomPairsStrategyTypeB(int total) {
         super(total);
     }
 

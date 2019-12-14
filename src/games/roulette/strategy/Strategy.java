@@ -1,11 +1,12 @@
-package games.roulette;
+package games.roulette.strategy;
 
-import java.util.Comparator;
+import games.roulette.RouletteBetTable;
+import games.roulette.RouletteSector;
 
-abstract class Strategy {
+public abstract class Strategy {
 
-    protected int total;
-    protected int betAmount;
+    int total;
+    int betAmount;
     private int winCount = 0;
     private int initialSum;
 
@@ -14,7 +15,7 @@ abstract class Strategy {
         this.initialSum = total;
     }
 
-    boolean makeBet(RouletteBetTable betTable) {
+    public boolean makeBet(RouletteBetTable betTable) {
         if (total <= 0) {
             return false;
         }
@@ -32,7 +33,7 @@ abstract class Strategy {
      *
      * @param winAmount - amount
      */
-    void notification(int winAmount) {
+    public void notification(int winAmount) {
         System.out.println(this.getClass().getSimpleName() + ": OK, got " + winAmount);
         total = total + winAmount;
         winCount++;
@@ -44,7 +45,7 @@ abstract class Strategy {
      *
      * @param winSector - win sector
      */
-    void notification(RouletteSector winSector) {
+    public void notification(RouletteSector winSector) {
         System.out.println(this.getClass().getSimpleName() + ": OK, got " + winSector);
     }
 
@@ -60,27 +61,5 @@ abstract class Strategy {
 
     int getBalance() {
         return total - initialSum;
-    }
-}
-
-/**
- * Compare strategies - use balance
- */
-class StrategyComparator implements Comparator<Strategy> {
-
-    @Override
-    public int compare(Strategy o1, Strategy o2) {
-        // sort in desc order
-        /*
-        f( student1.getTotalMarks() > student2.getTotalMarks() ){
-            return -1;
-        }else if( student1.getTotalMarks() < student2.getTotalMarks() ){
-            return 1;
-        }else{
-            return 0;
-        }
-         */
-        int compare = Integer.compare(o2.getBalance(), o1.getBalance());
-        return compare;
     }
 }

@@ -1,6 +1,6 @@
 package games.roulette;
 
-enum RouletteTriplesEnum {
+public enum RouletteTriplesEnum {
 
     TRIPLE_1_2_3(1, 2, 3),
     TRIPLE_4_5_6(4, 5, 6),

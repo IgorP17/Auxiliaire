@@ -1,5 +1,7 @@
 package games.roulette;
 
+import games.roulette.strategy.Strategy;
+
 class RouletteBetItem {
 
     private RouletteSector rouletteSector;

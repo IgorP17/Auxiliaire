@@ -1,11 +1,14 @@
-package games.roulette;
+package games.roulette.strategy;
+
+import games.roulette.RouletteBetTable;
+import games.roulette.RouletteBetTypesEnum;
 
 import java.util.Random;
 
-class SimpleRandomNumberStrategyTypeA extends Strategy {
+public class SimpleRandomNumberStrategyTypeA extends Strategy {
 
 
-    SimpleRandomNumberStrategyTypeA(int total) {
+    public SimpleRandomNumberStrategyTypeA(int total) {
         super(total);
     }
 

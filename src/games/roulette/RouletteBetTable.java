@@ -1,8 +1,10 @@
 package games.roulette;
 
+import games.roulette.strategy.Strategy;
+
 import java.util.ArrayList;
 
-class RouletteBetTable {
+public class RouletteBetTable {
 
     private ArrayList<RouletteBetItem> bets = new ArrayList<>();
 
@@ -14,7 +16,7 @@ class RouletteBetTable {
      * @param strategy - calling class
      * @return - true if bet set, false otherwise
      */
-    boolean doBetTypeA(int number, int amount, Strategy strategy) {
+    public boolean doBetTypeA(int number, int amount, Strategy strategy) {
         if (amount < RouletteBetTypesEnum.TYPE_A.getMinAmount() ||
                 amount > RouletteBetTypesEnum.TYPE_A.getMaxAmount()) {
             System.out.println("!!! Wrong bet amount for type A");
@@ -31,12 +33,13 @@ class RouletteBetTable {
 
     /**
      * Bet on pairs
+     *
      * @param pairsEnum - pairs
-     * @param amount - amount
-     * @param strategy - calling class
+     * @param amount    - amount
+     * @param strategy  - calling class
      * @return - true if bet set, false otherwise
      */
-    boolean doBetTypeB(RoulettePairsEnum pairsEnum, int amount, Strategy strategy){
+    public boolean doBetTypeB(RoulettePairsEnum pairsEnum, int amount, Strategy strategy) {
         if (amount < RouletteBetTypesEnum.TYPE_B.getMinAmount() ||
                 amount > RouletteBetTypesEnum.TYPE_B.getMaxAmount()) {
             System.out.println("!!! Wrong bet amount for type B");
@@ -59,12 +62,13 @@ class RouletteBetTable {
 
     /**
      * Bet on triples
+     *
      * @param triplesEnum - triple
-     * @param amount - amount
-     * @param strategy - calling class
+     * @param amount      - amount
+     * @param strategy    - calling class
      * @return - true if bet set, false otherwise
      */
-    boolean doBetTypeC(RouletteTriplesEnum triplesEnum, int amount, Strategy strategy) {
+    public boolean doBetTypeC(RouletteTriplesEnum triplesEnum, int amount, Strategy strategy) {
         if (amount < RouletteBetTypesEnum.TYPE_C.getMinAmount() ||
                 amount > RouletteBetTypesEnum.TYPE_C.getMaxAmount()) {
             System.out.println("!!! Wrong bet amount for type C");
@@ -100,7 +104,7 @@ class RouletteBetTable {
      * @param strategy - calling class
      * @return - true if bet set, false otherwise
      */
-    boolean doBetTypeHRedBlack(RouletteColorsEnum color, int amount, Strategy strategy) {
+    public boolean doBetTypeHRedBlack(RouletteColorsEnum color, int amount, Strategy strategy) {
         if (amount < RouletteBetTypesEnum.TYPE_H.getMinAmount() ||
                 amount > RouletteBetTypesEnum.TYPE_H.getMaxAmount()) {
             System.out.println("!!! Wrong bet amount for type H");
@@ -127,7 +131,7 @@ class RouletteBetTable {
     /**
      * Clean all bets
      */
-    void cleanBets(){
+    void cleanBets() {
         bets.clear();
     }
 
