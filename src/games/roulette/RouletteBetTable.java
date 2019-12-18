@@ -140,6 +140,35 @@ public class RouletteBetTable {
         return true;
     }
 
+    /**
+     * Bet on six (2 x 3)
+     * @param rouletteSixEnum - six
+     * @param amount - amount
+     * @param strategy - calling class
+     * @return - true if bet set, false otherwise
+     */
+    public boolean doBetTypeE(RouletteSixEnum rouletteSixEnum, int amount, Strategy strategy) {
+        if (amount < RouletteBetTypesEnum.TYPE_E.getMinAmount() ||
+                amount > RouletteBetTypesEnum.TYPE_E.getMaxAmount()) {
+            System.out.println("!!! Wrong bet amount for type E");
+            return false;
+        }
+
+        for (int i:
+             rouletteSixEnum.getNumbers()) {
+            bets.add(new RouletteBetItem(
+                    RouletteSector.getSectorByNumber(i),
+                    RouletteBetTypesEnum.TYPE_E,
+                    amount,
+                    amount * RouletteBetTypesEnum.TYPE_E.getPayRoll(),
+                    strategy));
+        }
+
+
+        return true;
+    }
+
+
 
     /**
      * Bet on RED or BLACK

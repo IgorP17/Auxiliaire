@@ -9,7 +9,7 @@ class Roulette {
     public static void main(String[] args) {
         ArrayList<Strategy> strategies = new ArrayList<>();
         int startAmount = 1_000_000;
-        int rounds = 10_000;
+        int rounds = 1;
 
         RouletteBetTable betTable = new RouletteBetTable();
         RouletteSector winSector;
@@ -19,6 +19,7 @@ class Roulette {
         strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
         strategies.add(new SimpleRandomTriplesStrategyTypeC(startAmount));
         strategies.add(new SimpleRandomFoursStrategyTypeD(startAmount));
+        strategies.add(new SimpleRandomSixStrategyTypeE(startAmount));
 
 
         for (int i = 0; i < rounds; i++) {
