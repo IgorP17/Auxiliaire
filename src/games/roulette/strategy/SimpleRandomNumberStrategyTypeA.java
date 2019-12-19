@@ -1,5 +1,6 @@
 package games.roulette.strategy;
 
+import games.roulette.IntegerGetable;
 import games.roulette.RouletteBetTable;
 import games.roulette.enums.RouletteBetTypesEnum;
 
@@ -23,6 +24,10 @@ public class SimpleRandomNumberStrategyTypeA extends Strategy {
         // always define betAmount
         betAmount = RouletteBetTypesEnum.TYPE_A.getMinAmount();
         Random random = new Random();
-        return betTable.doBetTypeA(random.nextInt(37), betAmount, this);
+        return betTable.doBet(
+                RouletteBetTypesEnum.TYPE_A,
+                IntegerGetable.,
+                betAmount,
+                this);
     }
 }

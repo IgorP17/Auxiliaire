@@ -1,8 +1,8 @@
 package games.roulette.enums;
 
-import games.roulette.ForEnumInterface;
+import games.roulette.IntegerGetable;
 
-public enum RouletteSixEnum implements ForEnumInterface {
+public enum RouletteSixEnum implements IntegerGetable {
 
     SIX_1_2_3_4_5_6(new int[]{1, 2, 3, 4, 5, 6}),
     SIX_4_5_6_7_8_9(new int[]{4, 5, 6, 7, 8, 9}),

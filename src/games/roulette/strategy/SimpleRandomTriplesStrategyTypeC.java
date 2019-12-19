@@ -15,7 +15,8 @@ public class SimpleRandomTriplesStrategyTypeC extends Strategy {
     boolean bet(RouletteBetTable betTable) {
         betAmount = RouletteBetTypesEnum.TYPE_C.getMinAmount();
 
-        return betTable.doBetTypeC(
+        return betTable.doBet(
+                RouletteBetTypesEnum.TYPE_C,
                 RandomEnum.randomEnum(RouletteTriplesEnum.class),
                 betAmount,
                 this);

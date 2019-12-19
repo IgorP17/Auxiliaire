@@ -14,7 +14,8 @@ public class SimpleRandomSixStrategyTypeE extends Strategy  {
     boolean bet(RouletteBetTable betTable) {
         betAmount = RouletteBetTypesEnum.TYPE_E.getMinAmount();
 
-        return betTable.doBetTypeE(
+        return betTable.doBet(
+                RouletteBetTypesEnum.TYPE_E,
                 RandomEnum.randomEnum(RouletteSixEnum.class),
                 betAmount,
                 this);
