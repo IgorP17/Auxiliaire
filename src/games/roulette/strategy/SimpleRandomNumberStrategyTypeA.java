@@ -6,7 +6,7 @@ import games.roulette.enums.RouletteBetTypesEnum;
 
 import java.util.Random;
 
-public class SimpleRandomNumberStrategyTypeA extends Strategy {
+public class SimpleRandomNumberStrategyTypeA extends Strategy implements IntegerGetable{
 
 
     public SimpleRandomNumberStrategyTypeA(int total) {
@@ -26,8 +26,14 @@ public class SimpleRandomNumberStrategyTypeA extends Strategy {
         Random random = new Random();
         return betTable.doBet(
                 RouletteBetTypesEnum.TYPE_A,
-                IntegerGetable.,
+                this,
                 betAmount,
                 this);
+    }
+
+    @Override
+    public int[] getNumbers() {
+        Random random = new Random();
+        return new int[]{random.nextInt(37)};
     }
 }
