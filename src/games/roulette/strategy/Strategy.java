@@ -5,7 +5,7 @@ import games.roulette.RouletteSector;
 
 public abstract class Strategy {
 
-    int total;
+    private int total;
     int betAmount;
     private int winCount = 0;
     private int initialSum;
