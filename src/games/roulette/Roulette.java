@@ -21,6 +21,8 @@ class Roulette {
         strategies.add(new SimpleRandomFoursStrategyTypeD(startAmount));
         strategies.add(new SimpleRandomSixStrategyTypeE(startAmount));
         strategies.add(new SimpleRandomRowStrategyTypeF(startAmount));
+        strategies.add(new SimpleRandomTwelveStrategyTypeG(startAmount));
+        strategies.add(new SimpleRandomEvenOddStrategyTypeH(startAmount));
 
 
         for (int i = 0; i < rounds; i++) {
