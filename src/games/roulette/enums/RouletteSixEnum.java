@@ -16,7 +16,6 @@ public enum RouletteSixEnum implements IntegerGetable {
     SIX_28_29_30_31_32_33(new int[]{28, 29, 30, 31, 32, 33}),
     SIX_31_32_33_34_35_36(new int[]{31, 32, 33, 34, 35, 36});
 
-
     private int[] numbers;
 
     RouletteSixEnum(int[] numbers) {
@@ -27,8 +26,5 @@ public enum RouletteSixEnum implements IntegerGetable {
     public int[] getNumbers() {
         return numbers;
     }
-
-    // getters
-
 
 }

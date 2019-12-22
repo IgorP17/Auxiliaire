@@ -8,7 +8,6 @@ import games.roulette.enums.RouletteRedBlackEnum;
 
 public class SimpleRandomColorStrategyTypeH extends Strategy {
 
-
     public SimpleRandomColorStrategyTypeH(int total) {
         super(total);
     }
