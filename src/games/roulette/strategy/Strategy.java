@@ -21,7 +21,9 @@ public abstract class Strategy {
         }
         // this should init/change betAmount
         boolean result = bet(betTable);
-        total = total - betAmount;
+        if (result) {
+            total = total - betAmount;
+        }
         return result;
     }
 
