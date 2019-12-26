@@ -14,12 +14,11 @@ public class SimpleRandomFoursStrategyTypeD extends Strategy {
 
     @Override
     boolean bet(RouletteBetTable betTable) {
-        betAmount = RouletteBetTypesEnum.TYPE_D.getMinAmount();
 
         return betTable.doBet(
                 RouletteBetTypesEnum.TYPE_D,
                 RandomEnum.randomEnum(RouletteFoursEnum.class),
-                betAmount,
+                RouletteBetTypesEnum.TYPE_D.getMinAmount(),
                 this);
     }
 }

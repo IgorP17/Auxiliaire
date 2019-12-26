@@ -6,9 +6,9 @@ import games.roulette.RouletteSector;
 public abstract class Strategy {
 
     private int total;
-    int betAmount;
     private int winCount = 0;
     private int initialSum;
+    private int lastWin = 0;
 
     Strategy(int total) {
         this.total = total;
@@ -20,11 +20,7 @@ public abstract class Strategy {
             return false;
         }
         // this should init/change betAmount
-        boolean result = bet(betTable);
-        if (result) {
-            total = total - betAmount;
-        }
-        return result;
+        return bet(betTable);
     }
 
     // override me
@@ -39,6 +35,7 @@ public abstract class Strategy {
         System.out.println(this.getClass().getSimpleName() + ": OK, got " + winAmount);
         total = total + winAmount;
         winCount++;
+        lastWin = winAmount;
     }
 
     /**
@@ -58,10 +55,19 @@ public abstract class Strategy {
                 ", total=" + total +
                 ", winCount=" + winCount +
                 ", balance=" + (total - initialSum) +
+                ", lastWin=" + lastWin +
                 '}';
     }
 
     int getBalance() {
         return total - initialSum;
+    }
+
+    /**
+     * When bet is done, this method is called - decrease total
+     * @param bet - bet amount
+     */
+    public void doBetDecrease(int bet){
+        total = total - bet;
     }
 }

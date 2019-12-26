@@ -21,13 +21,10 @@ public class SimpleRandomNumberStrategyTypeA extends Strategy implements Integer
      */
     @Override
     boolean bet(RouletteBetTable betTable) {
-        // always define betAmount
-        betAmount = RouletteBetTypesEnum.TYPE_A.getMinAmount();
-        Random random = new Random();
         return betTable.doBet(
                 RouletteBetTypesEnum.TYPE_A,
                 this,
-                betAmount,
+                RouletteBetTypesEnum.TYPE_A.getMinAmount(),
                 this);
     }
 

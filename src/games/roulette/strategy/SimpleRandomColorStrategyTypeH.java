@@ -14,12 +14,11 @@ public class SimpleRandomColorStrategyTypeH extends Strategy {
 
     @Override
     boolean bet(RouletteBetTable betTable) {
-        betAmount = RouletteBetTypesEnum.TYPE_H.getMinAmount();
 
         return betTable.doBet(
                 RouletteBetTypesEnum.TYPE_H,
                 RandomEnum.randomEnum(RouletteRedBlackEnum.class),
-                betAmount,
+                RouletteBetTypesEnum.TYPE_H.getMinAmount(),
                 this);
     }
 }

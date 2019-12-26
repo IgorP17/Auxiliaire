@@ -39,6 +39,9 @@ public class RouletteBetTable {
                     strategy));
         }
 
+        // call decrease totals
+        strategy.doBetDecrease(amount);
+
         return true;
     }
 

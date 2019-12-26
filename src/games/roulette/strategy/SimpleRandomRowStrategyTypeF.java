@@ -5,7 +5,7 @@ import games.roulette.enums.RandomEnum;
 import games.roulette.enums.RouletteBetTypesEnum;
 import games.roulette.enums.RouletteRowEnum;
 
-public class SimpleRandomRowStrategyTypeF extends Strategy{
+public class SimpleRandomRowStrategyTypeF extends Strategy {
 
     public SimpleRandomRowStrategyTypeF(int total) {
         super(total);
@@ -13,12 +13,11 @@ public class SimpleRandomRowStrategyTypeF extends Strategy{
 
     @Override
     boolean bet(RouletteBetTable betTable) {
-        betAmount = RouletteBetTypesEnum.TYPE_F.getMinAmount();
 
         return betTable.doBet(
                 RouletteBetTypesEnum.TYPE_F,
                 RandomEnum.randomEnum(RouletteRowEnum.class),
-                betAmount,
+                RouletteBetTypesEnum.TYPE_F.getMinAmount(),
                 this);
     }
 }
