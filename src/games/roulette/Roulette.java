@@ -9,21 +9,21 @@ class Roulette {
     public static void main(String[] args) {
         ArrayList<Strategy> strategies = new ArrayList<>();
         int startAmount = 1_000_000;
-        int rounds = 1;
+        int rounds = 2;
 
         RouletteBetTable betTable = new RouletteBetTable();
         RouletteSector winSector;
 
-        strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
-        strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
-        strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
-        strategies.add(new SimpleRandomTriplesStrategyTypeC(startAmount));
-        strategies.add(new SimpleRandomFoursStrategyTypeD(startAmount));
-        strategies.add(new SimpleRandomSixStrategyTypeE(startAmount));
-        strategies.add(new SimpleRandomRowStrategyTypeF(startAmount));
-        strategies.add(new SimpleRandomTwelveStrategyTypeG(startAmount));
-        strategies.add(new SimpleRandomEvenOddStrategyTypeH(startAmount));
-        strategies.add(new SimpleRandomHalfStrategyTypeH(startAmount));
+//        strategies.add(new SimpleRandomColorStrategyTypeH(startAmount));
+//        strategies.add(new SimpleRandomNumberStrategyTypeA(startAmount));
+//        strategies.add(new SimpleRandomPairsStrategyTypeB(startAmount));
+//        strategies.add(new SimpleRandomTriplesStrategyTypeC(startAmount));
+//        strategies.add(new SimpleRandomFoursStrategyTypeD(startAmount));
+//        strategies.add(new SimpleRandomSixStrategyTypeE(startAmount));
+//        strategies.add(new SimpleRandomRowStrategyTypeF(startAmount));
+//        strategies.add(new SimpleRandomTwelveStrategyTypeG(startAmount));
+//        strategies.add(new SimpleRandomEvenOddStrategyTypeH(startAmount));
+//        strategies.add(new SimpleRandomHalfStrategyTypeH(startAmount));
         strategies.add(new FirstTwoTwelvesStrategy(startAmount));
 
 

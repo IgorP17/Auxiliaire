@@ -16,6 +16,7 @@ public class FirstTwoTwelvesStrategy extends Strategy {
 
     /**
      * Do a bets on 2 twelves
+     *
      * @param betTable - bet table
      * @return - true if all bets set up
      */
@@ -40,5 +41,36 @@ public class FirstTwoTwelvesStrategy extends Strategy {
         return result;
     }
 
-    // TODO x2 bets in case we have second loose
+    /**
+     * x2 bets in case we have loose
+     *
+     * @param winSector - win sector
+     */
+    @Override
+    public void notification(RouletteSector winSector) {
+        super.notification(winSector);
+        // if we loose double bet
+        // NOT (first 2 twelves) or zero
+        if (winSector.getNumber() > 24 ||
+                winSector.getNumber() == 0) {
+            // not exceed max
+            if (2 * bet <= RouletteBetTypesEnum.TYPE_G.getMaxAmount()) {
+                bet = 2 * bet;
+                System.out.println(this.getClass().getSimpleName() + ": Double, now bet is = " + bet);
+            }
+            else {
+                System.out.println(this.getClass().getSimpleName() + ": Cant Double, now bet is = " + bet);
+            }
+        } else {
+            // we won
+            // we can half bet, not exceed min
+            if (bet / 2 >= RouletteBetTypesEnum.TYPE_G.getMinAmount()) {
+                bet = bet / 2;
+                System.out.println(this.getClass().getSimpleName() + ": /2, now bet is = " + bet);
+            } else {
+                System.out.println(this.getClass().getSimpleName() + ": Cant /2, now bet is = " + bet);
+            }
+        }
+
+    }
 }

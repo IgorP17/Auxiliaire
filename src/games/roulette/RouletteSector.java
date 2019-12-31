@@ -100,7 +100,7 @@ public class RouletteSector {
         return colorsEnum;
     }
 
-    int getNumber() {
+    public int getNumber() {
         return number;
     }
 
