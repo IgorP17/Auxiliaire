@@ -2,7 +2,6 @@ package games.roulette.strategy;
 
 import games.roulette.RouletteBetTable;
 import games.roulette.RouletteSector;
-import games.roulette.enums.RandomEnum;
 import games.roulette.enums.RouletteBetTypesEnum;
 import games.roulette.enums.RouletteTwelvesEnum;
 
@@ -57,20 +56,16 @@ public class FirstTwoTwelvesStrategy extends Strategy {
             if (2 * bet <= RouletteBetTypesEnum.TYPE_G.getMaxAmount()) {
                 bet = 2 * bet;
                 System.out.println(this.getClass().getSimpleName() + ": Double, now bet is = " + bet);
-            }
-            else {
+            } else {
                 System.out.println(this.getClass().getSimpleName() + ": Cant Double, now bet is = " + bet);
             }
         } else {
             // we won
-            // we can half bet, not exceed min
-            if (bet / 2 >= RouletteBetTypesEnum.TYPE_G.getMinAmount()) {
-                bet = bet / 2;
-                System.out.println(this.getClass().getSimpleName() + ": /2, now bet is = " + bet);
-            } else {
-                System.out.println(this.getClass().getSimpleName() + ": Cant /2, now bet is = " + bet);
+            // Check balance and fallback to min in case balance > 0
+            if (getBalance() > 0) {
+                bet = RouletteBetTypesEnum.TYPE_G.getMinAmount();
+                System.out.println(this.getClass().getSimpleName() + ": Fallback, now bet is = " + bet);
             }
         }
-
     }
 }
