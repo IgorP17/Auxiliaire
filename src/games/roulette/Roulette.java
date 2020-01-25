@@ -4,7 +4,7 @@ import games.roulette.strategy.*;
 
 import java.util.ArrayList;
 
-//  /d/Projects/Java/Auxiliaire/out/production/Auxiliaire (master)
+//  /d/Projects/Java/Auxiliaire/out/production/Auxiliaire (master) 11
 //$ java games/roulette/Roulette | grep 'Strategy{name=FirstTwoTwelvesStrategy'
 
 class Roulette {
