@@ -1,4 +1,4 @@
-package digit.recognition.exception;
+package hyperskill.recognition.exception;
 
 import java.util.Arrays;
 import java.util.Scanner;

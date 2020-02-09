@@ -1,4 +1,4 @@
-package digit.recognition;
+package hyperskill.recognition;
 
 import java.util.Scanner;
 

@@ -1,7 +1,5 @@
-package digit.recognition;
+package hyperskill.recognition;
 
-import java.util.Locale;
-import java.util.Random;
 import java.util.Scanner;
 
 public class DigitRecognitionTestSmth {

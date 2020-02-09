@@ -1,4 +1,4 @@
-package linearequationssolver;
+package hyperskill.linearequationssolver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,14 +10,15 @@ import java.util.Scanner;
  * Gaussian elimination
  * Gauss - Jordan elimination - use this
  * in file
- * 3
- * 1 1 2 9
- * 2 4 -3 1
- * 3 6 -5 0
+ * 3 4 (num of vars, num of eq)
+ * 0 1 2 9
+ * 0 1 3 1
+ * 1 0 6 0
+ * 2 0 2 0
  * https://www.youtube.com/watch?v=AhUyh-2aPEc
  */
 
-public class Stage3 {
+public class Stage4 {
     private static String inFile;
     private static String outFile;
 
@@ -116,7 +117,10 @@ public class Stage3 {
 
         try (Scanner scanner = new Scanner(file)) {
             String s = scanner.nextLine();
-            int n = Integer.parseInt(s);
+            int n = Integer.parseInt(s.split(" ")[0]);
+            int eq = Integer.parseInt(s.split(" ")[1]);
+            System.out.println("N = " + n);
+            System.out.println("Eq = " + eq);
             double[][] matrix = new double[n][n + 1];
             String current;
             int row = 0;

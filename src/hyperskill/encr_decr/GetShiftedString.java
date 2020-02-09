@@ -1,4 +1,4 @@
-package encr_decr;
+package hyperskill.encr_decr;
 
 import java.util.Scanner;
 

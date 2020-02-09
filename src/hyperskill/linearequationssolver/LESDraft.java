@@ -1,4 +1,4 @@
-package linearequationssolver;
+package hyperskill.linearequationssolver;
 
 import java.io.File;
 import java.io.FileNotFoundException;

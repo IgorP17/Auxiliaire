@@ -1,4 +1,4 @@
-package digit.recognition.serialize;
+package hyperskill.recognition.serialize;
 
 import java.io.*;
 import java.util.Arrays;

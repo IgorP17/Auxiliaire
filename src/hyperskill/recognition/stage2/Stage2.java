@@ -1,4 +1,4 @@
-package digit.recognition.stage2;
+package hyperskill.recognition.stage2;
 
 import java.util.Scanner;
 

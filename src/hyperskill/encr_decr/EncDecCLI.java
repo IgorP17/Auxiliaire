@@ -1,4 +1,4 @@
-package encr_decr;
+package hyperskill.encr_decr;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
