@@ -24,6 +24,9 @@ public class Test {
 // (?=\S+$)          # no whitespace allowed in the entire string
 // .{8,}             # anything, at least eight places though
 // $                 # end-of-string
+// The (?=.*[xyz]) construct eats the entire string (.*)
+// and backtracks to the first occurrence where [xyz] can match.
+// It succeeds if [xyz] is found, it fails otherwise.
         System.out.println(s.matches("") ? "YES" : "NO");
 
         char[] operands = {'+', '-'};
