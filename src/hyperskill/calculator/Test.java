@@ -27,7 +27,7 @@ public class Test {
 // The (?=.*[xyz]) construct eats the entire string (.*)
 // and backtracks to the first occurrence where [xyz] can match.
 // It succeeds if [xyz] is found, it fails otherwise.
-        System.out.println(s.matches("") ? "YES" : "NO");
+        System.out.println(s.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$") ? "YES" : "NO");
 
         char[] operands = {'+', '-'};
         String line;
