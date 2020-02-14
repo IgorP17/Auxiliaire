@@ -1,6 +1,8 @@
 package hyperskill.calculator;
 
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Test {
 
@@ -27,7 +29,12 @@ public class Test {
 // The (?=.*[xyz]) construct eats the entire string (.*)
 // and backtracks to the first occurrence where [xyz] can match.
 // It succeeds if [xyz] is found, it fails otherwise.
-        System.out.println(s.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$") ? "YES" : "NO");
+//        System.out.println(s.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$") ? "YES" : "NO");
+
+
+        Pattern pattern = Pattern.compile(".*[Jj]ava.*", Pattern.CASE_INSENSITIVE); // regex to match "java" or "Java" in a text
+        Matcher matcher = pattern.matcher(s); // it will match the passed text
+        boolean matches = matcher.matches(); // true
 
         char[] operands = {'+', '-'};
         String line;
