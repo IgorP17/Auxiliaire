@@ -5,33 +5,43 @@ import java.util.Scanner;
 public class Coffee {
     public static void main(String[] args) {
         CoffeeMachineMy coffeeMachine = new CoffeeMachineMy();
-        coffeeMachine.printState();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Write action (buy, fill, take):");
-        String action = scanner.nextLine();
-        switch (action) {
-            case "buy":
-                System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-                int n = scanner.nextInt();
-                coffeeMachine.buy(n);
-                break;
-            case "fill":
-                System.out.println("Write how many ml of water do you want to add:");
-                int water = scanner.nextInt();
-                System.out.println("Write how many ml of milk do you want to add:");
-                int milk = scanner.nextInt();
-                System.out.println("Write how many grams of coffee beans do you want to add:");
-                int beans = scanner.nextInt();
-                System.out.println("Write how many disposable cups of coffee do you want to add:");
-                int dCups = scanner.nextInt();
-                coffeeMachine.fill(water, milk, beans, dCups);
-                break;
-            case "take":
-                coffeeMachine.take();
-                break;
+        while (true) {
+            System.out.println("Write action (buy, fill, take, remaining, exit): ");
+            String action = scanner.nextLine();
+            System.out.println();
+
+            switch (action) {
+                case "buy":
+                    System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+                    String s = scanner.nextLine();
+                    if ("back".equalsIgnoreCase(s)){
+                        break;
+                    }
+                    int n = Integer.parseInt(s);
+                    coffeeMachine.buy(n);
+                    break;
+                case "fill":
+                    System.out.println("Write how many ml of water do you want to add:");
+                    int water = scanner.nextInt();
+                    System.out.println("Write how many ml of milk do you want to add:");
+                    int milk = scanner.nextInt();
+                    System.out.println("Write how many grams of coffee beans do you want to add:");
+                    int beans = scanner.nextInt();
+                    System.out.println("Write how many disposable cups of coffee do you want to add:");
+                    int dCups = scanner.nextInt();
+                    coffeeMachine.fill(water, milk, beans, dCups);
+                    break;
+                case "take":
+                    coffeeMachine.take();
+                    break;
+                case "remaining":
+                    coffeeMachine.printState();
+                    break;
+                case "exit":
+                    System.exit(0);
+            }
         }
-        System.out.println();
-        coffeeMachine.printState();
     }
 }
 
@@ -67,7 +77,7 @@ class CoffeeType {
 
 class CoffeeMachineMy {
     private int balance = 550;
-    private int water = 1200;
+    private int water = 400;
     private int milk = 540;
     private int beans = 120;
     private int dCups = 9;
@@ -84,7 +94,7 @@ class CoffeeMachineMy {
         System.out.println(milk + " of milk");
         System.out.println(beans + " of coffee beans");
         System.out.println(dCups + " of disposable cups");
-        System.out.println(balance + " of money");
+        System.out.println("$" + balance + " of money");
         System.out.println();
     }
 
