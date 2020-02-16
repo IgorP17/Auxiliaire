@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Coffee {
     public static void main(String[] args) {
-        CoffeeMachine coffeeMachine = new CoffeeMachine();
+        CoffeeMachineMy coffeeMachine = new CoffeeMachineMy();
         coffeeMachine.printState();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Write action (buy, fill, take):");
@@ -14,14 +14,24 @@ public class Coffee {
                 System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
                 int n = scanner.nextInt();
                 coffeeMachine.buy(n);
-                System.out.println();
-                coffeeMachine.printState();
                 break;
             case "fill":
+                System.out.println("Write how many ml of water do you want to add:");
+                int water = scanner.nextInt();
+                System.out.println("Write how many ml of milk do you want to add:");
+                int milk = scanner.nextInt();
+                System.out.println("Write how many grams of coffee beans do you want to add:");
+                int beans = scanner.nextInt();
+                System.out.println("Write how many disposable cups of coffee do you want to add:");
+                int dCups = scanner.nextInt();
+                coffeeMachine.fill(water, milk, beans, dCups);
                 break;
             case "take":
+                coffeeMachine.take();
                 break;
         }
+        System.out.println();
+        coffeeMachine.printState();
     }
 }
 
@@ -55,7 +65,7 @@ class CoffeeType {
     }
 }
 
-class CoffeeMachine {
+class CoffeeMachineMy {
     private int balance = 550;
     private int water = 1200;
     private int milk = 540;
@@ -80,11 +90,23 @@ class CoffeeMachine {
 
     void buy(int n) {
         if (n >= 1 && n <= 3) {
-            balance = balance + types[n - 1].getCost();
-            water = water - types[n - 1].getWater();
-            milk = milk - types[n - 1].getMilk();
-            beans = beans - types[n - 1].getBeans();
-            dCups = dCups - 1;
+            this.balance += types[n - 1].getCost();
+            this.water -= types[n - 1].getWater();
+            this.milk -= types[n - 1].getMilk();
+            this.beans -= types[n - 1].getBeans();
+            this.dCups--;
         }
+    }
+
+    void fill(int water, int milk, int beans, int dCups) {
+        this.water += water;
+        this.milk += milk;
+        this.beans += beans;
+        this.dCups += dCups;
+    }
+
+    void take() {
+        System.out.println("I gave you $" + this.balance);
+        balance = 0;
     }
 }
