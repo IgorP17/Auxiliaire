@@ -6,7 +6,8 @@ public class Coffee {
     public static void main(String[] args) {
         CoffeeMachineMy coffeeMachine = new CoffeeMachineMy();
         Scanner scanner = new Scanner(System.in);
-        while (true) {
+        boolean loop = true;
+        while (loop) {
             System.out.println("Write action (buy, fill, take, remaining, exit): ");
             String action = scanner.nextLine();
             System.out.println();
@@ -39,7 +40,7 @@ public class Coffee {
                     coffeeMachine.printState();
                     break;
                 case "exit":
-                    System.exit(0);
+                    loop = false;
             }
         }
     }
