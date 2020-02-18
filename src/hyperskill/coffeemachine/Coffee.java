@@ -101,6 +101,18 @@ class CoffeeMachineMy {
 
     void buy(int n) {
         if (n >= 1 && n <= 3) {
+            if (this.water < types[n - 1].getWater()){
+                System.out.println("Sorry, not enough water!");
+                return;
+            } else if (this.milk < types[n - 1].getMilk()){
+                System.out.println("Sorry, not enough milk!");
+                return;
+            } else if (this.beans < types[n - 1].getBeans()){
+                System.out.println("Sorry, not enough beans!");
+                return;
+            }
+            System.out.println("I have enough resources, making you a coffee!");
+            System.out.println();
             this.balance += types[n - 1].getCost();
             this.water -= types[n - 1].getWater();
             this.milk -= types[n - 1].getMilk();
