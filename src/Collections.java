@@ -1,7 +1,4 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Collections {
 
@@ -28,5 +25,7 @@ public class Collections {
         numbers.add(2);
         numbers.add(3);
         Objects.equals(numbers, List.of(1, 2, 3)); // true
+
+        Set<String> nameSet = new TreeSet<>(Arrays.asList("Mr.Green", "Mr.Yellow", "Mr.Red"));
     }
 }
