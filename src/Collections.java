@@ -10,7 +10,9 @@ public class Collections {
 
         // HashSet
         // ThreeSet
-        // LinkedHashSet
+        // LinkedHashSet - ordered
+        // LinkedHashMap - ordered
+
 
         // getting a mutable set from an immutable one
         Set<String> countries = new HashSet<>(List.of("India", "Japan", "Switzerland"));
