@@ -3,6 +3,11 @@ import java.util.*;
 public class Collections {
 
     public static void main(String[] args) {
+        // List
+        // Set
+        // Queue
+        // Map
+
         // HashSet
         // ThreeSet
         // LinkedHashSet
