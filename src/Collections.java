@@ -53,6 +53,7 @@ public class Collections {
         }
 
         // key + value
+        // var == Map.Entry<String, String>
         for (var entry : friendPhones.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
