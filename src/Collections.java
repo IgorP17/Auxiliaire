@@ -9,9 +9,9 @@ public class Collections {
         // Map
 
         // HashSet
-        // ThreeSet
-        // LinkedHashSet - ordered
-        // LinkedHashMap - ordered
+        // ThreeSet - sorted
+        // LinkedHashSet - ordered by addition
+        // LinkedHashMap - ordered by addition
 
 
         // getting a mutable set from an immutable one
