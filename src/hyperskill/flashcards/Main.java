@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         FlashCards flashCards = new FlashCards();
-        flashCards.run();
+        flashCards.run(args);
     }
 }
 
@@ -17,11 +17,28 @@ class FlashCards {
     private LinkedHashMap<String, String> cards = new LinkedHashMap<>();
     private LinkedHashMap<String, Integer> mistakes = new LinkedHashMap<>();
     private ArrayList<String> logs = new ArrayList<>();
+    private String expFileName;
 
     /**
      * Main cycle
      */
-    void run() {
+    void run(String[] args) {
+        if (args != null) {
+            for (int i = 0; i < args.length; i++) {
+                if ("-import".equalsIgnoreCase(args[i])) {
+                    if ((i + 1) <  args.length) {
+                        loadMap(args[i + 1]);
+                    }
+                }
+
+                if ("-export".equalsIgnoreCase(args[i])){
+                    if ((i + 1) <  args.length) {
+                        expFileName = args[i + 1];
+                    }
+                }
+
+            }
+        }
         String s;
         boolean exit = false;
         while (!exit) {
@@ -36,10 +53,10 @@ class FlashCards {
                     remove();
                     break;
                 case "import":
-                    loadMap();
+                    loadMap("");
                     break;
                 case "export":
-                    export();
+                    export("");
                     break;
                 case "ask":
                     ask();
@@ -55,6 +72,9 @@ class FlashCards {
                     break;
                 case "exit":
                     logAndSave("Bye bye!");
+                    if (!expFileName.isBlank()){
+                        export(expFileName);
+                    }
                     exit = true;
                     break;
             }
@@ -71,9 +91,10 @@ class FlashCards {
 
     /**
      * Out string and save it
+     *
      * @param s - String to sout and save
      */
-    private void logAndSave(String s){
+    private void logAndSave(String s) {
         System.out.println(s);
         logs.add(s);
     }
@@ -81,7 +102,7 @@ class FlashCards {
     /**
      * Save logs
      */
-    private void log(){
+    private void log() {
         logAndSave("File name:");
         String fileName = scanner.nextLine();
         logs.add(fileName);
@@ -144,10 +165,15 @@ class FlashCards {
     /**
      * Load cards
      */
-    private void loadMap() {
-        logAndSave("File name:");
-        String fileName = scanner.nextLine();
-        logs.add(fileName);
+    private void loadMap(String fName) {
+        String fileName;
+        if (fName.isBlank()) {
+            logAndSave("File name:");
+            fileName = scanner.nextLine();
+            logs.add(fileName);
+        } else {
+            fileName = fName;
+        }
         int counter = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
@@ -170,17 +196,22 @@ class FlashCards {
             return;
 //            e.printStackTrace();
         }
-
         logAndSave(counter + " cards have been loaded." + System.lineSeparator());
+
     }
 
     /**
      * Save cards
      */
-    private void export() {
-        logAndSave("File name:");
-        String fileName = scanner.nextLine();
-        logs.add(fileName);
+    private void export(String fName) {
+        String fileName;
+        if (fName.isBlank()) {
+            logAndSave("File name:");
+            fileName = scanner.nextLine();
+            logs.add(fileName);
+        } else {
+            fileName = fName;
+        }
 
         PrintWriter writer = null;
         try {
