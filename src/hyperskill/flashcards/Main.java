@@ -1,6 +1,7 @@
 package hyperskill.flashcards;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main {
@@ -14,6 +15,8 @@ public class Main {
 class FlashCards {
     private Scanner scanner = new Scanner(System.in);
     private LinkedHashMap<String, String> cards = new LinkedHashMap<>();
+    private LinkedHashMap<String, Integer> mistakes = new LinkedHashMap<>();
+    private ArrayList<String> logs = new ArrayList<>();
 
     /**
      * Main cycle
@@ -22,8 +25,9 @@ class FlashCards {
         String s;
         boolean exit = false;
         while (!exit) {
-            System.out.println("Input the action (add, remove, import, export, ask, exit):");
+            logAndSave("Input the action (add, remove, import, export, ask, exit, log, hardest card, reset stats):");
             s = scanner.nextLine();
+            logs.add(s);
             switch (s) {
                 case "add":
                     addCard();
@@ -40,8 +44,17 @@ class FlashCards {
                 case "ask":
                     ask();
                     break;
+                case "hardest card":
+                    hardestCard();
+                    break;
+                case "reset stats":
+                    resetStat();
+                    break;
+                case "log":
+                    log();
+                    break;
                 case "exit":
-                    System.out.println("Bye bye!");
+                    logAndSave("Bye bye!");
                     exit = true;
                     break;
             }
@@ -49,70 +62,157 @@ class FlashCards {
     }
 
     /**
+     * Reset stats
+     */
+    private void resetStat() {
+        mistakes.clear();
+        logAndSave("Card statistics has been reset." + System.lineSeparator());
+    }
+
+    /**
+     * Out string and save it
+     * @param s - String to sout and save
+     */
+    private void logAndSave(String s){
+        System.out.println(s);
+        logs.add(s);
+    }
+
+    /**
+     * Save logs
+     */
+    private void log(){
+        logAndSave("File name:");
+        String fileName = scanner.nextLine();
+        logs.add(fileName);
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(fileName, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assert writer != null;
+        for (String s : logs) {
+            writer.write(s + System.lineSeparator());
+        }
+
+        writer.close();
+        logAndSave("The log has been saved." + System.lineSeparator());
+    }
+
+    /**
+     * Find hardest card
+     */
+    private void hardestCard() {
+        if (mistakes.isEmpty()) {
+            logAndSave("There are no cards with errors." + System.lineSeparator());
+        } else {
+            ArrayList<String> hardestCard = new ArrayList<>();
+            // find max
+            int max = 1;
+            for (Map.Entry<String, Integer> entry : mistakes.entrySet()) {
+                if (entry.getValue() >= max) {
+                    max = entry.getValue();
+                }
+            }
+            // get all ms
+            for (Map.Entry<String, Integer> entry : mistakes.entrySet()) {
+                if (entry.getValue() == max) {
+                    hardestCard.add(entry.getKey());
+                }
+            }
+            if (hardestCard.size() == 0) {
+                logAndSave("There are no cards with errors." + System.lineSeparator());
+            } else if (hardestCard.size() == 1) {
+                logAndSave("The hardest card is \"" + hardestCard.get(0) + "\". You have " + max + " errors answering it." + System.lineSeparator());
+            } else {
+                StringBuilder out = new StringBuilder("The hardest cards are ");
+                for (int i = 0; i < hardestCard.size(); i++) {
+                    out.append("\"").append(hardestCard.get(i)).append("\"");
+                    if (i == (hardestCard.size() - 1)) {
+                        out.append(". You have ").append(max).append(" errors answering them.");
+                    } else {
+                        out.append(", ");
+                    }
+                }
+                logAndSave(out + System.lineSeparator());
+            }
+
+        }
+    }
+
+    /**
      * Load cards
      */
     private void loadMap() {
-        System.out.println("File name:");
+        logAndSave("File name:");
         String fileName = scanner.nextLine();
-
+        logs.add(fileName);
         int counter = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
 
             String card;
             String definition;
+            String mis;
             while (line != null) {
                 card = line;
                 definition = br.readLine();
+                mis = br.readLine();
                 line = br.readLine();
-//                System.out.println(card + ":" + definition);
+//                logAndSave(card + ":" + definition);
                 cards.put(card, definition);
+                mistakes.put(card, Integer.valueOf(mis));
                 counter++;
             }
         } catch (IOException e) {
-            System.out.println("File not found." + System.lineSeparator());
+            logAndSave("File not found." + System.lineSeparator());
             return;
 //            e.printStackTrace();
         }
 
-        System.out.println(counter + " cards have been loaded." + System.lineSeparator());
+        logAndSave(counter + " cards have been loaded." + System.lineSeparator());
     }
 
     /**
      * Save cards
      */
     private void export() {
-        System.out.println("File name:");
+        logAndSave("File name:");
         String fileName = scanner.nextLine();
+        logs.add(fileName);
 
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter(fileName, "UTF-8");
-        } catch (FileNotFoundException | UnsupportedEncodingException e) {
+            writer = new PrintWriter(fileName, StandardCharsets.UTF_8);
+        } catch (IOException e) {
             e.printStackTrace();
         }
         for (Map.Entry<String, String> entry : cards.entrySet()) {
             assert writer != null;
             writer.write(entry.getKey() + System.lineSeparator());
             writer.write(entry.getValue() + System.lineSeparator());
+            writer.write(mistakes.get(entry.getKey()) + System.lineSeparator());
         }
 
         assert writer != null;
         writer.close();
-        System.out.println(cards.size() + " cards have been saved." + System.lineSeparator());
+        logAndSave(cards.size() + " cards have been saved." + System.lineSeparator());
     }
 
     /**
      * Remove card
      */
     private void remove() {
-        System.out.println("The card:");
+        logAndSave("The card:");
         String s = scanner.nextLine();
+        logs.add(s);
         if (cards.containsKey(s)) {
             cards.remove(s);
-            System.out.println("The card has been removed." + System.lineSeparator());
+            mistakes.remove(s);
+            logAndSave("The card has been removed." + System.lineSeparator());
         } else {
-            System.out.println("Can't remove \"" + s + "\": there is no such card." + System.lineSeparator());
+            logAndSave("Can't remove \"" + s + "\": there is no such card." + System.lineSeparator());
         }
     }
 
@@ -123,35 +223,31 @@ class FlashCards {
         String card;
         String definition;
 
-        System.out.println("The card:");
+        logAndSave("The card:");
         card = scanner.nextLine();
+        logs.add(card);
+
         boolean present;
 
-        present = checkCard(card);
+        present = cards.containsKey(card);
         if (present) {
-            System.out.println("The card \"" + card + "\" already exists." + System.lineSeparator());
+            logAndSave("The card \"" + card + "\" already exists." + System.lineSeparator());
             return;
         }
 
-        System.out.println("The definition of the card:");
+        logAndSave("The definition of the card:");
         definition = scanner.nextLine();
+        logs.add(definition);
 
-        present = checkDefinition(definition);
+        present = cards.containsValue(definition);
         if (present) {
-            System.out.println("The definition \"" + definition + "\" already exists." + System.lineSeparator());
+            logAndSave("The definition \"" + definition + "\" already exists." + System.lineSeparator());
             return;
         }
 
         cards.put(card, definition);
-        System.out.println("The pair (\"" + card + "\":\"" + definition + "\") has been added." + System.lineSeparator());
-    }
-
-    private boolean checkCard(String card) {
-        return cards.containsKey(card);
-    }
-
-    private boolean checkDefinition(String definition) {
-        return cards.containsValue(definition);
+        mistakes.put(card, 0);
+        logAndSave("The pair (\"" + card + "\":\"" + definition + "\") has been added." + System.lineSeparator());
     }
 
     /**
@@ -161,17 +257,24 @@ class FlashCards {
         String answer;
         boolean foundExt;
         String keyExt = "";
-        System.out.println("How many times to ask?");
+        logAndSave("How many times to ask?");
         int count = Integer.parseInt(scanner.nextLine());
+        logs.add(String.valueOf(count));
         Random random = new Random();
         String key;
         for (int i = 0; i < count; i++) {
             key = (String) cards.keySet().toArray()[random.nextInt(cards.size())];
-            System.out.println("Print the definition of \"" + key + "\":");
+            logAndSave("Print the definition of \"" + key + "\":");
             answer = scanner.nextLine();
+            logs.add(answer);
             if (answer.equalsIgnoreCase(cards.get(key))) {
-                System.out.println("Correct answer.");
+                logAndSave("Correct answer.");
             } else {
+                if (mistakes.containsKey(key)) {
+                    mistakes.put(key, mistakes.get(key) + 1);
+                } else {
+                    mistakes.put(key, 1);
+                }
                 // find correct
                 foundExt = false;
                 for (Map.Entry<String, String> entry2 : cards.entrySet()) {
@@ -182,13 +285,13 @@ class FlashCards {
                     }
                 }
                 if (foundExt) {
-                    System.out.println("Wrong answer. The correct one is \"" + cards.get(key) + "\", you've just written the definition of \"" + keyExt + "\".");
+                    logAndSave("Wrong answer. The correct one is \"" + cards.get(key) + "\", you've just written the definition of \"" + keyExt + "\".");
                 } else {
-                    System.out.println("Wrong answer. The correct one is \"" + cards.get(key)+ "\".");
+                    logAndSave("Wrong answer. The correct one is \"" + cards.get(key) + "\".");
                 }
             }
         }
-        System.out.println();
+        logAndSave("");
     }
 
     @Override
