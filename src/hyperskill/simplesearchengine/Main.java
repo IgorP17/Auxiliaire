@@ -3,8 +3,7 @@ package hyperskill.simplesearchengine;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -25,8 +24,9 @@ class Peoples {
     private ArrayList<People> peoples = new ArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     private String[] args;
+    private HashMap<String, ArrayList<Integer>> invertedIndex = new HashMap<>();
 
-    Peoples(String[] args){
+    Peoples(String[] args) {
         this.args = args;
     }
 
@@ -35,6 +35,8 @@ class Peoples {
      */
     void run() {
         fillPeoples();
+//        printIndex();
+
         boolean isTimeToContinue = true;
         String choice;
         while (isTimeToContinue) {
@@ -63,6 +65,20 @@ class Peoples {
     }
 
     /**
+     * Print inverted index
+     */
+    private void printIndex() {
+        System.out.println("index:");
+        for (Map.Entry<String, ArrayList<Integer>> entry : invertedIndex.entrySet()){
+            System.out.print(entry.getKey() + ":");
+            for (int i : entry.getValue()){
+                System.out.print(i + ", ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
      * Print peoples
      */
     private void printAllPeoples() {
@@ -79,10 +95,11 @@ class Peoples {
         String search;
         System.out.println(separator + "Enter a name or email to search all suitable people.");
         search = scanner.nextLine();
-        ArrayList<People> found = findPeople(peoples, search);
+        ArrayList<People> found = findPeoplesInvertedIndex(search);
         if (found.isEmpty()) {
             System.out.println(separator + "No matching people found.");
         } else {
+            System.out.println(found.size() + " persons found:");
             for (People p : found) {
                 System.out.println(p);
             }
@@ -90,19 +107,40 @@ class Peoples {
     }
 
     /**
+     * Inverted index
+     */
+    private ArrayList<People> findPeoplesInvertedIndex(String s) {
+        ArrayList<People> result = new ArrayList<>();
+        s = s.toLowerCase();
+        if (invertedIndex.containsKey(s)){
+            ArrayList<Integer> index = invertedIndex.get(s);
+            for (int i : index){
+                result.add(peoples.get(i));
+            }
+        }
+        return result;
+    }
+
+    /**
      * Fill peoples
      */
     private void fillPeoples() {
         // --data data.txt
+        People people;
+        int index = 0;
         for (int i = 0; i < args.length; i++) {
-            if ("--data".equalsIgnoreCase(args[i])){
+            if ("--data".equalsIgnoreCase(args[i])) {
                 // check if have filename
-                if (( i + 1) < args.length){
+                if ((i + 1) < args.length) {
                     // read file
                     try (BufferedReader br = new BufferedReader(new FileReader(args[i + 1]))) {
                         String line = br.readLine();
                         while (line != null) {
-                            peoples.add(People.parce(line.split(" ")));
+                            people = People.parce(line.split(" "));
+                            peoples.add(people);
+                            // need index Inverted index
+                            fillInvertedIndex(people, index);
+                            index++;
                             line = br.readLine();
                         }
                     } catch (IOException e) {
@@ -114,20 +152,26 @@ class Peoples {
     }
 
     /**
-     * Search peoples
-     *
-     * @param people - list of peoples
-     * @param find   - what will be searching
-     * @return - list of founded peoples
+     * Fill inverted index
      */
-    private ArrayList<People> findPeople(ArrayList<People> people, String find) {
-        ArrayList<People> result = new ArrayList<>();
-        for (People p : people) {
-            if (p.isContains(find)) {
-                result.add(p);
+    private void fillInvertedIndex(People people, int index) {
+        addToMap(people.getFirstName(), index);
+        addToMap(people.getSecondName(), index);
+        addToMap(people.getEmail(), index);
+    }
+
+    private void addToMap(String s, int index) {
+        ArrayList<Integer> arrayList;
+        if (null != s) {
+            s = s.toLowerCase();
+            if (invertedIndex.containsKey(s)) {
+                arrayList = new ArrayList<>(invertedIndex.get(s));
+            } else {
+                arrayList = new ArrayList<>();
             }
+            arrayList.add(index);
+            invertedIndex.put(s, arrayList);
         }
-        return result;
     }
 }
 
@@ -138,6 +182,18 @@ class People {
     private String firstName;
     private String secondName;
     private String email;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     /**
      * Constructor
