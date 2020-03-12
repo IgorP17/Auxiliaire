@@ -69,9 +69,9 @@ class Peoples {
      */
     private void printIndex() {
         System.out.println("index:");
-        for (Map.Entry<String, ArrayList<Integer>> entry : invertedIndex.entrySet()){
+        for (Map.Entry<String, ArrayList<Integer>> entry : invertedIndex.entrySet()) {
             System.out.print(entry.getKey() + ":");
-            for (int i : entry.getValue()){
+            for (int i : entry.getValue()) {
                 System.out.print(i + ", ");
             }
             System.out.println();
@@ -93,13 +93,15 @@ class Peoples {
      */
     private void findPeoples() {
         String search;
+        System.out.println("Select a matching strategy: ALL, ANY, NONE");
+        String strategy = scanner.nextLine();
         System.out.println(separator + "Enter a name or email to search all suitable people.");
         search = scanner.nextLine();
-        ArrayList<People> found = findPeoplesInvertedIndex(search);
+        ArrayList<People> found = findPeoplesInvertedIndex(search, strategy);
         if (found.isEmpty()) {
             System.out.println(separator + "No matching people found.");
         } else {
-            System.out.println(found.size() + " persons found:");
+            System.out.println(separator + found.size() + " persons found:");
             for (People p : found) {
                 System.out.println(p);
             }
@@ -109,14 +111,54 @@ class Peoples {
     /**
      * Inverted index
      */
-    private ArrayList<People> findPeoplesInvertedIndex(String s) {
+    private ArrayList<People> findPeoplesInvertedIndex(String s, String strategy) {
         ArrayList<People> result = new ArrayList<>();
         s = s.toLowerCase();
-        if (invertedIndex.containsKey(s)){
-            ArrayList<Integer> index = invertedIndex.get(s);
-            for (int i : index){
-                result.add(peoples.get(i));
-            }
+        String[] words = s.split(" ");
+
+        switch (strategy) {
+            case "ANY":
+                for (String w : words)
+                    if (invertedIndex.containsKey(w)) {
+                        ArrayList<Integer> index = invertedIndex.get(w);
+                        for (int i : index) {
+                            result.add(peoples.get(i));
+                        }
+                    }
+                break;
+            case "ALL":
+                /* word1 - 1, 2, 5
+                   word2 - 2, 5, 6
+                   word3 - 5
+                   so we need find & of indexes of inverted map */
+                ArrayList<Integer> idx = new ArrayList<>();
+                for (int i = 0; i < peoples.size(); i++) {
+                    idx.add(i);
+                }
+                ArrayList<Integer> current;
+                for (String w : words) {
+                    if (invertedIndex.containsKey(w)) {
+                        current = invertedIndex.get(w);
+                        // &&
+                        idx.retainAll(current);
+                    }
+                }
+                for (int i : idx) {
+                    result.add(peoples.get(i));
+                }
+                break;
+            case "NONE":
+                // add all
+                result.addAll(peoples);
+                // remove
+                for (String w : words)
+                    if (invertedIndex.containsKey(w)) {
+                        ArrayList<Integer> index = invertedIndex.get(w);
+                        for (int i : index) {
+                            result.remove(peoples.get(i));
+                        }
+                    }
+                break;
         }
         return result;
     }
