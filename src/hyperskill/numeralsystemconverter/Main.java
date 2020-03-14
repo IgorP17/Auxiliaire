@@ -9,6 +9,24 @@ public class Main {
         int radix = Integer.parseInt(scanner.nextLine());
         String in = scanner.nextLine();
         int destRadix = Integer.parseInt(scanner.nextLine());
+        String[] parts = in.split("\\.");
+        if (parts.length != 2){
+            System.out.println("FUCK");
+            System.exit(1);
+        }
+        String result = getIntPart(radix, parts[0], destRadix);
+
+        System.out.println(result);
+    }
+
+    /**
+     * Get value in base1 and out in in base2
+     * @param radix base1
+     * @param in value string (int part)
+     * @param destRadix dest
+     * @return String, value converted from base1 to base2
+     */
+    private static String getIntPart(int radix, String in, int destRadix){
         long x;
         if (radix != 1) {
             // radix = основание
@@ -21,9 +39,9 @@ public class Main {
         if (destRadix == 1) {
             String s = "1";
             s = s.repeat(Integer.parseInt(in));
-            System.out.println(s);
+            return s;
         } else {
-            System.out.println(Long.toString(x, destRadix));
+            return Long.toString(x, destRadix);
         }
     }
 
