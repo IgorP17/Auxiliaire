@@ -1,7 +1,5 @@
 package hyperskill.numeralsystemconverter;
 
-import hyperskill.recognition.exception.Ex;
-
 import java.util.Scanner;
 
 public class Main {
