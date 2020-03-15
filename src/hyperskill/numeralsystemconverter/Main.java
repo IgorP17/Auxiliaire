@@ -1,24 +1,30 @@
 package hyperskill.numeralsystemconverter;
 
+import hyperskill.recognition.exception.Ex;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int radix = Integer.parseInt(scanner.nextLine());
-        String in = scanner.nextLine();
-        int destRadix = Integer.parseInt(scanner.nextLine());
-        String result;
-        if (in.contains(".")) {
-            String[] parts = in.split("\\.");
-            result = getIntPart(radix, parts[0], destRadix);
-            result = result + "." + getFractonPart(radix, parts[1], destRadix);
-        } else {
-            result = getIntPart(radix, in, destRadix);
+        try {
+            Scanner scanner = new Scanner(System.in);
+            int radix = Integer.parseInt(scanner.nextLine());
+            String in = scanner.nextLine();
+            int destRadix = Integer.parseInt(scanner.nextLine());
+            String result;
+            if (in.contains(".")) {
+                String[] parts = in.split("\\.");
+                result = getIntPart(radix, parts[0], destRadix);
+                result = result + "." + getFractonPart(radix, parts[1], destRadix);
+            } else {
+                result = getIntPart(radix, in, destRadix);
+            }
+            //
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("ERROR!");
         }
-        //
-        System.out.println(result);
     }
 
 
@@ -68,6 +74,11 @@ public class Main {
      * @return String, value converted from base1 to base2
      */
     private static String getIntPart(int radix, String in, int destRadix) {
+        if (radix < (Character.MIN_RADIX - 1) || destRadix < (Character.MIN_RADIX - 1)
+                || radix > Character.MAX_RADIX || destRadix > Character.MAX_RADIX) {
+            throw new RuntimeException("ERROR");
+        }
+
         long x;
         if (radix != 1) {
             // radix = основание
