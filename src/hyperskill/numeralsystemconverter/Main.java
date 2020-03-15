@@ -9,24 +9,65 @@ public class Main {
         int radix = Integer.parseInt(scanner.nextLine());
         String in = scanner.nextLine();
         int destRadix = Integer.parseInt(scanner.nextLine());
-        String[] parts = in.split("\\.");
-        if (parts.length != 2){
-            System.out.println("FUCK");
-            System.exit(1);
+        String result;
+        if (in.contains(".")) {
+            String[] parts = in.split("\\.");
+            result = getIntPart(radix, parts[0], destRadix);
+            result = result + "." + getFractonPart(radix, parts[1], destRadix);
+        } else {
+            result = getIntPart(radix, in, destRadix);
         }
-        String result = getIntPart(radix, parts[0], destRadix);
-
+        //
         System.out.println(result);
+    }
+
+
+    /**
+     * Get value in base1 and out in in base2 for fraction part
+     *
+     * @param radix     base1
+     * @param in        string (fraction part)
+     * @param destRadix base2
+     * @return String, value converted from base1 to base2
+     */
+    private static String getFractonPart(int radix, String in, int destRadix) {
+        // convert to base 10...
+        double d = 0;
+        String s;
+        if (radix != 10) {
+            for (int i = 0; i < in.length(); i++) {
+                s = in.substring(i, i + 1);
+                s = getIntPart(radix, s, 10);
+                d = d + (Double.parseDouble(s) / Math.pow(radix, (i + 1)));
+            }
+        } else {
+            d = Double.parseDouble("0." + in);
+        }
+
+        // convert to dest
+        String current;
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < 5; i++) {
+            d = d * destRadix;
+            current = String.valueOf((int) d);
+            d = d - (int) d;
+//            System.out.printf("Current to add = %s, d = %f\r\n", current, d);
+            // NEED convert base10 -> dest base
+
+            result.append(getIntPart(10, current, destRadix));
+        }
+        return result.toString();
     }
 
     /**
      * Get value in base1 and out in in base2
-     * @param radix base1
-     * @param in value string (int part)
+     *
+     * @param radix     base1
+     * @param in        value string (int part)
      * @param destRadix dest
      * @return String, value converted from base1 to base2
      */
-    private static String getIntPart(int radix, String in, int destRadix){
+    private static String getIntPart(int radix, String in, int destRadix) {
         long x;
         if (radix != 1) {
             // radix = основание
