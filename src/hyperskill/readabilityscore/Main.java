@@ -3,6 +3,7 @@ package hyperskill.readabilityscore;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,38 +53,61 @@ class Detector {
         System.out.println("Characters: " + chars);
         System.out.println("Syllables: " + syllables);
         System.out.println("Polysyllables: " + polysyllables);
-        System.out.println();
 
         // count scores
         double scoreARI = 4.71 * chars / words + 0.5 * words / sentences - 21.43;
         double scoreFS = 0.39 * words / sentences + 11.8 * syllables / words - 15.59;
         double scoreSMOG = 1.043 * Math.sqrt(1.0 * polysyllables * 30 / sentences) + 3.1291;
         double scoreCL = 0.0588 * colemanIndexL() - 0.296 * colemanIndexS() - 15.8;
-        // TODO
-        System.out.println("Automated Readability Index: " + scoreARI);
-        System.out.println("Flesch–Kincaid readability tests: " + scoreFS);
-        System.out.println("Simple Measure of Gobbledygook: " + scoreSMOG);
-        System.out.println("Coleman–Liau index: " + scoreCL);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the score you want to calculate (ARI, FK, SMOG, CL, all): ");
+        String choice = scanner.nextLine().toLowerCase();
+        System.out.println();
+
+        switch (choice) {
+            case "all":
+                System.out.println("Automated Readability Index: " + scoreARI + " (about " + getRange(scoreARI) + " year olds).");
+                System.out.println("Flesch–Kincaid readability tests: " + scoreFS + " (about " + getRange(scoreFS) + " year olds).");
+                System.out.println("Simple Measure of Gobbledygook: " + scoreSMOG + " (about " + getRange(scoreSMOG) + " year olds).");
+                System.out.println("Coleman–Liau index: " + scoreCL + " (about " + getRange(scoreCL) + " year olds).");
+                System.out.println();
+                System.out.printf("This text should be understood in average by %f year olds.",
+                        (getRange(scoreARI) + getRange(scoreFS) + getRange(scoreSMOG) + getRange(scoreCL)) / 4.0);
+                break;
+            case "ARI":
+                System.out.println("Automated Readability Index: " + scoreARI + " (about " + getRange(scoreARI) + " year olds).");
+                break;
+            case "FK":
+                System.out.println("Flesch–Kincaid readability tests: " + scoreFS + " (about " + getRange(scoreFS) + " year olds).");
+                break;
+            case "SMOG":
+                System.out.println("Simple Measure of Gobbledygook: " + scoreSMOG + " (about " + getRange(scoreSMOG) + " year olds).");
+                break;
+            case "CL":
+                System.out.println("Coleman–Liau index: " + scoreCL + " (about " + getRange(scoreCL) + " year olds).");
+                break;
+        }
 
 
-        System.out.println("This text should be understood by " + getRange(scoreARI) + " year olds.");
     }
 
     /**
      * Average number of characters per 100 words
+     *
      * @return average
      */
     private double colemanIndexL() {
-
-        return 0;
+        return (1.0 * chars / words) * 100.0;
     }
 
     /**
      * Average number of sentences per 100 words
+     *
      * @return average
      */
     private double colemanIndexS() {
-        return 0;
+        return (1.0 * sentences / words) * 100.0;
     }
 
     /**
@@ -140,40 +164,40 @@ class Detector {
      *
      * @return range
      */
-    private String getRange(double score) {
-        int sc = (int) Math.ceil(score);
+    private int getRange(double score) {
+        int sc = (int) Math.round(score);
         switch (sc) {
             case 1:
-                return "5-6";
+                return 6;
             case 2:
-                return "6-7";
+                return 7;
             case 3:
-                return "7-9";
+                return 9;
             case 4:
-                return "9-10";
+                return 10;
             case 5:
-                return "10-11";
+                return 11;
             case 6:
-                return "11-12";
+                return 12;
             case 7:
-                return "12-13";
+                return 13;
             case 8:
-                return "13-14";
+                return 14;
             case 9:
-                return "14-15";
+                return 15;
             case 10:
-                return "15-16";
+                return 16;
             case 11:
-                return "16-17";
+                return 17;
             case 12:
-                return "17-18";
+                return 18;
             case 13:
-                return "18-24";
+                return 24;
             case 14:
-                return "24+";
+                return 25;
 
         }
-        return null;
+        return -2;
     }
 
     /**
