@@ -57,6 +57,11 @@ public class Main {
         System.out.println(result);
     }
 
+    /**
+     * Refine smth like "---5"
+     * @param s string to evaluate
+     * @return integer
+     */
     private static Integer refine(String s) {
 //        System.out.println("Got " + s);
         Pattern pattern = Pattern.compile("[-+]", Pattern.CASE_INSENSITIVE);
