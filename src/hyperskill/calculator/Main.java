@@ -46,14 +46,14 @@ public class Main {
      * @param in reversed polish string as ArrayList
      * @return eval value
      */
-    private static int calcPolish(ArrayList<String> in){
+    private static int calcPolish(ArrayList<String> in) {
         Stack<String> current = new Stack<>();
 
-        System.out.println("Got " + in);
+//        System.out.println("Got " + in);
 
-        for (String s : in){
-            System.out.println("Current = " + current.toString());
-            if (s.matches("\\d+")){
+        for (String s : in) {
+//            System.out.println("Current = " + current.toString());
+            if (s.matches("\\d+")) {
                 // we got an operand put in stack
                 current.push(s);
             } else {
@@ -63,20 +63,20 @@ public class Main {
                 // get left value
                 int left = Integer.parseInt(current.pop());
 
-                switch (s){
+                switch (s) {
                     case "+":
-                        System.out.println("Have addition = " + (left + right));
+//                        System.out.println("Have addition = " + (left + right));
                         // need add result
                         current.push(String.valueOf(left + right));
                         break;
                     case "-":
-                        System.out.println("Have substraction = " + (left - right));
+//                        System.out.println("Have substraction = " + (left - right));
                         // need add result
                         current.push(String.valueOf(left - right));
                 }
             }
         }
-        if (current.size() == 1){
+        if (current.size() == 1) {
             return Integer.parseInt(current.pop());
         } else {
             throw new RuntimeException("Illegal result stack!");
@@ -114,6 +114,10 @@ public class Main {
                     // we finish read operator
                     isReadingOperator = false;
                     // add operator to Stack
+                    // actually if we have +- pop and push
+                    if (stack.size() != 0) {
+                        result.add(stack.pop());
+                    }
                     stack.push(refineOperator(operator.toString()));
                     // flush operator
                     operator = new StringBuilder();
@@ -148,7 +152,7 @@ public class Main {
 //        }
 
         // put stack in
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             result.add(stack.pop());
         }
         return result;
