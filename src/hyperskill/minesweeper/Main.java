@@ -10,27 +10,47 @@ public class Main {
         System.out.print("How many mines do you want on the field? ");
 
         int numOfBombs = Integer.parseInt(scanner.nextLine());
-        Field field = new Field(9, 9, numOfBombs);
+        Field field = new Field(4, 2, numOfBombs);
         int x;
         int y;
+        String action;
         String line;
 
-        field.printState();
+        field.printState(false);
 
-        while (!field.isAllBombsOpened()) {
+        while (field.getGameState() == GameState.RUNNING) {
             System.out.print("Set/delete mines marks (x and y coordinates): ");
             line = scanner.nextLine();
             try {
                 x = Integer.parseInt(line.split(" ")[0]);
                 y = Integer.parseInt(line.split(" ")[1]);
-                if (field.setMarked(x - 1, y - 1)){
-                    field.printState();
+                action = line.split(" ")[2].toLowerCase();
+                switch (action) {
+                    case "mine":
+                        field.setMarkedBomb(x - 1, y - 1);
+                        break;
+                    case "free":
+                        field.setOpened(x - 1, y - 1);
+                        break;
                 }
-            } catch (Exception e){
-                System.out.println("Unparceble coord!");
+                if (field.getGameState() == GameState.RUNNING) {
+                    field.printState("all".equalsIgnoreCase(action));
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input!");
             }
         }
-        System.out.println("Congratulations! You found all mines!");
+
+        switch (field.getGameState()){
+            case BOMB:
+                field.printState(true);
+                System.out.println("You stepped on a mine and failed!");
+                break;
+            case OK:
+                break;
+            default:
+                System.out.println("Unknown exit state!");
+        }
     }
 
 }
@@ -39,6 +59,7 @@ class Field {
     private int x;
     private int y;
     private int numOfBombs;
+    private GameState gameState = GameState.RUNNING;
 
     private Cell[][] field;
 
@@ -48,6 +69,11 @@ class Field {
         this.numOfBombs = numOfBombs;
         field = new Cell[x][y];
         generateField();
+    }
+
+
+    public GameState getGameState() {
+        return gameState;
     }
 
     /**
@@ -170,7 +196,7 @@ class Field {
      * Print current state
      * In reverse x y
      */
-    void printState() {
+    void printState(boolean showAll) {
         System.out.print(" │");
         for (int i = 0; i < x; i++) {
             System.out.print(i + 1);
@@ -180,7 +206,7 @@ class Field {
         for (int i = 0; i < y; i++) {
             System.out.print((i + 1) + "|");
             for (int j = 0; j < x; j++) {
-                System.out.print(field[j][i].getStringRepresentation(false));
+                System.out.print(field[j][i].getStringRepresentation(showAll));
             }
             System.out.println("|");
         }
@@ -193,35 +219,48 @@ class Field {
         int counter = 0;
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                if (field[i][j].isMarked() && field[i][j].isEmpty()) {
+                if (field[i][j].isMarkedBomb() && field[i][j].isEmpty()) {
                     return false;
                 }
-                if (field[i][j].isMarked() && field[i][j].isBomb()) {
+                if (field[i][j].isMarkedBomb() && field[i][j].isBomb()) {
                     counter++;
                 }
             }
         }
+        if (counter == numOfBombs) {
+            gameState = GameState.OK;
+        }
         return counter == numOfBombs;
     }
 
-
-    boolean setMarked(int x1, int y1) {
+    /**
+     * Set / unset bomb flag
+     *
+     * @param x1 x coord
+     * @param y1 y coord
+     */
+    void setMarkedBomb(int x1, int y1) {
         try {
-            // if cell with number
-            if (field[x1][y1].isCount()){
-                System.out.println("There is a number here!");
-                return false;
+            // cell must be not opened
+            if (field[x1][y1].isOpened()) {
+                System.out.println("Cell is opened!");
+                return;
             }
             // mark + unmark
-            if (field[x1][y1].isMarked()) {
-                field[x1][y1].setMarked(false);
+            if (field[x1][y1].isMarkedBomb()) {
+                field[x1][y1].setMarkedBomb(false);
             } else {
-                field[x1][y1].setMarked(true);
+                field[x1][y1].setMarkedBomb(true);
             }
-            return true;
         } catch (Exception e) {
             System.out.println("Invalid set to mark!");
-            return false;
+        }
+    }
+
+    void setOpened(int x1, int y1) {
+        if (field[x1][y1].isBomb()){
+            gameState = GameState.BOMB;
+            return;
         }
     }
 
@@ -231,15 +270,25 @@ class Cell {
     private boolean isEmpty = false;
     private boolean isBomb = false;
     private boolean isCount = false;
-    private boolean isMarked = false;
+    private boolean isMarkedBomb = false;
+    private boolean isOpened = false;
     private int near = 0;
 
-    public boolean isMarked() {
-        return isMarked;
+
+    public boolean isOpened() {
+        return isOpened;
     }
 
-    public void setMarked(boolean marked) {
-        isMarked = marked;
+    public void setOpened(boolean opened) {
+        isOpened = opened;
+    }
+
+    public boolean isMarkedBomb() {
+        return isMarkedBomb;
+    }
+
+    public void setMarkedBomb(boolean markedBomb) {
+        isMarkedBomb = markedBomb;
     }
 
     public boolean isEmpty() {
@@ -261,28 +310,25 @@ class Cell {
         }
     }
 
-    public boolean isCount() {
-        return isCount;
-    }
-
     public void setCount(boolean count) {
         isCount = count;
     }
-
-//    public int getNear() {
-//        return near;
-//    }
 
     public void setNear(int near) {
         this.near = near;
     }
 
-    public String getStringRepresentation(boolean showBombs) {
-        if (showBombs) {
+    public String getStringRepresentation(boolean showAll) {
+        if (showAll) {
             if (isBomb) return "X";
+            if (isCount) return String.valueOf(near);
         }
-        if (isCount) return String.valueOf(near);
-        if (isMarked) return "*";
+
+        if (isMarkedBomb) return "*";
         return ".";
     }
+}
+
+enum GameState {
+    RUNNING, OK, BOMB
 }
