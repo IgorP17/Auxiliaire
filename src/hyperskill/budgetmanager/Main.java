@@ -64,15 +64,56 @@ class Budget {
         }
     }
 
+    /**
+     * Add Purchase
+     * Add and switch on input
+     */
     private void addPurchase() {
-        System.out.println();
-        System.out.println("Enter purchase name:");
-        String name = scanner.nextLine();
-        System.out.println("Enter its price:");
-        int amount = Integer.parseInt(scanner.nextLine().replace(".", ""));
-        purchases.add(new Purchase(name, amount));
-        totalCents = totalCents - amount;
-        System.out.println("Purchase was added!");
+        while (true) {
+            System.out.println();
+            System.out.println("Choose the type of purchase");
+            System.out.println("1) Food");
+            System.out.println("2) Clothes");
+            System.out.println("3) Entertainment");
+            System.out.println("4) Other");
+            System.out.println("5) Back");
+
+            String typeInt = scanner.nextLine();
+            String type;
+
+            switch (typeInt) {
+                case "1":
+                    type = "Food";
+                    break;
+                case "2":
+                    type = "Clothes";
+                    break;
+                case "3":
+                    type = "Entertainment";
+                    break;
+                case "4":
+                    type = "Other";
+                    break;
+                case "5":
+                    return;
+                default:
+                    System.out.println("Invalid type!");
+                    return;
+            }
+
+            System.out.println();
+            System.out.println("Enter purchase name:");
+            String name = scanner.nextLine();
+            System.out.println("Enter its price:");
+            String amount = scanner.nextLine();
+
+
+            Purchase purchase = new Purchase(name, amount, type);
+            purchases.add(purchase);
+            totalCents = totalCents - purchase.getAmount();
+            System.out.println("Purchase was added!");
+        }
+
     }
 
 
@@ -80,7 +121,7 @@ class Budget {
         System.out.println();
         int totals = 0;
         if (purchases.size() == 0) {
-            System.out.println("Purchase list is empty");
+            System.out.println("Purchase list is empty!");
         } else {
             for (Purchase purchase : purchases) {
                 System.out.println(purchase.getName()
@@ -107,10 +148,33 @@ class Budget {
 class Purchase {
     private String name;
     private int amount; // cents
+    private Category category;
 
-    public Purchase(String name, int amount) {
+    public Purchase(String name, String amount, String category) {
         this.name = name;
-        this.amount = amount;
+
+        String[] splited = amount.split("\\.");
+        String dollars = splited[0];
+        String cents = splited[1];
+        if (cents.length() == 1) {
+            cents = cents + "0";
+        }
+        this.amount = Integer.parseInt(dollars + cents);
+
+        switch (category.toLowerCase()) {
+            case "food":
+                this.category = Category.FOOD;
+                break;
+            case "clothes":
+                this.category = Category.CLOTHES;
+                break;
+            case "entertainment":
+                this.category = Category.ENTERTAINMENT;
+                break;
+            default:
+                this.category = Category.OTHER;
+                break;
+        }
     }
 
     public String getName() {
@@ -119,5 +183,24 @@ class Purchase {
 
     public int getAmount() {
         return amount;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+}
+
+enum Category {
+
+    FOOD("Food"), CLOTHES("Clothes"), ENTERTAINMENT("Entertainment"), OTHER("Other");
+
+    private String name;
+
+    Category(String name) {
+        this.name = name;
+    }
+
+    String getName() {
+        return name;
     }
 }
