@@ -119,11 +119,71 @@ class Budget {
 
     private void printPurchases() {
         System.out.println();
-        int totals = 0;
         if (purchases.size() == 0) {
             System.out.println("Purchase list is empty!");
         } else {
-            for (Purchase purchase : purchases) {
+            while (true) {
+                System.out.println("Choose the type of purchases");
+                System.out.println("1) Food");
+                System.out.println("2) Clothes");
+                System.out.println("3) Entertainment");
+                System.out.println("4) Other");
+                System.out.println("5) All");
+                System.out.println("6) Back");
+
+                Category category = null;
+                String typeInt = scanner.nextLine();
+                switch (typeInt) {
+                    case "1":
+                        category = Category.FOOD;
+                        break;
+                    case "2":
+                        category = Category.CLOTHES;
+                        break;
+                    case "3":
+                        category = Category.ENTERTAINMENT;
+                        break;
+                    case "4":
+                        category = Category.OTHER;
+                        break;
+                    case "5":
+                        break;
+                    case "6":
+                        return;
+                }
+
+
+                System.out.println();
+                if (null == category) {
+                    // all
+                    System.out.println("All:");
+                    printList(purchases);
+                } else {
+                    // filter
+                    ArrayList<Purchase> filtered = new ArrayList<>();
+                    for (Purchase purchase : purchases){
+                        if (purchase.getCategory() == category){
+                            filtered.add(purchase);
+                        }
+                    }
+                    System.out.println(category.getName() + ":");
+                    printList(filtered);
+                }
+
+
+            }
+
+
+        }
+    }
+
+
+    private void printList(ArrayList<Purchase> ps) {
+        if (ps.size() == 0){
+            System.out.println("Purchase list is empty!");
+        } else {
+            int totals = 0;
+            for (Purchase purchase : ps) {
                 System.out.println(purchase.getName()
                         + " $"
                         + convertCentsToDollars(purchase.getAmount()));
@@ -132,7 +192,9 @@ class Budget {
             }
             System.out.println("Total sum: $" + convertCentsToDollars(totals));
         }
+        System.out.println();
     }
+
 
     private String convertCentsToDollars(int cents) {
         String dollars = String.valueOf(cents / 100);
@@ -155,7 +217,12 @@ class Purchase {
 
         String[] splited = amount.split("\\.");
         String dollars = splited[0];
-        String cents = splited[1];
+        String cents;
+        if (splited.length == 1){
+            cents = "00";
+        } else {
+            cents = splited[1];
+        }
         if (cents.length() == 1) {
             cents = cents + "0";
         }
