@@ -1,5 +1,6 @@
 package hyperskill.budgetmanager;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -33,6 +34,8 @@ class Budget {
             System.out.println("2) Add purchase");
             System.out.println("3) Show list of purchases");
             System.out.println("4) Balance");
+            System.out.println("5) Save");
+            System.out.println("6) Load");
             System.out.println("0) Exit");
             choise = scanner.nextLine();
             switch (choise) {
@@ -55,7 +58,14 @@ class Budget {
                     break;
                 case "4":
                     System.out.println();
-                    System.out.println("Balance: $" + convertCentsToDollars(totalCents));
+                    System.out.println("Balance: $" + Purchase.convertCentsToDollars(totalCents));
+                    break;
+                case "5":
+                    SaveLoad.save(purchases, String.valueOf(totalCents));
+                    break;
+                case "6":
+                    totalCents = SaveLoad.loadBalance();
+                    purchases = SaveLoad.load();
                     break;
                 default:
                     System.out.println("Unknown option");
@@ -161,8 +171,8 @@ class Budget {
                 } else {
                     // filter
                     ArrayList<Purchase> filtered = new ArrayList<>();
-                    for (Purchase purchase : purchases){
-                        if (purchase.getCategory() == category){
+                    for (Purchase purchase : purchases) {
+                        if (purchase.getCategory() == category) {
                             filtered.add(purchase);
                         }
                     }
@@ -179,30 +189,20 @@ class Budget {
 
 
     private void printList(ArrayList<Purchase> ps) {
-        if (ps.size() == 0){
+        if (ps.size() == 0) {
             System.out.println("Purchase list is empty!");
         } else {
             int totals = 0;
             for (Purchase purchase : ps) {
                 System.out.println(purchase.getName()
                         + " $"
-                        + convertCentsToDollars(purchase.getAmount()));
+                        + Purchase.convertCentsToDollars(purchase.getAmount()));
                 totals = totals + purchase.getAmount();
 
             }
-            System.out.println("Total sum: $" + convertCentsToDollars(totals));
+            System.out.println("Total sum: $" + Purchase.convertCentsToDollars(totals));
         }
         System.out.println();
-    }
-
-
-    private String convertCentsToDollars(int cents) {
-        String dollars = String.valueOf(cents / 100);
-        String cent = String.valueOf(cents % 100);
-        if (cent.length() == 1) {
-            cent = "0" + cent;
-        }
-        return dollars + "." + cent;
     }
 }
 
@@ -218,7 +218,7 @@ class Purchase {
         String[] splited = amount.split("\\.");
         String dollars = splited[0];
         String cents;
-        if (splited.length == 1){
+        if (splited.length == 1) {
             cents = "00";
         } else {
             cents = splited[1];
@@ -255,6 +255,15 @@ class Purchase {
     public Category getCategory() {
         return category;
     }
+
+    public static String convertCentsToDollars(int cents) {
+        String dollars = String.valueOf(cents / 100);
+        String cent = String.valueOf(cents % 100);
+        if (cent.length() == 1) {
+            cent = "0" + cent;
+        }
+        return dollars + "." + cent;
+    }
 }
 
 enum Category {
@@ -270,4 +279,73 @@ enum Category {
     String getName() {
         return name;
     }
+}
+
+class SaveLoad {
+    private final static String file = "purchases.txt";
+
+    static void save(ArrayList<Purchase> purchases, String balance) {
+        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+            out.println(balance);
+            for (Purchase purchase : purchases) {
+                out.println(purchase.getName());
+                out.println(purchase.getAmount());
+                out.println(purchase.getCategory());
+            }
+            System.out.println(System.lineSeparator() + "Purchases were saved!");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static ArrayList<Purchase> load() {
+        ArrayList<Purchase> result = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            // skip first line - it is balance
+            br.readLine();
+            String line;
+            line = br.readLine();
+            String name;
+            String amount;
+            String category;
+
+            while (line != null) {
+                // if we have smth it is name
+                name = line;
+                // next should be amount !!! cents
+                line = br.readLine();
+                amount = line; // cents
+                // category
+                line = br.readLine();
+                category = line;
+                result.add(new Purchase(name, Purchase.convertCentsToDollars(Integer.parseInt(amount)), category));
+                // try to read next
+                line = br.readLine();
+            }
+
+            System.out.println(System.lineSeparator() + "Purchases were loaded!");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+
+    static int loadBalance() {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line = br.readLine();
+            if (null == line) {
+                throw new RuntimeException("Invalid file!");
+            } else {
+                return Integer.parseInt(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }
