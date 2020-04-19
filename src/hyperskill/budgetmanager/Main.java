@@ -1,8 +1,7 @@
 package hyperskill.budgetmanager;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -28,7 +27,6 @@ class Budget {
         boolean isExit = false;
         String choise;
         while (!isExit) {
-            System.out.println();
             System.out.println("Choose your action:");
             System.out.println("1) Add income");
             System.out.println("2) Add purchase");
@@ -36,18 +34,17 @@ class Budget {
             System.out.println("4) Balance");
             System.out.println("5) Save");
             System.out.println("6) Load");
+            System.out.println("7) Analyze (Sort)");
             System.out.println("0) Exit");
-            choise = scanner.nextLine();
+            choise = getIn();
             switch (choise) {
                 case "0":
-                    System.out.println();
                     System.out.println("Bye!");
                     isExit = true;
                     break;
                 case "1":
-                    System.out.println();
                     System.out.println("Enter income:");
-                    totalCents = totalCents + Integer.parseInt(scanner.nextLine() + "00");
+                    totalCents = totalCents + Integer.parseInt(getIn() + "00");
                     System.out.println("Income was added!");
                     break;
                 case "2":
@@ -57,8 +54,8 @@ class Budget {
                     printPurchases();
                     break;
                 case "4":
-                    System.out.println();
                     System.out.println("Balance: $" + Purchase.convertCentsToDollars(totalCents));
+                    System.out.println();
                     break;
                 case "5":
                     SaveLoad.save(purchases, String.valueOf(totalCents));
@@ -66,6 +63,11 @@ class Budget {
                 case "6":
                     totalCents = SaveLoad.loadBalance();
                     purchases = SaveLoad.load();
+                    System.out.println();
+                    break;
+                case "7":
+                    System.out.println();
+                    analyze();
                     break;
                 default:
                     System.out.println("Unknown option");
@@ -141,7 +143,7 @@ class Budget {
                 System.out.println("5) All");
                 System.out.println("6) Back");
 
-                Category category = null;
+                Category category = Category.ALL;
                 String typeInt = scanner.nextLine();
                 switch (typeInt) {
                     case "1":
@@ -161,48 +163,171 @@ class Budget {
                     case "6":
                         return;
                 }
-
-
                 System.out.println();
-                if (null == category) {
-                    // all
-                    System.out.println("All:");
-                    printList(purchases);
-                } else {
-                    // filter
-                    ArrayList<Purchase> filtered = new ArrayList<>();
-                    for (Purchase purchase : purchases) {
-                        if (purchase.getCategory() == category) {
-                            filtered.add(purchase);
-                        }
-                    }
-                    System.out.println(category.getName() + ":");
-                    printList(filtered);
-                }
-
-
+                System.out.println(category.getName() + ":");
+                printList(purchases, category);
             }
 
 
         }
     }
 
+    private void analyze() {
+        while (true) {
+            System.out.println("How do you want to sort?");
+            System.out.println("1) Sort all purchases");
+            System.out.println("2) Sort by type");
+            System.out.println("3) Sort certain type");
+            System.out.println("4) Back");
+            String in = scanner.nextLine();
+            if ("4".equalsIgnoreCase(in)){
+                return;
+            }
+            if (purchases.size() == 0) {
+                System.out.println("Purchase list is empty!");
+            } else {
+                switch (in) {
+                    case "1":
+                        ArrayList<Purchase> ps = new ArrayList<>(purchases);
+                        ps.sort(Comparator.comparing(Purchase::getAmount));
+                        // sort desc
+                        Collections.reverse(ps);
+                        System.out.println();
+                        System.out.println("All:");
+                        printList(ps, Category.ALL);
+                        break;
+                    case "2":
+                        System.out.println();
+                        System.out.println("Types:");
+                        printCategoryList();
+                        break;
+                    case "3":
+                        System.out.println();
+                        System.out.println("Choose the type of purchase");
+                        System.out.println("1) Food");
+                        System.out.println("2) Clothes");
+                        System.out.println("3) Entertainment");
+                        System.out.println("4) Other");
+                        String cat = scanner.nextLine();
+                        Category category = Category.ALL;
+                        switch (cat) {
+                            case "1":
+                                category = Category.FOOD;
+                                break;
+                            case "2":
+                                category = Category.CLOTHES;
+                                break;
+                            case "3":
+                                category = Category.ENTERTAINMENT;
+                                break;
+                            case "4":
+                                category = Category.OTHER;
+                                break;
+                        }
+                        ArrayList<Purchase> pur = new ArrayList<>(purchases);
+                        pur.sort(Comparator.comparing(Purchase::getAmount));
+                        // sort desc
+                        Collections.reverse(pur);
+                        System.out.println();
+                        System.out.println(category.getName() + ":");
+                        printList(pur, category);
+                        break;
+                }
+            }
+        }
 
-    private void printList(ArrayList<Purchase> ps) {
+    }
+
+    private void printCategoryList() {
+        HashMap<Category, Integer> hashMap = new HashMap<>();
+        int totals = 0;
+        for (Purchase purchase : purchases) {
+            // check if map has key
+            if (hashMap.containsKey(purchase.getCategory())) {
+                // add cents
+                hashMap.put(purchase.getCategory(),
+                        hashMap.get(purchase.getCategory()) + purchase.getAmount());
+            } else {
+                // add key
+                hashMap.put(purchase.getCategory(), purchase.getAmount());
+            }
+            totals = totals + purchase.getAmount();
+        }
+        // sort
+        LinkedHashMap<Category, Integer> result = sortByValue(hashMap);
+        // print
+        for (Map.Entry<Category, Integer> entry : result.entrySet()) {
+            System.out.println(entry.getKey().getName() + " - $" + Purchase.convertCentsToDollars(entry.getValue()));
+        }
+        System.out.println("Total sum: $" + Purchase.convertCentsToDollars(totals));
+        System.out.println();
+    }
+
+    private void printList(ArrayList<Purchase> ps, Category category) {
         if (ps.size() == 0) {
             System.out.println("Purchase list is empty!");
         } else {
             int totals = 0;
             for (Purchase purchase : ps) {
-                System.out.println(purchase.getName()
-                        + " $"
-                        + Purchase.convertCentsToDollars(purchase.getAmount()));
-                totals = totals + purchase.getAmount();
-
+                if (category == purchase.getCategory() || category == Category.ALL) {
+                    System.out.println(purchase.getName()
+                            + " $"
+                            + Purchase.convertCentsToDollars(purchase.getAmount()));
+                    totals = totals + purchase.getAmount();
+                }
             }
             System.out.println("Total sum: $" + Purchase.convertCentsToDollars(totals));
         }
         System.out.println();
+    }
+
+
+    /**
+     * Sort map
+     * https://mkyong.com/java/how-to-sort-a-map-in-java/
+     *
+     * @param unsortMap unsorted map
+     * @return sorted map
+     */
+    private static LinkedHashMap<Category, Integer> sortByValue(Map<Category, Integer> unsortMap) {
+
+        // 1. Convert Map to List of Map
+        List<Map.Entry<Category, Integer>> list =
+                new LinkedList<>(unsortMap.entrySet());
+
+        // 2. Sort list with Collections.sort(), provide a custom Comparator
+        //    Try switch the o1 o2 position for a different order
+        // Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
+        list.sort(Map.Entry.comparingByValue());
+
+        // reverse
+        Collections.reverse(list);
+
+        // 3. Loop the sorted list and put it into a new insertion order Map LinkedHashMap
+        LinkedHashMap<Category, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<Category, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        /*
+        //classic iterator example
+        for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext(); ) {
+            Map.Entry<String, Integer> entry = it.next();
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }*/
+
+
+        return sortedMap;
+    }
+
+    /**
+     * Get in string and do sout
+     * @return - input
+     */
+    private String getIn(){
+        String result = scanner.nextLine();
+        System.out.println();
+        return result;
     }
 }
 
@@ -268,7 +393,11 @@ class Purchase {
 
 enum Category {
 
-    FOOD("Food"), CLOTHES("Clothes"), ENTERTAINMENT("Entertainment"), OTHER("Other");
+    FOOD("Food"),
+    CLOTHES("Clothes"),
+    ENTERTAINMENT("Entertainment"),
+    OTHER("Other"),
+    ALL("All");
 
     private String name;
 
@@ -324,7 +453,7 @@ class SaveLoad {
                 line = br.readLine();
             }
 
-            System.out.println(System.lineSeparator() + "Purchases were loaded!");
+            System.out.println("Purchases were loaded!");
 
         } catch (IOException e) {
             e.printStackTrace();
