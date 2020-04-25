@@ -66,7 +66,6 @@ class Budget {
                     System.out.println();
                     break;
                 case "7":
-                    System.out.println();
                     analyze();
                     break;
                 default:
@@ -161,6 +160,7 @@ class Budget {
                     case "5":
                         break;
                     case "6":
+                        System.out.println();
                         return;
                 }
                 System.out.println();
@@ -180,11 +180,13 @@ class Budget {
             System.out.println("3) Sort certain type");
             System.out.println("4) Back");
             String in = scanner.nextLine();
-            if ("4".equalsIgnoreCase(in)){
+            System.out.println();
+            if ("4".equalsIgnoreCase(in)) {
                 return;
             }
-            if (purchases.size() == 0) {
+            if (purchases.size() == 0 && !"2".equalsIgnoreCase(in)) {
                 System.out.println("Purchase list is empty!");
+                System.out.println();
             } else {
                 switch (in) {
                     case "1":
@@ -192,17 +194,14 @@ class Budget {
                         ps.sort(Comparator.comparing(Purchase::getAmount));
                         // sort desc
                         Collections.reverse(ps);
-                        System.out.println();
                         System.out.println("All:");
                         printList(ps, Category.ALL);
                         break;
                     case "2":
-                        System.out.println();
                         System.out.println("Types:");
                         printCategoryList();
                         break;
                     case "3":
-                        System.out.println();
                         System.out.println("Choose the type of purchase");
                         System.out.println("1) Food");
                         System.out.println("2) Clothes");
@@ -258,6 +257,17 @@ class Budget {
         // print
         for (Map.Entry<Category, Integer> entry : result.entrySet()) {
             System.out.println(entry.getKey().getName() + " - $" + Purchase.convertCentsToDollars(entry.getValue()));
+        }
+        // detect if we have no category
+        for (Category ct : new Category[]{
+                Category.CLOTHES,
+                Category.ENTERTAINMENT,
+                Category.FOOD,
+                Category.OTHER}) {
+            // if don't have in result
+            if (!result.containsKey(ct)){
+                System.out.println(ct.getName() + " - $0.00" );
+            }
         }
         System.out.println("Total sum: $" + Purchase.convertCentsToDollars(totals));
         System.out.println();
@@ -322,9 +332,10 @@ class Budget {
 
     /**
      * Get in string and do sout
+     *
      * @return - input
      */
-    private String getIn(){
+    private String getIn() {
         String result = scanner.nextLine();
         System.out.println();
         return result;
