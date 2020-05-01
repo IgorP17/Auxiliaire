@@ -13,7 +13,8 @@ public class Main {
 class SortingTool {
     private Scanner scanner = new Scanner(System.in);
     private String sortingType = "word"; // default
-    private boolean sortIntegers = false;
+    private boolean sortNatural = true;
+    private String[] cases;
 
     SortingTool(String[] args) {
         // detect type
@@ -31,31 +32,62 @@ class SortingTool {
                             break;
                     }
                 }
-            } else if ("-sortIntegers".equalsIgnoreCase(args[i])) {
-                sortIntegers = true;
+            } else if ("-sortingType".equalsIgnoreCase(args[i])) {
+                // try get next
+                if (i != args.length - 1) {
+                    // we have something next
+                    if ("byCount".equalsIgnoreCase(args[i + 1])) {
+                        sortNatural = false;
+                    }
+
+                }
             }
         }
     }
 
     void run() {
-        if (sortIntegers) {
-            // get and sort integers/longs
-            ArrayList<Long> arrayList = new ArrayList<>();
-            while (scanner.hasNextLong()) {
-                arrayList.add(scanner.nextLong());
-            }
-            Collections.sort(arrayList);
-            System.out.println("Total numbers: " + arrayList.size() + ".");
-            System.out.print("Sorted data: ");
-            for (int i = 0; i < arrayList.size(); i++) {
-                System.out.print(arrayList.get(i));
-                if (i != (arrayList.size() - 1)) {
-                    System.out.print(" ");
+        TreeMap<String, Integer> in = readIn();
+
+        if (sortNatural) {
+            List<String> arrayList = new ArrayList<>();
+            for (String s : cases) {
+                if (s.length() != 0) {
+                    arrayList.add(s);
                 }
             }
+
+            // sort
+            if ("long".equals(sortingType)) {
+                arrayList.sort(new MyLongComparator());
+            } else {
+                Collections.sort(arrayList);
+            }
+
+            switch (sortingType) {
+                case "word":
+                case "long":
+                    if ("word".equalsIgnoreCase(sortingType)) {
+                        System.out.println("Total words: " + arrayList.size());
+                    } else {
+                        System.out.println("Total numbers: " + arrayList.size());
+                    }
+                    System.out.print("Sorted data: ");
+                    for (int i = 0; i < arrayList.size(); i++) {
+                        System.out.print(arrayList.get(i));
+                        if (i != (arrayList.size() - 1)) {
+                            System.out.print(" ");
+                        }
+                    }
+                    break;
+                case "line":
+                    System.out.println("Total lines: " + arrayList.size());
+                    System.out.println("Sorted data:");
+                    for (String s : arrayList) {
+                        System.out.println(s);
+                    }
+                    break;
+            }
         } else {
-            // get in and print stat
-            TreeMap<String, Integer> in = readIn();
             assert in != null;
             printStat(in);
         }
@@ -75,42 +107,79 @@ class SortingTool {
         switch (sortingType) {
             case "long":
                 System.out.println("Total numbers: " + count + ".");
-                System.out.println("The greatest number: " + in.lastEntry().getKey()
-                        + " (" + in.lastEntry().getValue() + " time(s), " + getPercentage(in) + "%).");
                 break;
             case "word":
                 System.out.println("Total words: " + count + ".");
-                System.out.println("The longest word: " + in.lastEntry().getKey()
-                        + " (" + in.lastEntry().getValue() + " time(s), " + getPercentage(in) + "%).");
                 break;
             case "line":
                 System.out.println("Total lines: " + count + ".");
-                System.out.println("The longest line:");
-                System.out.println(in.lastEntry().getKey());
-                System.out.println("(" + in.lastEntry().getValue() + " time(s), " + getPercentage(in) + "%).");
                 break;
             default:
                 throw new RuntimeException("Invalid sorting type = " + sortingType);
+        }
+
+        /*
+        // get vals
+        TreeSet<Integer> vals = new TreeSet<>(in.values());
+
+        // print
+        for (Integer i : vals){
+            for (Map.Entry<String, Integer> entry : in.entrySet()){
+                if (entry.getValue().equals(i)){
+                    System.out.println(entry.getKey() +
+                            ": " + i + " time(s), " +
+                            getPercentage(in, entry.getKey()) + "%");
+                }
+            }
+        }*/
+
+        // Remap <String, Integer> to <Integer, List<String>>
+        TreeMap<Integer, List<String>> sortedByCount = new TreeMap<>();
+        List<String> f;
+        for (Map.Entry<String, Integer> entry : in.entrySet()) {
+            // check if we have key in sortedByCount
+            if (sortedByCount.containsKey(entry.getValue())) {
+                // add to list
+                f = sortedByCount.get(entry.getValue());
+                f.add(entry.getKey());
+                sortedByCount.put(entry.getValue(), f);
+            } else {
+                // add key
+                f = new LinkedList<>();
+                f.add(entry.getKey());
+                sortedByCount.put(entry.getValue(), f);
+            }
+        }
+
+        // print
+        for (Map.Entry<Integer, List<String>> entry : sortedByCount.entrySet()) {
+            // get list
+            List<String> current = entry.getValue();
+            for (String s : current) {
+                System.out.println(s + ": " + entry.getKey() +
+                        " time(s), " + getPercentage(in, s) + "%");
+            }
         }
     }
 
     /**
      * Calculate percentage based on max elem
      *
-     * @param in - Map for stat
+     * @param in  - Map for stat
+     * @param key - key for stat
      * @return - percentage
      */
-    private int getPercentage(TreeMap<String, Integer> in) {
+    private int getPercentage(TreeMap<String, Integer> in, String key) {
         if (null == in || in.size() == 0) {
             throw new RuntimeException("Unable calc percentage!");
         }
-        int maxCount = in.lastEntry().getValue();
+        int current = in.get(key);
         // got all
         int totals = 0;
         for (Integer i : in.values()) {
             totals = totals + i;
         }
-        return maxCount * 100 / totals;
+        return (int) Math.round(current * 100.0 / totals);
     }
 
     /**
@@ -140,7 +209,7 @@ class SortingTool {
             default:
                 throw new RuntimeException("Invalid sorting type!");
         }
-        String[] cases;
+
         if ("long".equalsIgnoreCase(sortingType) || "word".equalsIgnoreCase(sortingType)) {
             cases = stringBuilder.toString().
                     replaceAll("[\r\n]", " ").
@@ -191,7 +260,7 @@ class MyWordComparator implements Comparator<String> {
 
     @Override
     public int compare(String o1, String o2) {
-        if (o1.length() > o2.length()) {
+        /*if (o1.length() > o2.length()) {
             return 1;
         } else if (o1.length() < o2.length()) {
             return -1;
@@ -206,6 +275,7 @@ class MyWordComparator implements Comparator<String> {
             }
         }
         // seems are equals
-        return 0;
+        return 0;*/
+        return o1.compareTo(o2);
     }
 }
