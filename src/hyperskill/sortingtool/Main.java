@@ -13,6 +13,7 @@ public class Main {
 class SortingTool {
     private Scanner scanner = new Scanner(System.in);
     private String sortingType = "word"; // default
+    private boolean sortIntegers = false;
 
     SortingTool(String[] args) {
         // detect type
@@ -30,14 +31,34 @@ class SortingTool {
                             break;
                     }
                 }
+            } else if ("-sortIntegers".equalsIgnoreCase(args[i])) {
+                sortIntegers = true;
             }
         }
     }
 
     void run() {
-        TreeMap<String, Integer> in = readIn();
-        assert in != null;
-        printStat(in);
+        if (sortIntegers) {
+            // get and sort integers/longs
+            ArrayList<Long> arrayList = new ArrayList<>();
+            while (scanner.hasNextLong()) {
+                arrayList.add(scanner.nextLong());
+            }
+            Collections.sort(arrayList);
+            System.out.println("Total numbers: " + arrayList.size() + ".");
+            System.out.print("Sorted data: ");
+            for (int i = 0; i < arrayList.size(); i++) {
+                System.out.print(arrayList.get(i));
+                if (i != (arrayList.size() - 1)) {
+                    System.out.print(" ");
+                }
+            }
+        } else {
+            // get in and print stat
+            TreeMap<String, Integer> in = readIn();
+            assert in != null;
+            printStat(in);
+        }
     }
 
     /**
