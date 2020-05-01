@@ -31,6 +31,10 @@ class SortingTool {
                             sortingType = "line";
                             break;
                     }
+                } else {
+                    // we have nothing
+                    System.out.println("No data type defined!");
+                    System.exit(0);
                 }
             } else if ("-sortingType".equalsIgnoreCase(args[i])) {
                 // try get next
@@ -39,8 +43,18 @@ class SortingTool {
                     if ("byCount".equalsIgnoreCase(args[i + 1])) {
                         sortNatural = false;
                     }
-
+                } else {
+                    // we have nothing
+                    System.out.println("No sorting type defined!");
+                    System.exit(0);
                 }
+            } else {
+                if (!("long".equalsIgnoreCase(args[i]) ||
+                        "word".equalsIgnoreCase(args[i]) ||
+                        "line".equalsIgnoreCase(args[i]) ||
+                        "natural".equalsIgnoreCase(args[i]) ||
+                        "byCount".equalsIgnoreCase(args[i])))
+                System.out.println(args[i] + " isn't a valid parameter. It's skipped.");
             }
         }
     }
@@ -141,14 +155,12 @@ class SortingTool {
             if (sortedByCount.containsKey(entry.getValue())) {
                 // add to list
                 f = sortedByCount.get(entry.getValue());
-                f.add(entry.getKey());
-                sortedByCount.put(entry.getValue(), f);
             } else {
                 // add key
                 f = new LinkedList<>();
-                f.add(entry.getKey());
-                sortedByCount.put(entry.getValue(), f);
             }
+            f.add(entry.getKey());
+            sortedByCount.put(entry.getValue(), f);
         }
 
         // print
@@ -214,6 +226,21 @@ class SortingTool {
             cases = stringBuilder.toString().
                     replaceAll("[\r\n]", " ").
                     split("[\\s]");
+            // in case if long check and ignore non long
+            if ("long".equalsIgnoreCase(sortingType)){
+                ArrayList<String> filtered = new ArrayList<>();
+                for (String s : cases) {
+                    if (s.length() != 0) {
+                        try {
+                            Long.parseLong(s);
+                            filtered.add(s);
+                        } catch (Exception e) {
+                            System.out.println("\"" + s + "\" isn't a long. It's skipped.");
+                        }
+                    }
+                    cases = filtered.toArray(new String[0]);
+                }
+            }
         } else {
             cases = stringBuilder.toString().
                     split("\r\n");
