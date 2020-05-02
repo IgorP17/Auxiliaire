@@ -1,5 +1,6 @@
 package hyperskill.sortingtool;
 
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -15,6 +16,8 @@ class SortingTool {
     private String sortingType = "word"; // default
     private boolean sortNatural = true;
     private String[] cases;
+    private String inFile;
+    private String outFile;
 
     SortingTool(String[] args) {
         // detect type
@@ -48,13 +51,37 @@ class SortingTool {
                     System.out.println("No sorting type defined!");
                     System.exit(0);
                 }
+            } else if ("-inputFile".equalsIgnoreCase(args[i])) {
+                // check
+                if (i != args.length - 1) {
+                    // we have something next
+                    inFile = args[i + 1];
+                    // skip i
+                    i++;
+                } else {
+                    // we have nothing
+                    System.out.println("No input file defined!");
+                    System.exit(0);
+                }
+            } else if ("-outputFile".equalsIgnoreCase(args[i])) {
+                // check
+                if (i != args.length - 1) {
+                    // we have something next
+                    outFile = args[i + 1];
+                    // skip i
+                    i++;
+                } else {
+                    // we have nothing
+                    System.out.println("No input file defined!");
+                    System.exit(0);
+                }
             } else {
                 if (!("long".equalsIgnoreCase(args[i]) ||
                         "word".equalsIgnoreCase(args[i]) ||
                         "line".equalsIgnoreCase(args[i]) ||
                         "natural".equalsIgnoreCase(args[i]) ||
                         "byCount".equalsIgnoreCase(args[i])))
-                System.out.println(args[i] + " isn't a valid parameter. It's skipped.");
+                    System.out.println(args[i] + " isn't a valid parameter. It's skipped.");
             }
         }
     }
@@ -81,23 +108,23 @@ class SortingTool {
                 case "word":
                 case "long":
                     if ("word".equalsIgnoreCase(sortingType)) {
-                        System.out.println("Total words: " + arrayList.size());
+                        logMe("Total words: " + arrayList.size(), true);
                     } else {
-                        System.out.println("Total numbers: " + arrayList.size());
+                        logMe("Total numbers: " + arrayList.size(), true);
                     }
-                    System.out.print("Sorted data: ");
+                    logMe("Sorted data: ", false);
                     for (int i = 0; i < arrayList.size(); i++) {
-                        System.out.print(arrayList.get(i));
+                        logMe(arrayList.get(i), false);
                         if (i != (arrayList.size() - 1)) {
-                            System.out.print(" ");
+                            logMe(" ", false);
                         }
                     }
                     break;
                 case "line":
-                    System.out.println("Total lines: " + arrayList.size());
-                    System.out.println("Sorted data:");
+                    logMe("Total lines: " + arrayList.size(), true);
+                    logMe("Sorted data:", true);
                     for (String s : arrayList) {
-                        System.out.println(s);
+                        logMe(s, true);
                     }
                     break;
             }
@@ -120,13 +147,13 @@ class SortingTool {
         }
         switch (sortingType) {
             case "long":
-                System.out.println("Total numbers: " + count + ".");
+                logMe("Total numbers: " + count + ".", true);
                 break;
             case "word":
-                System.out.println("Total words: " + count + ".");
+                logMe("Total words: " + count + ".", true);
                 break;
             case "line":
-                System.out.println("Total lines: " + count + ".");
+                logMe("Total lines: " + count + ".", true);
                 break;
             default:
                 throw new RuntimeException("Invalid sorting type = " + sortingType);
@@ -168,8 +195,8 @@ class SortingTool {
             // get list
             List<String> current = entry.getValue();
             for (String s : current) {
-                System.out.println(s + ": " + entry.getKey() +
-                        " time(s), " + getPercentage(in, s) + "%");
+                logMe(s + ": " + entry.getKey() +
+                        " time(s), " + getPercentage(in, s) + "%", true);
             }
         }
     }
@@ -205,8 +232,23 @@ class SortingTool {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        while (scanner.hasNextLine()) {
-            stringBuilder.append(scanner.nextLine()).append("\r\n");
+        // if inFile null read console
+        if (null == inFile) {
+            while (scanner.hasNextLine()) {
+                stringBuilder.append(scanner.nextLine()).append("\r\n");
+            }
+        } else {
+            // read file
+            try (BufferedReader br = new BufferedReader(new FileReader(inFile))) {
+                String line = br.readLine();
+
+                while (line != null) {
+                    stringBuilder.append(line).append("\r\n");
+                    line = br.readLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         switch (sortingType) {
@@ -227,7 +269,7 @@ class SortingTool {
                     replaceAll("[\r\n]", " ").
                     split("[\\s]");
             // in case if long check and ignore non long
-            if ("long".equalsIgnoreCase(sortingType)){
+            if ("long".equalsIgnoreCase(sortingType)) {
                 ArrayList<String> filtered = new ArrayList<>();
                 for (String s : cases) {
                     if (s.length() != 0) {
@@ -260,6 +302,26 @@ class SortingTool {
         return result;
     }
 
+    // logMe - sout if out file is null, else append in file
+    private void logMe(String s, boolean endLine) {
+        if (null == outFile) {
+            if (endLine) {
+                System.out.println(s);
+            } else {
+                System.out.print(s);
+            }
+        } else {
+            try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(outFile, true), "utf-8"))) {
+                writer.append(s);
+                if (endLine){
+                    writer.append(System.lineSeparator());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 
 // comparators
