@@ -1,6 +1,7 @@
 package hyperskill.sortingtool;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Main {
@@ -312,7 +313,7 @@ class SortingTool {
             }
         } else {
             try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(outFile, true), "utf-8"))) {
+                    new FileOutputStream(outFile, true), StandardCharsets.UTF_8))) {
                 writer.append(s);
                 if (endLine){
                     writer.append(System.lineSeparator());
