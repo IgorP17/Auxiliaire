@@ -54,7 +54,37 @@ public class TriangleDP {
             }
         }
 
+        System.out.println("=== Matrix");
+        printMatrix(matrix);
+        System.out.println("=== Path");
+        printPath(matrix, pyramid);
+
         // В результате на верху поимеем максимум
         return matrix[0][0];
+    }
+
+    private static void printPath(int[][] matrix, int[][] pyramid) {
+        int row = 0;
+        int idx = 0;
+        System.out.printf("Row = %d, idx = %d, value = %d\n", row, idx, pyramid[row][idx]);
+        while (row < pyramid.length - 1) {
+            row++;
+            if (matrix[row][idx] < matrix[row][idx + 1]) {
+                idx++;
+            }
+            System.out.printf("Row = %d, idx = %d, value = %d\n", row, idx, pyramid[row][idx]);
+        }
+    }
+
+    private static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.printf("%04d", matrix[i][j]);
+                if (j != matrix[0].length - 1) {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println();
+        }
     }
 }
