@@ -1,0 +1,11 @@
+size:5x5
+Row_1:5
+Row_2:1
+Row_3:1
+Row_4:1
+Row_5:5
+Col_1:1,1
+Col_2:1,2
+Col_3:1,1,1
+Col_4:2,1
+Col_5:1,1
