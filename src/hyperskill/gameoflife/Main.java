@@ -1,5 +1,6 @@
 package hyperskill.gameoflife;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -8,34 +9,81 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String s = scanner.nextLine();
         int dim = Integer.parseInt(s.split(" ")[0]);
-        long seed = Long.parseLong(s.split(" ")[1]);
-        int steps = Integer.parseInt(s.split(" ")[2]);
+//        long seed = Long.parseLong(s.split(" ")[1]);
+//        int steps = Integer.parseInt(s.split(" ")[2]);
 
-        Board board = new Board(dim, seed, steps);
+//        Board board = new Board(dim, seed, steps);
+        Board board = new Board(dim);
+        board.run();
 
-        board.printBoard();
     }
 }
 
-class Board {
+class Board implements Runnable {
     private static final String sAlive = "O";
     private static final String sDead = " ";
     private final int dim;
-    private final long seed;
-    private final int steps;
+//    private final long seed;
     private String[][] board;
 
-    public Board(int dim, long seed, int steps) {
+    private int generation = 1;
+
+    /*Board(int dim, long seed, int steps) {
         this.dim = dim;
         this.seed = seed;
-        this.steps = steps;
         initBoard();
         if (steps > 0) {
             for (int i = 0; i < steps; i++) {
                 process();
             }
         }
+    }*/
+
+    Board(int dim) {
+        this.dim = dim;
     }
+
+    @Override
+    public void run() {
+        initBoard();
+        for (int i = 0; i < 100; i++) {
+            // clear
+            clear();
+            process();
+            System.out.println("Generation #" + generation);
+            System.out.println("Alive: " + getAliveCount());
+            printBoard();
+            generation++;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void clear(){
+        try {
+            if (System.getProperty("os.name").contains("Windows"))
+                new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+            else
+                Runtime.getRuntime().exec("clear");
+        }
+        catch (IOException | InterruptedException e) {}
+    }
+
+    private int getAliveCount(){
+        int result = 0;
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                if (board[i][j].equalsIgnoreCase(sAlive)){
+                    result++;
+                }
+            }
+        }
+        return result;
+    }
+
 
     /**
      * Init board
@@ -43,7 +91,7 @@ class Board {
     private void initBoard() {
         board = new String[dim][dim];
         Random random = new Random();
-        random.setSeed(seed);
+//        random.setSeed(seed);
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 if (random.nextBoolean()) {
@@ -172,6 +220,3 @@ class Board {
         }
     }
 }
-
-
-
