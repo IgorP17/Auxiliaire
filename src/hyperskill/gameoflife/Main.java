@@ -14,7 +14,7 @@ public class Main {
 
 //        Board board = new Board(dim, seed, steps);
         Board board = new Board(dim);
-        board.run();
+        board.run(); // TODO Thread must be start, not run!
 
     }
 }
