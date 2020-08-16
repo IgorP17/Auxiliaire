@@ -41,7 +41,7 @@ System.out.println("Do something else");
 /*
 Another way to make the current thread sleep is to use the special class TimeUnit from the package java.util.concurrent
 TimeUnit.SECONDS.sleep(2) performs Thread.sleep for 2 seconds;
-Thread.sleep(TimeUnit.SECONDS.sleep(2))
+
  */
 
 /*
@@ -53,4 +53,17 @@ Invoking the interrupt() method on an instance of the Thread class sets its inte
 .....
 If you prefer implementing Runnable rather than extending Thread directly,
 you may use the static method Thread.interrupted() inside the run method.
+ */
+
+/*
+In Java, the state of a thread is presented by the Thread.State enum with six possible values:
+
+    NEW: an instance of the class Thread has been created, but it has not yet started;
+    RUNNABLE: a thread is executing in JVM but it may be waiting for OS resources such as processor;
+    BLOCKED: a thread that is blocked waiting for a monitor lock (we will consider it later);
+    WAITING: a thread is waiting for another thread indefinitely long to perform a task (e.g. join without timeout);
+    TIMED_WAITING: a thread is waiting for another thread for a specified waiting time (e.g. sleep, join with timeout);
+    TERMINATED: a thread is terminated when run method completely executes itself or an uncaught exception occurs.
+    Once a thread terminates it never gets back to its runnable state.
+
  */
