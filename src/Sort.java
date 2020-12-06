@@ -13,6 +13,7 @@ public class Sort {
                 }
             }
         }
+        int a;
 
         return array;
     }
