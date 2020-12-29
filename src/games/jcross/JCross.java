@@ -23,6 +23,7 @@ public class JCross {
             System.out.printf("%s%s Main menu %s%s", eof, eq, eq, eof);
             System.out.println("0. Exit");
             System.out.println("1. Load 5x5 Zorro");
+            System.out.println("2. Print 5x5 Zorro");
 
             String choice = scanner.nextLine();
             switch (choice){
@@ -37,7 +38,7 @@ public class JCross {
                     break;
             }
             if (isFileLoaded){
-                System.out.printf("%1$sFile loaded%1$s", eof);
+                System.out.printf("%1$sFile loaded, size: %2$s x %3$s %1$s", eof, rows, cols);
             } else {
                 System.out.printf("%1$sFile NOT loaded%1$s", eof);
             }
@@ -58,9 +59,10 @@ public class JCross {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
 
-        return false;
+        return true;
     }
 
 
