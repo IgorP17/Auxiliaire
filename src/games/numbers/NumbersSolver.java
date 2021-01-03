@@ -4,23 +4,106 @@ import java.util.ArrayList;
 
 public class NumbersSolver {
 
-    private static final ArrayList<Cell> board = initBoard();
+    private static ArrayList<Cell> board = initBoard();
 
     public static void main(String[] args) {
 
-        printBoard();
+        int cycles = 100;
 
-        process();
+        printBoard("initial board");
 
-        printBoard();
+        for (int i = 0; i < cycles; i++) {
+            process();
 
+            // remove ********* row (дабы не плодить сущностей)
+            board = removeEmptyRow();
+
+            printBoard("after cycle " + i);
+
+            // after process we may have solved puzzle
+            if (isAllFilled()) {
+                System.out.println("!!! SOLVED !!!");
+                break;
+            }
+
+            // after process we have nothing to do, only add cloned (not empty) values
+            cloneAvailable();
+
+            printBoard("no moves, cloned");
+        }
+    }
+
+
+    /**
+     * Check if all board filled
+     *
+     * @return true if all cells filled, false otherwise
+     */
+    private static boolean isAllFilled() {
+        for (Cell cell : board) {
+            if (!cell.isEmpty())
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove row witch all empty cells
+     *
+     * @return new board
+     */
+    private static ArrayList<Cell> removeEmptyRow() {
+        ArrayList<Cell> result = new ArrayList<>();
+
+        for (int i = 0; i < board.size(); i = i + 9) {
+            // строка полная
+            if ((i + 8) < board.size()) {
+                // и не пустая
+                if (!board.get(i).isEmpty() || !board.get(i + 1).isEmpty() ||
+                        !board.get(i + 2).isEmpty() || !board.get(i + 3).isEmpty() ||
+                        !board.get(i + 4).isEmpty() || !board.get(i + 5).isEmpty() ||
+                        !board.get(i + 6).isEmpty() || !board.get(i + 7).isEmpty() ||
+                        !board.get(i + 8).isEmpty()) {
+                    result.add(board.get(i));
+                    result.add(board.get(i + 1));
+                    result.add(board.get(i + 2));
+                    result.add(board.get(i + 3));
+                    result.add(board.get(i + 4));
+                    result.add(board.get(i + 5));
+                    result.add(board.get(i + 6));
+                    result.add(board.get(i + 7));
+                    result.add(board.get(i + 8));
+                }
+            } else { // строка не полная, надо добавиться как есть
+                for (int j = i; j < board.size(); j++) {
+                    result.add(board.get(j));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Clone available cells
+     */
+    private static void cloneAvailable() {
+        ArrayList<Cell> additional = new ArrayList<>();
+
+        for (Cell cell : board) {
+            if (!cell.isEmpty())
+                //additional.add(cell); так нафиг делать, так будет еще одна ссылка туда же
+                additional.add(new Cell(cell.getValue()));
+        }
+        board.addAll(additional);
     }
 
 
     /**
      * Process board
      */
-    private static void process(){
+    private static void process() {
         for (int i = 0; i < board.size(); i++) {
             if (processSingle(i))
                 i = 0; // drop index to 0 (searching from beginning)
@@ -83,7 +166,7 @@ public class NumbersSolver {
 
         // Вообще говоря, порядок анализа соседей может влиять на дальнейшее (TODO - рекурсивный метод для анализа максимальной полезности?)
 
-        // В теории, если перезапускаем процесс поиска с 0, то достать левый или нижний не нужны
+        // В теории, если перезапускаем процесс поиска с 0, то достать левый или верхний не нужны
 
         // get left
         searching = pos - 1;
@@ -116,8 +199,8 @@ public class NumbersSolver {
     /**
      * Print board - 9 items per row
      */
-    private static void printBoard() {
-        System.out.println("Board:");
+    private static void printBoard(String msg) {
+        System.out.println("Board(" + msg + ")");
         for (int i = 0; i < board.size(); i++) {
             System.out.print(board.get(i).getsValue());
             if ((i + 1) % 9 == 0) {
