@@ -15,7 +15,7 @@ public class NumbersSolver {
         for (int i = 0; i < cycles; i++) {
             process();
 
-            // remove ********* row (дабы не плодить сущностей)
+            // remove ********* row
             board = removeEmptyRow();
 
             printBoard("after cycle " + i);
@@ -57,9 +57,9 @@ public class NumbersSolver {
         ArrayList<Cell> result = new ArrayList<>();
 
         for (int i = 0; i < board.size(); i = i + 9) {
-            // строка полная
+            // row is full
             if ((i + 8) < board.size()) {
-                // и не пустая
+                // and not empty - add to results
                 if (!board.get(i).isEmpty() || !board.get(i + 1).isEmpty() ||
                         !board.get(i + 2).isEmpty() || !board.get(i + 3).isEmpty() ||
                         !board.get(i + 4).isEmpty() || !board.get(i + 5).isEmpty() ||
@@ -75,7 +75,7 @@ public class NumbersSolver {
                     result.add(board.get(i + 7));
                     result.add(board.get(i + 8));
                 }
-            } else { // строка не полная, надо добавиться как есть
+            } else { // row is not full - add as is
                 for (int j = i; j < board.size(); j++) {
                     result.add(board.get(j));
                 }
@@ -93,7 +93,6 @@ public class NumbersSolver {
 
         for (Cell cell : board) {
             if (!cell.isEmpty())
-                //additional.add(cell); так нафиг делать, так будет еще одна ссылка туда же
                 additional.add(new Cell(cell.getValue()));
         }
         board.addAll(additional);
@@ -164,7 +163,7 @@ public class NumbersSolver {
             searching += 9;
         }
 
-        // Вообще говоря, порядок анализа соседей может влиять на дальнейшее (TODO - рекурсивный метод для анализа максимальной полезности?)
+        // Вообще говоря, порядок анализа соседей может влиять на дальнейшее
 
         // В теории, если перезапускаем процесс поиска с 0, то достать левый или верхний не нужны
 

@@ -2,8 +2,8 @@ package games.numbers;
 
 public class Cell {
 
-    private int value;
-    private String sValue;
+    private final int value;
+    private final String sValue;
     private boolean empty;
 
     private static final String emptySymbol = "*";
