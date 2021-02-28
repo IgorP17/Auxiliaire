@@ -4,14 +4,14 @@ public class Cell {
 
     private final int value;
     private final String sValue;
-    private boolean empty;
+    private boolean isEmpty;
 
     private static final String emptySymbol = "*";
 
     Cell(int value){
         this.value = value;
         this.sValue = String.valueOf(value);
-        this.empty = false;
+        this.isEmpty = false;
     }
 
 
@@ -20,18 +20,18 @@ public class Cell {
     }
 
     public String getsValue() {
-        if (empty)
+        if (isEmpty)
                 return emptySymbol;
         else
             return sValue;
     }
 
     public boolean isEmpty() {
-        return empty;
+        return isEmpty;
     }
 
     public void setEmpty(){
-        empty = true;
+        isEmpty = true;
     }
 
 
