@@ -72,7 +72,7 @@ public class NumbersBoard {
      *
      * @return ArrayList of id of neighbors
      */
-    public ArrayList<Integer> getNeighborsIDs(int pos) {
+    private ArrayList<Integer> getNeighborsIDs(int pos) {
         ArrayList<Integer> result = new ArrayList<>();
 
         int searching;
