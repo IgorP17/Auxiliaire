@@ -33,6 +33,7 @@ public class NumbersSolver {
                 System.out.println(nse.getMessage());
             } catch (Exception e) {
                 System.out.println("!!! Something goes very wrong!");
+                System.out.println("State is: " + state);
                 System.exit(1);
             }
         } while (board == null);
