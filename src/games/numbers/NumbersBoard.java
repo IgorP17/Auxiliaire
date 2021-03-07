@@ -6,19 +6,13 @@ public class NumbersBoard {
 
     private ArrayList<Cell> board;
 
-    NumbersBoard(int state){
-        switch (state){
+    NumbersBoard(int state) throws Exception {
+        switch (state) {
             case 0:
                 board = initBoardState0();
                 break;
-            case 1:
-                System.out.println("Not implemented yet, use default");
-                board = initBoardState0();
-                break;
             default:
-                System.out.println("No such state, init as 0");
-                board = initBoardState0();
-                break;
+                throw new NoSuchOptionException("State is not implemented");
         }
     }
 
@@ -55,7 +49,7 @@ public class NumbersBoard {
      * @param pos position
      * @return true if something founded, false otherwise
      */
-    public boolean processSingle(int pos) {
+    private boolean processSingle(int pos) {
 
         if (board.get(pos).isEmpty())
             return false;
@@ -164,7 +158,6 @@ public class NumbersBoard {
 
     /**
      * Remove row witch all empty cells
-     *
      */
     public void removeEmptyRow() {
         ArrayList<Cell> result = new ArrayList<>();
@@ -233,5 +226,4 @@ public class NumbersBoard {
 
         return cells;
     }
-
 }
