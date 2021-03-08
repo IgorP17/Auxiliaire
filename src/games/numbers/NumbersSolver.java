@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class NumbersSolver {
 
-    private static NumbersBoard board = null;
-
     public static void main(String[] args) {
 
+        NumbersBoard board = null;
         int cycles = 100;
         int state;
 
         do {
             // show menu
-            printMenu();
+            printMenu(cycles);
             // get input
             try {
                 state = getUserInput();
@@ -34,6 +33,7 @@ public class NumbersSolver {
             } catch (Exception e) {
                 System.out.println("!!! Something goes very wrong!");
                 System.out.println("State is: " + state);
+                e.printStackTrace();
                 System.exit(1);
             }
         } while (board == null);
@@ -66,8 +66,8 @@ public class NumbersSolver {
     /**
      * Print menu
      */
-    private static void printMenu() {
-        System.out.println("========== Menu ==========");
+    private static void printMenu(int cycles) {
+        System.out.println("========== Menu (" + cycles + " cycles)==========");
         System.out.println("0. Load state #0, 1-18, stable seed");
         System.out.println("99. Exit");
         System.out.println("========== Menu end ==========");
