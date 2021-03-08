@@ -38,8 +38,11 @@ public class NumbersBoard {
      */
     public void process() {
         for (int i = 0; i < board.size(); i++) {
-            if (processSingle(i))
+            if (processSingle(i)) {
                 i = 0; // drop index to 0 (searching from beginning)
+                // print board
+                printBoard("Got move:");
+            }
         }
     }
 
@@ -61,6 +64,13 @@ public class NumbersBoard {
                     (10 == board.get(pos).getValue() + board.get(neighbor).getValue())) {
                 board.get(pos).setEmpty();
                 board.get(neighbor).setEmpty();
+                // drop last
+                for (Cell c : board) {
+                    c.setLast(false);
+                }
+                // set last
+                board.get(pos).setLast(true);
+                board.get(neighbor).setLast(true);
                 return true;
             }
         }

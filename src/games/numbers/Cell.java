@@ -5,13 +5,16 @@ public class Cell {
     private final int value;
     private final String sValue;
     private boolean isEmpty;
+    private boolean isLast;
 
     private static final String emptySymbol = "*";
+    private static final String lastSymbol = "_";
 
-    Cell(int value){
+    Cell(int value) {
         this.value = value;
         this.sValue = String.valueOf(value);
         this.isEmpty = false;
+        this.isLast = false;
     }
 
 
@@ -20,8 +23,10 @@ public class Cell {
     }
 
     public String getsValue() {
-        if (isEmpty)
-                return emptySymbol;
+        if (isLast)
+            return lastSymbol;
+        else if (isEmpty)
+            return emptySymbol;
         else
             return sValue;
     }
@@ -30,9 +35,12 @@ public class Cell {
         return isEmpty;
     }
 
-    public void setEmpty(){
+    public void setEmpty() {
         isEmpty = true;
     }
 
+    public void setLast(boolean last) {
+        isLast = last;
+    }
 
 }
