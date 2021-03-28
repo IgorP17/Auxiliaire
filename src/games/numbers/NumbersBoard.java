@@ -23,6 +23,7 @@ public class NumbersBoard {
 
     /**
      * Print board - 9 items per row
+     * TODO need reject multiple sout
      */
     public void printBoard(String msg) {
         System.out.println("Board(" + msg + ")");
