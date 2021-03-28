@@ -9,6 +9,7 @@ public class NumbersSolver {
         NumbersBoard board = null;
         int cycles = 100;
         int state;
+        boolean isSolved = false;
 
         do {
             // show menu
@@ -53,6 +54,7 @@ public class NumbersSolver {
             // after process we may have solved puzzle
             if (board.isAllFilled()) {
                 System.out.println("!!! SOLVED !!!");
+                isSolved = true;
                 break;
             }
 
@@ -60,6 +62,10 @@ public class NumbersSolver {
             board.cloneAvailable();
 
             board.printBoard("=== no moves, cloned ===");
+        }
+
+        if (!isSolved){
+            System.out.println("Cannot solve puzzle in " + cycles + " cycles");
         }
     }
 
