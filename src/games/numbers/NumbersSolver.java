@@ -29,9 +29,10 @@ public class NumbersSolver {
             }
 
             // check exit
-            if (state == 99)
+            if (state == 99) {
+                System.out.println("Bye!");
                 System.exit(0);
-
+            }
             // try to init
             try {
                 board = new NumbersBoard(state);

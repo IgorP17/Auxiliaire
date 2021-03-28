@@ -6,6 +6,7 @@ import java.util.Random;
 public class NumbersBoard {
 
     private ArrayList<Cell> board;
+    private final static String lineSeparator = System.lineSeparator();
 
     NumbersBoard(int state) throws Exception {
         switch (state) {
@@ -23,19 +24,23 @@ public class NumbersBoard {
 
     /**
      * Print board - 9 items per row
-     * TODO need reject multiple sout
      */
     public void printBoard(String msg) {
-        System.out.println("Board(" + msg + ")");
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Board(").append(msg).append(")").append(lineSeparator);
+
         for (int i = 0; i < board.size(); i++) {
-            System.out.print(board.get(i).getsValue());
+            stringBuilder.append(board.get(i).getsValue());
             if ((i + 1) % 9 == 0) {
-                System.out.println();
+                stringBuilder.append(lineSeparator);
             } else {
-                System.out.print(" ");
+                stringBuilder.append(" ");
             }
         }
-        System.out.println();
+        stringBuilder.append(lineSeparator);
+
+        System.out.print(stringBuilder.toString());
     }
 
     /**
