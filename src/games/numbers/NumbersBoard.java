@@ -1,6 +1,7 @@
 package games.numbers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class NumbersBoard {
 
@@ -10,6 +11,9 @@ public class NumbersBoard {
         switch (state) {
             case 0:
                 board = initBoardState0();
+                break;
+            case 1:
+                board = initBoardState1();
                 break;
             default:
                 throw new NoSuchOptionException("State is not implemented");
@@ -36,12 +40,14 @@ public class NumbersBoard {
     /**
      * Process board
      */
-    public void process() {
+    public void process(boolean isNeedBoardPrinted) {
         for (int i = 0; i < board.size(); i++) {
             if (processSingle(i)) {
                 i = 0; // drop index to 0 (searching from beginning)
                 // print board
-                printBoard("Got move:");
+                if (isNeedBoardPrinted) {
+                    printBoard("Got move:");
+                }
             }
         }
     }
@@ -199,7 +205,7 @@ public class NumbersBoard {
     /**
      * Init board as in game (first option)
      *
-     * @return Board ArrayList<Cell>
+     * @return ArrayList<Cell>
      */
     private ArrayList<Cell> initBoardState0() {
         ArrayList<Cell> cells = new ArrayList<>();
@@ -229,6 +235,27 @@ public class NumbersBoard {
         cells.add(new Cell(7));
         cells.add(new Cell(1));
         cells.add(new Cell(8));
+
+        return cells;
+    }
+
+    /**
+     * Init board as Random seed 1
+     *
+     * @return ArrayList<Cell>
+     */
+    private ArrayList<Cell> initBoardState1() {
+        ArrayList<Cell> cells = new ArrayList<>();
+
+        Random random = new Random(1);
+        int[] rndVals = new int[25];
+        for (int i = 0; i < 25; i++) {
+            rndVals[i] = random.nextInt(9) + 1;
+        }
+
+        for (int i : rndVals) {
+            cells.add(new Cell(i));
+        }
 
         return cells;
     }
