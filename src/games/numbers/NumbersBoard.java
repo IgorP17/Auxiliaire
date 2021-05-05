@@ -40,7 +40,7 @@ public class NumbersBoard {
         }
         stringBuilder.append(lineSeparator);
 
-        System.out.print(stringBuilder.toString());
+        System.out.print(stringBuilder);
     }
 
     /**
