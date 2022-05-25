@@ -1,4 +1,4 @@
-package udemy;
+package udemy.core1;
 
 public class Robot {
     private final String name;
