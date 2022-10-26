@@ -1,23 +1,19 @@
 package udemy.core1.collections;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HWS_3_Common {
+public class HWS_3_List {
 
 
     public static void main(String[] args) {
-
+        dz5_5();
     }
 
     /*
-        Время работы методов в ArrayList и LinkedList
+        Время работы методов в ArrayList и LinkedList (hw51)
                         AR      LINK
         ADD (0)         1082    7
         GET (x/2)       1       94
@@ -25,8 +21,186 @@ public class HWS_3_Common {
         REMOVE (x/2)    73      896
      */
 
+
     /**
      * <pre>
+     * Часть 5
+     * Задача: Программа вводит с клавиатуры данные про котов и выводит их на экран.
+     * Создать класс Cat с параметрами name, age, weight, tail;
+     * Переопределить метод toString() в классе Cat, что бы он выводил информацию про кота в виде:
+     * "Cat name is " + name + ", age is " + age + ", weight is " + weight + ", tail = " + tailLength;
+     * Вводить параметры с клавиатуры и создавать объект с введенными параметрами.
+     * Ввод продолжается, пока переменная с именем не пуста.
+     * Добавлять каждый объект в список, в конце вывести содержимое списка на экран.
+     * Пример:
+     * Cat name is Barsik, age is 6, weight is 5, tail = 22
+     * Cat name is Murka, age is 8, weight is 7, tail = 20
+     * </pre>
+     */
+    private static void dz5_5(){
+        List<Cat> list = new ArrayList<>();
+        Cat cat;
+        while ((cat = getCatFromConsole()) != null){
+            list.add(cat);
+        }
+        for (Cat i : list) {
+            System.out.println(i);
+        }
+    }
+
+    private static Cat getCatFromConsole(){
+        Scanner in = new Scanner(System.in);
+        String name;
+        int age;
+        int weight;
+        int tail;
+
+        System.out.println("Enter cat name:");
+        name = in.nextLine();
+        if (name.isBlank())
+            return null;
+        System.out.println("Enter cat age:");
+        age = in.nextInt();
+        System.out.println("Cat weight:");
+        weight = in.nextInt();
+        System.out.println("Cat tail:");
+        tail = in.nextInt();
+
+        return new Cat(name, age, weight, tail);
+    }
+
+    /**
+     * <pre>
+     * Часть 5
+     * 1. Введи с клавиатуры 5 слов в список строк.
+     * 2. Метод doubleValues должен удваивать слова по принципу a,b,c -> a,a,b,b,c,c.
+     * 3. Используя цикл for выведи результат на экран, каждое значение с новой строки.
+     * Пример:
+     * краб
+     * лось
+     * рак
+     * Выходные данные:
+     * краб краб
+     * лось лось
+     * рак рак
+     * </pre>
+     */
+    private static void dz5_4(){
+        List<String> list = new LinkedList<>();
+        Scanner in = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            list.add(in.nextLine());
+        }
+        list = doubleValues(list);
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i));
+        }
+    }
+
+    private static List<String> doubleValues(List<String> list){
+        List<String> result = new LinkedList<>();
+        for (String s : list) {
+            result.add(s + " " + s);
+        }
+        return result;
+    }
+
+    /**
+     * <pre>
+     * Часть 5
+     * 1. Создай список слов, заполни его самостоятельно.
+     * 2. Метод fix должен:
+     * 2.1. удалять из списка строк все слова, содержащие букву «р»
+     * 2.2. удваивать все слова содержащие букву «л».
+     * 2.3. если слово содержит и букву «р» и букву «л», то оставить это слово без изменений.
+     * 2.4. с другими словами ничего не делать.
+     * Пример:
+     * лира
+     * лоза
+     * роза
+     * Выходные данные:
+     * лира
+     * лоза
+     * лоза
+     * </pre>
+     */
+    private static void dz5_3(){
+        List<String> list = new LinkedList<>();
+        list.add("лира");
+        list.add("лоза");
+        list.add("роза");
+        list.add("гиацинт");
+
+        list = fix(list);
+        System.out.println(list);
+    }
+
+    private static List<String> fix(List<String> list){
+        List<String> result = new LinkedList<>();
+
+        for (String s : list) {
+            if (s.contains("р") && s.contains("л")) // 2.3
+                result.add(s);
+            else if (s.contains("л")) { // 2.2
+                result.add(s);
+                result.add(s);
+            } else if (!s.contains("р")) { // 2.1 + 2.4
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * <pre>
+     * Часть 5
+     * Введи с клавиатуры 5 слов в список строк. Удали 3 - ий элемент списка,
+     * и выведи оставшиеся элементы в обратном порядке
+     * </pre>
+     */
+    private static void dz5_2() {
+        List<String> list = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            list.add(in.nextLine());
+        }
+        list.remove(2);
+        for (int i = list.size() - 1; i >= 0; i--) {
+            System.out.println(list.get(i));
+        }
+    }
+
+    /**
+     * <pre>
+     * Часть 5
+     * 1. Создай список строк.
+     * 2. Добавь в него 5 строчек с клавиатуры.
+     * 3. Удали последнюю строку и вставь её в начало. Повторить 5 раз.
+     * 4. Используя цикл выведи содержимое на экран, каждое значение с новой строки.
+     * </pre>
+     */
+    private static void dz5_1() {
+        List<String> list = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        for (int i = 0; i < 5; i++) {
+            list.add(in.nextLine());
+        }
+        String s;
+        for (int i = 0; i < 5; i++) {
+            s = list.get(4);
+            list.remove(4);
+            list.add(0, s);
+        }
+        for (String s1 : list) {
+            System.out.println(s1);
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * <pre>
+     * Часть 3
      * 1. Введи с клавиатуры 6 чисел, сохрани их в список и рассортируй по трём другим спискам:
      * Число делится на 3 (x%3==0), делится на 2 (x%2==0) и все остальные.
      * Числа, которые делятся на 3 и на 2 одновременно, например 6, попадают в оба списка.
