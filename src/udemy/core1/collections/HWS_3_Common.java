@@ -1,5 +1,9 @@
 package udemy.core1.collections;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,9 +13,17 @@ public class HWS_3_Common {
 
 
     public static void main(String[] args) {
-        dz3_8();
+
     }
 
+    /*
+        Время работы методов в ArrayList и LinkedList
+                        AR      LINK
+        ADD (0)         1082    7
+        GET (x/2)       1       94
+        SET (x/2)       2       102
+        REMOVE (x/2)    73      896
+     */
 
     /**
      * <pre>
