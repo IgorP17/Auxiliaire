@@ -9,24 +9,56 @@ public class HWS_3_Common {
 
 
     public static void main(String[] args) {
-
+        dz3_8();
     }
 
 
-    /**<pre>
+    /**
+     * <pre>
      * 1. Введи с клавиатуры 6 чисел, сохрани их в список и рассортируй по трём другим спискам:
      * Число делится на 3 (x%3==0), делится на 2 (x%2==0) и все остальные.
      * Числа, которые делятся на 3 и на 2 одновременно, например 6, попадают в оба списка.
      * 2. Создай метод printList - он должен выводить на экран все элементы списка с новой строки.
      * 3. Используя метод printList выведи эти три списка на экран.
      * Сначала тот, который для x%3, потом тот, который для x%2, потом последний.
-     *</pre>
+     * </pre>
      */
-    private static void dz3_8(){
+    private static void dz3_8() {
+        List<Integer> list = new ArrayList<>();
+        Scanner in = new Scanner(System.in);
+        for (int i = 0; i < 6; i++) {
+            list.add(Integer.valueOf(in.nextLine()));
+        }
+        List<Integer> l3 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        List<Integer> lOther = new ArrayList<>();
 
+        for (int i = 0; i < 6; i++) {
+            if (list.get(i) % 3 == 0 && list.get(i) % 2 == 0) {
+                l2.add(list.get(i));
+                l3.add(list.get(i));
+            } else if (list.get(i) % 3 == 0) {
+                l3.add(list.get(i));
+            } else if (list.get(i) % 2 == 0) {
+                l2.add(list.get(i));
+            } else {
+                lOther.add(list.get(i));
+            }
+
+        }
+
+        printList(l3);
+        printList(l2);
+        printList(lOther);
     }
 
-    /**<pre>
+    private static void printList(List<Integer> list) {
+        System.out.println();
+        System.out.println(list);
+    }
+
+    /**
+     * <pre>
      * 1. Создай список строк.
      * 2. Считай с клавиатуры 5 строк и добавь в список.
      * 3. Используя цикл, найди самую длинную строку в списке.
@@ -41,7 +73,7 @@ public class HWS_3_Common {
      * 5. Если таких строк несколько, выведи каждую с новой строки.
      * </pre>
      */
-    private static void dz3_7(){
+    private static void dz3_7() {
         List<String> list = new LinkedList<>();
         Scanner in = new Scanner(System.in);
         for (int i = 0; i < 5; i++) {
@@ -61,12 +93,13 @@ public class HWS_3_Common {
         }
     }
 
-    /** <pre>
+    /**
+     * <pre>
      * Создать список чисел и заполнить его с консоли
      * Разбить список на два других: - в первый список сохранять чётные числа - во второй список сохранять нечётные числа
      * Вывести содержимое всех списков в консоль. Каждый новый список выводить с новой строки, в ряд.</pre>
      */
-    private static void dz3_6(){
+    private static void dz3_6() {
         Scanner in = new Scanner(System.in);
         List<Integer> list = new ArrayList<>();
         String s;
