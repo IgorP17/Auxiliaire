@@ -1,13 +1,95 @@
 package udemy.core1.collections;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 
 public class HWS_3_Sets {
     public static void main(String[] args) {
-        dz6_3();
+        dz6_7();
+    }
+
+    /**
+     * <pre>
+     * Часть 6
+     * Посчитать сколько дней прошло с начала года. Используйте класс LocalDate.
+     * </pre>
+     */
+    private static void dz6_7(){
+        LocalDate now = LocalDate.now();
+        System.out.println(now);
+        System.out.println(now.getDayOfYear());
+        System.out.println(now.getDayOfMonth());
+        System.out.println(now.getDayOfWeek());
+    }
+
+    /**
+     * <pre>
+     * Часть 6
+     * Посчитать сколько прошло времени с начала сегодняшнего дня. Используйте класс Date
+     * </pre>
+     */
+    private static void dz6_6(){
+        Date date = new Date();
+        Date date00 = new Date();
+        date00.setHours(0);
+        date00.setMinutes(0);
+        date00.setSeconds(0);
+
+        System.out.println(date);
+        System.out.println(date00);
+
+        long diff = date.getTime() - date00.getTime();
+        int hh = (int) diff / (1000 * 60 * 60);
+        int mi = (int) (diff / (1000 * 60)) % 60;
+        int ss = (int) (diff - hh * 60 * 60 * 1000 - mi * 60 * 1000) / 1000;
+
+        System.out.println("Hours: " + hh + " Min: " + mi + " Sec: " + ss);
+
+    }
+
+    /**
+     * <pre>
+     * Часть 6
+     * Создать список строк. Ввести строки с клавиатуры и добавить их в список.
+     * Вводить с клавиатуры строки, пока пользователь не введёт строку "end".
+     * "end" не учитывать. Вывести строки на экран, каждую с новой строки.
+     * </pre>
+     */
+    private static void dz6_5(){
+        Scanner in = new Scanner(System.in);
+        List<String> list = new LinkedList<>();
+        String s;
+        while (!(s = in.nextLine()).equals("end")) {
+            list.add(s);
+        }
+        for (String s1 : list) {
+            System.out.println(s1);
+        }
+    }
+
+    /**
+     * <pre>
+     * Часть 6
+     * Создать массив на 5 чисел. Заполнить его числами с клавиатуры.
+     * Найти максимальное и минимальное числа в массиве.
+     * Вывести на экран максимальное и минимальное числа через пробел.
+     * </pre>
+     */
+    private static void dz6_4(){
+        Scanner in = new Scanner(System.in);
+        int[] massive = new int[5];
+        for (int i = 0; i < massive.length; i++) {
+            massive[i] = in.nextInt();
+        }
+        int max = massive[0];
+        int min = massive[0];
+        for (int i = 1; i < massive.length; i++) {
+            if (max < massive[i])
+                max = massive[i];
+            if (min > massive[i])
+                min = massive[i];
+        }
+        System.out.println(max + " " + min);
     }
 
     /**
