@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HWS_3_List {
+public class HWS_1_3_5_List {
 
 
     public static void main(String[] args) {

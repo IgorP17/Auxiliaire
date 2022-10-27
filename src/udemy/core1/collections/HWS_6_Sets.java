@@ -3,9 +3,49 @@ package udemy.core1.collections;
 import java.time.LocalDate;
 import java.util.*;
 
-public class HWS_3_Sets {
+public class HWS_6_Sets {
     public static void main(String[] args) {
-        dz6_7();
+//        dz6_8();
+    }
+
+    /**
+     * <pre>
+     * Часть 6
+     * Реверс числа
+     * 1) Ввести число с клавиатуры
+     * 2) Сделать реверс этого числа и вывести результат в консоль
+     * Пример: входные данные: -5544 результат: -4455
+     * </pre>
+     */
+    public static long dz6_8(long number) {
+        // WE WILL TEST IT WITH PARAMS TEST - see udemy.core1.collections.ReverseTest
+
+//        Scanner scanner = new Scanner(System.in);
+//        int number = scanner.nextInt(); - it seems we should use LONG
+//        because reverse 1_230_456_789 will overflow INT type,
+
+//        !!! it seems we should use BigInteger for very big inputs,
+//        OR use not digit type as input, but String representation and reverse String
+
+        boolean isNegative = false;
+        if (number < 0) {
+            isNegative = true; // remember this fact
+            number = -number;
+        }
+
+        long target = 0;
+        do {
+            // shift current target to left, get last digit and add it
+            target = 10 * target + number % 10;
+            // since we have last digit - we don't need it in original
+            number = number / 10;
+        } while (number != 0);
+
+        if (isNegative)
+            target = -target;
+//        System.out.println(target);
+
+        return target;
     }
 
     /**
@@ -14,10 +54,10 @@ public class HWS_3_Sets {
      * Посчитать сколько дней прошло с начала года. Используйте класс LocalDate.
      * </pre>
      */
-    private static void dz6_7(){
+    private static void dz6_7() {
         LocalDate now = LocalDate.now();
         System.out.println(now);
-        System.out.println(now.getDayOfYear());
+        System.out.println(now.getDayOfYear()); // actually we must do -1, since today day not finished yet
         System.out.println(now.getDayOfMonth());
         System.out.println(now.getDayOfWeek());
     }
@@ -28,7 +68,7 @@ public class HWS_3_Sets {
      * Посчитать сколько прошло времени с начала сегодняшнего дня. Используйте класс Date
      * </pre>
      */
-    private static void dz6_6(){
+    private static void dz6_6() {
         Date date = new Date();
         Date date00 = new Date();
         date00.setHours(0);
@@ -55,7 +95,7 @@ public class HWS_3_Sets {
      * "end" не учитывать. Вывести строки на экран, каждую с новой строки.
      * </pre>
      */
-    private static void dz6_5(){
+    private static void dz6_5() {
         Scanner in = new Scanner(System.in);
         List<String> list = new LinkedList<>();
         String s;
@@ -75,7 +115,7 @@ public class HWS_3_Sets {
      * Вывести на экран максимальное и минимальное числа через пробел.
      * </pre>
      */
-    private static void dz6_4(){
+    private static void dz6_4() {
         Scanner in = new Scanner(System.in);
         int[] massive = new int[5];
         for (int i = 0; i < massive.length; i++) {
@@ -101,7 +141,7 @@ public class HWS_3_Sets {
      * Вывести список на экран, каждое значение с новой строки.
      * </pre>
      */
-    private static void dz6_3(){
+    private static void dz6_3() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter count of input lines:");
         int n = in.nextInt();
