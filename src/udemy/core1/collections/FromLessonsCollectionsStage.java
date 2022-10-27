@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FromLessons {
+public class FromLessonsCollectionsStage {
 
     public static void main(String[] args) {
 //        dt();
