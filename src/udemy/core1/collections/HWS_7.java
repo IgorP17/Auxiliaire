@@ -4,9 +4,68 @@ import java.util.*;
 
 public class HWS_7 {
     public static void main(String[] args) {
-        dz7_5();
+        dz7_8();
     }
 
+    /**
+     * <pre>
+     * Удалить все числа больше 10
+     * Создать множество чисел (Set<Integer>), занести туда 5 различных чисел.
+     * При помощи метода removeAllNumbersMoreThan10 удалить из множества все числа больше 10.
+     * </pre>
+     */
+    private static void dz7_8(){
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(20);
+        set.add(10);
+        set.add(15);
+        set.add(9);
+        Set<Integer> set1 = removeAllNumbersMoreThan10(set);
+        System.out.println(set1);
+        // OR
+        boolean isSmthRemoved = set.removeIf(x -> x > 10);
+        System.out.println(isSmthRemoved);
+        System.out.println(set);
+    }
+    private static Set<Integer> removeAllNumbersMoreThan10(Set<Integer> integerSet){
+        Set<Integer> result = new HashSet<>();
+        for (Integer integer : integerSet) {
+            if (integer <= 10)
+                result.add(integer);
+        }
+        return result;
+    }
+
+    /**
+     * <pre>
+     * Есть коллекция HashMap<String, String>, туда занесли 3 различные пары. При помощи метода printKeys:
+     * Вывести на экран список ключей, каждый элемент с новой строки.
+     *
+     * Есть коллекция HashMap<String, String>, туда занесли 3 различные пары. При помощи метода printValues:
+     * Вывести на экран список значений, каждый элемент с новой строки.
+     * </pre>
+     */
+    private static void dz7_6_7(){
+        HashMap<String, String> map = new HashMap<>();
+        map.put("1", "text 1");
+        map.put("2", "text 2");
+        map.put("3", "text 3");
+        map.put("4", "text 4");
+        printKeys(map);
+        printValues(map);
+    }
+
+    private static void printKeys(HashMap<String, String> hashMap){
+        for (String s : hashMap.keySet()) {
+            System.out.println(s);
+        }
+    }
+    private static void printValues(HashMap<String, String> hashMap){
+        for (String s : hashMap.values()) {
+            System.out.println(s);
+        }
+    }
     /**
      * <pre>
      * Создать коллекцию HashMap<String, String>, занести туда 4 пары строк
@@ -19,7 +78,14 @@ public class HWS_7 {
      * </pre>
      */
     private static void dz7_5(){
-
+        HashMap<String, String> map = new HashMap<>();
+        map.put("1", "text 1");
+        map.put("2", "text 2");
+        map.put("3", "text 3");
+        map.put("4", "text 4");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + " - " + entry.getValue());
+        }
     }
 
     /**
