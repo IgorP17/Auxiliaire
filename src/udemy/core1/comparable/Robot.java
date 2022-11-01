@@ -1,5 +1,6 @@
 package udemy.core1.comparable;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -62,14 +63,26 @@ public class Robot implements Comparable<Robot> {
         }
         System.out.println("--- Use comparator");
         RobotComparator comparator = new RobotComparator();
-        Map<Robot, String> mapH = new TreeMap<>(comparator);
-        mapH.put(r1, "r1"); // first
-        mapH.put(r2, "r2"); // third
-        mapH.put(r3, "r3"); // second
+        Map<Robot, String> mapOrderedByPowerDesc = new TreeMap<>(comparator);
+        mapOrderedByPowerDesc.put(r1, "r1"); // first
+        mapOrderedByPowerDesc.put(r2, "r2"); // third
+        mapOrderedByPowerDesc.put(r3, "r3"); // second
 
-        for (Map.Entry<Robot, String> entry : mapH.entrySet()) {
+        for (Map.Entry<Robot, String> entry : mapOrderedByPowerDesc.entrySet()) {
             System.out.println(entry);
         }
 
+        System.out.println("--- HashMap");
+        System.out.printf("r1 hash = %d, remain = %d\n", r1.hashCode(), r1.hashCode() % 16);
+        System.out.printf("r2 hash = %d, remain = %d\n", r2.hashCode(), r2.hashCode() % 16);
+        System.out.printf("r3 hash = %d, remain = %d\n", r3.hashCode(), r3.hashCode() % 16);
+
+        Map<Robot, String> hashMap = new HashMap<>();
+        hashMap.put(r1, "r1");
+        hashMap.put(r2, "r2");
+        hashMap.put(r3, "r3");
+        for (Map.Entry<Robot, String> entry : hashMap.entrySet()) {
+            System.out.println(entry);
+        }
     }
 }
