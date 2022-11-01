@@ -41,12 +41,12 @@ public class HW_1 {
         String text3 = "ддд";
         String text4 = "яяа";
         String text5 = "вввв";
-        String all = text + text2 + text3 + text4 + text5;
+        String all = text2 + text3 + text4 + text5 + text;
         char[] chars = all.toCharArray();
         Map<Character, Integer> map = new TreeMap<>();
 
-        // TODO БЛЯДЬ ПОЧЕМУ Ё то в конце......
-        // СУКА ЕБАТЬ
+        // ПОЧЕМУ Ё то в конце......
+        //
         // е=1077
         // ё=1105 !!!
         // ж=1078
