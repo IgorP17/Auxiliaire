@@ -1,18 +1,16 @@
 package udemy.core1.comparable;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.TreeMap;
 
 /*
 Создать класс Robot с двумя полями - power(int), model(String)
 Создать коллекцию TreeMap и добавить туда 3 роботов
 Реализовать интерфейс Comparable в классе Robot:
-- метод compareTo должен сравнивать имена в алфавитном порядке, если имена одинаковые, то сравнение должно проходить по полю power
+- метод compareTo должен сравнивать имена в алфавитном порядке, если имена одинаковые, то сравнение должно проходить по полю power.
 Вывести в консоль содержимое коллекции TreeMap
  */
-public class Robot implements Comparable<Robot>{
+public class Robot implements Comparable<Robot> {
     private final int power;
     private final String model;
 
@@ -27,13 +25,12 @@ public class Robot implements Comparable<Robot>{
 
     @Override
     public int compareTo(Robot o) {
-        if (this.model.compareTo(o.model) < 0 ) {
+        if (this.model.compareTo(o.model) < 0) {
             return -1;
-        }
-        else if (this.model.compareTo(o.model) > 0) {
+        } else if (this.model.compareTo(o.model) > 0) {
             return 1;
         } else {
-            if (this.power < o.power){
+            if (this.power < o.power) {
                 return -1;
             } else if (this.power > o.power) {
                 return 1;
