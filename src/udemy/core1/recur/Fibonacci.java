@@ -4,12 +4,12 @@ import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Fibonachi {
+public class Fibonacci {
 
     static Map<Integer, BigInteger> cache = new TreeMap<>();
 
     public static void main(String[] args) {
-        System.out.println("Fib 22 = " + fibonachi(22));
+        System.out.println("Fib 22 = " + fibonacci(22));
         System.out.println("Cached values:");
         for (Map.Entry<Integer, BigInteger> entry : cache.entrySet()) {
             System.out.println("Fib " + entry.getKey() + " = " + entry.getValue());
@@ -17,8 +17,9 @@ public class Fibonachi {
 
     }
 
-    private static BigInteger fibonachi(int n) {
-        // обработку негативных значений пока не делаем...
+    private static BigInteger fibonacci(int n) {
+        // Обработку негативных значений пока не делаем...
+        // Возможно и не надо BigInteger как для факториала или и n сделать тогда уж BigInteger
 
         // если 0 или 1 - вернем их
         if (n == 0)
@@ -34,7 +35,7 @@ public class Fibonachi {
 
 
         // иначе погнали вычислять
-        result = fibonachi(n - 1).add(fibonachi(n - 2));
+        result = fibonacci(n - 1).add(fibonacci(n - 2));
 
         // добавим в кеш
         cache.put(n, result);
