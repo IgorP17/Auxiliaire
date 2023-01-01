@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -16,8 +15,7 @@ public class FileReaderExample {
                 line = br.readLine();
             }
             String everything = sb.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println(everything);
         } catch (IOException e) {
             e.printStackTrace();
         }
