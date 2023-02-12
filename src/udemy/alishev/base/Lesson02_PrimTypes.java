@@ -1,7 +1,7 @@
 package udemy.alishev.base;
 
 public class Lesson02_PrimTypes {
-    // last watched 35 lesson
+    // last watched 42 lesson
     public static void main(String[] args) {
         byte b = 2;
         short s = 32_000;
