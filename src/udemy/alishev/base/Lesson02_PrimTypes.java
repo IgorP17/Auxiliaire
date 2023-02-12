@@ -1,6 +1,7 @@
 package udemy.alishev.base;
 
 public class Lesson02_PrimTypes {
+    // last watched 35 lesson
     public static void main(String[] args) {
         byte b = 2;
         short s = 32_000;
@@ -21,7 +22,11 @@ public class Lesson02_PrimTypes {
                         "5. double = %f\n" +
                         "6. float = %f\n" +
                         "7. boolean = %b\n" +
-                        "8. char = %s",
+                        "8. char = %s\n",
                 b, s, i, l, d, f, bool, ch);
+
+        // static field and method example
+        System.out.println(Math.pow(2, 4));
+        System.out.println(Math.PI);
     }
 }
