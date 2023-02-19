@@ -6,7 +6,7 @@ public class Permutations {
 
     public static void main(String[] args) {
 //        permutation("", "АБС");
-        permutation("", "УАНЛГ");
+        permutation("", "КАУСТ");
         System.out.println("count = " + count);
     }
 
