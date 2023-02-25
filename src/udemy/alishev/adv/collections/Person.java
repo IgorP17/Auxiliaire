@@ -2,7 +2,7 @@ package udemy.alishev.adv.collections;
 
 import java.util.Objects;
 
-public class Person {
+class Person implements Comparable<Person> {
     private final int id;
     private final String name;
 
@@ -54,4 +54,17 @@ public class Person {
      * 2) если hashCode одинаков, то вызываем equals:
      * который даст ответ - одинаковы объекты или нет.
      */
+
+
+    // сравнение объектов (implements Comparable<Person>)
+    @Override
+    public int compareTo(Person person) {
+        if (this.name.length() > person.getName().length()) {
+            return 1;
+        } else if (this.name.length() < person.getName().length()) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }

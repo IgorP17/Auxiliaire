@@ -38,13 +38,13 @@ public class ComparatorInterfaceImpl {
         System.out.println(iList);
 
         // Сортировка объектов
-        Person person3 = new Person(3, "Mike");
         Person person1 = new Person(1, "Bob");
         Person person2 = new Person(2, "Katy");
+        Person person3 = new Person(3, "Mike");
         List<Person> people = new ArrayList<>();
+        people.add(person3);
         people.add(person1);
         people.add(person2);
-        people.add(person3);
 
         Collections.sort(people, new Comparator<Person>() {
             @Override
