@@ -10,19 +10,19 @@ public class Make10 {
     public static void main(String[] args) {
 
         List<Integer> digits = new ArrayList<>();
-        digits.add(9);
-        digits.add(8);
+        digits.add(4);
         digits.add(6);
-        digits.add(3);
+        digits.add(9);
+        digits.add(1);
 
-        int result;
+        double result;
         boolean isSolved = false;
         String finalExpr = null;
         int counter = 0;
         while (!isSolved && counter < 20) {
             for (String expr : generateExpressions(digits)) {
-                result = (int) Evaluator.evaluate(expr);
-                if (result == 10) {
+                result = Evaluator.evaluate(expr);
+                if (result == 10.0) {
                     isSolved = true;
                     finalExpr = expr;
                     break;
