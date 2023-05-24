@@ -2,12 +2,17 @@ package algorithms.list;
 
 public class ListNode {
 
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
-    ListNode(int x) {
+    public ListNode(int x) {
         val = x;
         next = null;
+    }
+
+    public ListNode(int val, ListNode next) {
+        this.val = val;
+        this.next = next;
     }
 
     public static void main(String[] args) {
@@ -26,7 +31,7 @@ public class ListNode {
         printList(a1);
     }
 
-    private static void printList (ListNode listNode) {
+    private static void printList(ListNode listNode) {
         while (true) {
             System.out.println(listNode.val);
             if (listNode.next == null)
