@@ -1,14 +1,12 @@
 package stream.practice;
 
 
-
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-
+import static java.util.Comparator.comparing;
 
 
 public class Practice {
@@ -40,6 +38,10 @@ public class Practice {
         question5();
         System.out.println("=== Question 6:\nPrint the values of all transactions from the traders living in Cambridge.");
         question6();
+        System.out.println("=== Question 7:\nWhat’s the highest value of all the transactions?");
+        question7();
+        System.out.println("=== Question 8:\nFind the transaction with the smallest value.");
+        question8();
     }
 
     private static void question1() {
@@ -129,5 +131,26 @@ public class Practice {
                 .filter(transaction -> transaction.getTrader().getCity().equals("Cambridge"))
                 .map(Transaction::getValue)
                 .forEach(System.out::println);
+    }
+
+    private static void question7() {
+        // What’s the highest value of all the transactions?
+        Optional<Integer> max = transactions.stream()
+                .map(Transaction::getValue)
+                .reduce(Integer::max);
+        System.out.println(max.orElse(0));
+    }
+
+    private static void question8() {
+        // Find the transaction with the smallest value.
+        Optional<Transaction> transaction = transactions.stream()
+                .reduce((transaction1, transaction2) -> transaction1.getValue() < transaction2.getValue() ?
+                        transaction1 : transaction2);
+        System.out.println(transaction.orElse(null));
+
+        Optional<Transaction> smallestTransaction =
+                transactions.stream()
+                        .min(comparing(Transaction::getValue));
+        System.out.println(smallestTransaction.orElse(null));
     }
 }

@@ -1,6 +1,7 @@
 package stream;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +32,11 @@ public class Example_5_Reduce {
                 .map(d -> 1)
                 .reduce(0, Integer::sum);
         System.out.println("Menu count = " + count);
+
+        //
+        Optional<Dish> minCal = menu.stream()
+                .min((d1, d2) -> (d1.getCalories() < d2.getCalories() ? d1 : d2).getCalories());
+        System.out.println(minCal.orElse(null));
+
     }
 }
