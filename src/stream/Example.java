@@ -68,6 +68,28 @@ public class Example {
             forEach
             count
             collect
+
+
+         ===
+         filter
+         distinct
+         takeWhile
+         dropWhile
+         skip
+         limit
+         map
+         flatMap
+         sorted
+
+         anyMatch
+         noneMatch
+         allMatch
+         findAny
+         findFirst
+         forEach
+         collect
+         reduce
+         count
          */
 
     }
