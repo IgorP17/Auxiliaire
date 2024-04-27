@@ -17,14 +17,16 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
-                ", department='" + department + '\'' +
+        return "Employee{\n" +
+                "\tfirstName='" + firstName + '\'' +
+                ",\n\tlastName='" + lastName + '\'' +
+                ",\n\tstartTime=" + startTime +
+                ",\n\tendTime=" + endTime +
+                ",\n\tdepartment='" + department + '\'' + "\n" +
                 '}';
     }
+
+
     // Here, we're defining the Builder as a static inner class.
 
     public static class Builder {

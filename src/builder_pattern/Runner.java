@@ -12,6 +12,8 @@ public class Runner {
 
         Employee employee = builder.build();
 
+        System.out.println("===Here are info===");
         System.out.println(employee);
+        System.out.println("===End info block===");
     }
 }
