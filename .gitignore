@@ -3,6 +3,7 @@
 .idea/uiDesigner.xml
 .idea/encodings.xml
 .idea/misc.xml
+.idea/inspectionProfiles/profiles_settings.xml
 out/*
 save.ser
 board.ser
